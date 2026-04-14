@@ -1,0 +1,207 @@
+/* src/components/ProductDetail.module.css */
+/* Main Container for Product Section: Left Content (2 Cols) + Right Sidebar */
+/* We don't define the sidebar grid here because it's handled in page.tsx layout */
+/* This file handles the Product View itself */
+
+.product_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Top Section: Image + Info */
+.top_section {
+    display: flex;
+    gap: 30px;
+}
+
+/* Left: Image */
+.image_column {
+    flex: 1;
+    position: relative;
+    border: 1px solid #eee;
+    /* Light border around image? */
+    /* Screenshot shows borderless or simple */
+}
+
+.main_image_container {
+    width: 100%;
+    /* Keep aspect ratio or height? Screenshot: generic product image */
+    height: 400px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid #eee;
+}
+
+.zoom_icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Right: Info */
+.info_column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.short_desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Metadata: Category */
+.meta_row {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+.meta_link {
+    color: #3b9eff;
+    /* Link color */
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+/* Buttons */
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.contact_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdd835;
+    /* Theme Yellow */
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.whatsapp_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25d366;
+    /* WhatsApp Green */
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    gap: 10px;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+
+/* TABS SECTION */
+.tabs_container {
+    margin-top: 20px;
+}
+
+.tabs_header {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    /* Or background strip */
+    background-color: #f1f1f1;
+    /* Light grey strip behind tabs? Screenshot shows yellow active tab */
+}
+
+.tab_btn {
+    padding: 15px 25px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #666;
+    text-transform: uppercase;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tab_btn.active {
+    background-color: #fdd835;
+    /* Yellow */
+    color: #333;
+}
+
+.tab_content {
+    padding: 30px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    border-bottom: 1px solid #eee;
+}
+
+.tab_title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #fdd835;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Related Products Base */
+.related_section {
+    margin-top: 40px;
+}
+
+.related_title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .top_section {
+        flex-direction: column;
+    }
+}

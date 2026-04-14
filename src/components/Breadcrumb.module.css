@@ -1,0 +1,157 @@
+/* src/components/Breadcrumb.module.css */
+.breadcrumb_section {
+    background-color: transparent;
+    /* Text sits on section bg */
+    border-bottom: 1px solid #eee;
+    padding: 0;
+    margin-bottom: 2rem;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    /* Ensure the background of the bar itself is white or matching the header bottom? 
+     In screenshot, the bar strip seems to be white, but the active text sits on it. 
+     Actually, the whole strip is white. */
+    background-color: #fff;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.breadcrumb_list {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb_item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* LINK ITEMS (The Chevron Boxes) */
+.breadcrumb_link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px 0 30px;
+    /* Indent for left arrow */
+    background-color: #fff;
+    /* White background */
+    color: #555;
+    font-weight: 700;
+    font-size: 11px;
+    text-decoration: none;
+    position: relative;
+    border-right: none;
+    margin-right: -10px;
+    /* Overlap to hide the flat edge */
+    z-index: 10;
+}
+
+/* The arrow pointing right */
+.breadcrumb_link:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -20px;
+    /* Push out */
+    width: 0;
+    height: 0;
+    border-top: 24px solid transparent;
+    /* Half of 48px height */
+    border-bottom: 24px solid transparent;
+    border-left: 20px solid #fff;
+    /* White arrow */
+    z-index: 20;
+}
+
+/* The grey border for the arrow */
+.breadcrumb_link:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -21px;
+    /* 1px visual border */
+    width: 0;
+    height: 0;
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid transparent;
+    border-left: 20px solid #e0e0e0;
+    /* Grey border */
+    z-index: 15;
+}
+
+/* Special case: First item has no left indent and is flat on left */
+.breadcrumb_item:first-child .breadcrumb_link {
+    padding-left: 0;
+    border-left: none;
+}
+
+.breadcrumb_item:first-child .breadcrumb_link:before {
+    /* We still need the right arrow, but no left indentation logic needed */
+}
+
+/* Logic for z-index stacking to ensure arrows overlap correctly */
+.breadcrumb_item:nth-child(1) {
+    z-index: 50;
+}
+
+.breadcrumb_item:nth-child(2) {
+    z-index: 49;
+}
+
+.breadcrumb_item:nth-child(3) {
+    z-index: 48;
+}
+
+.breadcrumb_item:nth-child(4) {
+    z-index: 47;
+}
+
+.breadcrumb_item:nth-child(5) {
+    z-index: 46;
+}
+
+/* Styles to create the "V" notch on the left for items 2+?
+   Actually, stacking z-index makes the previous arrow cover the current one's flat left edge.
+   So .breadcrumb_link just needs a flat left edge, and the indentation is visual only because the previous arrow sits on top.
+   BUT, we need to ensure the text doesn't overlap the arrow from the left.
+   That's what padding-left: 30px is for.
+*/
+
+
+/* THE ACTIVE ITEM (Last Item) - Just Text */
+.active_item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 35px;
+    /* Clear the previous arrow */
+    color: #999;
+    font-size: 11px;
+    font-weight: 400;
+    background: transparent;
+    /* It sits behind the previous arrow due to natural DOM order? 
+     No, we need to handle z-index or margin carefully.
+     If we used negative margins for links, the last text item just needs to sit naturally.
+  */
+    margin-left: -5px;
+    /* Slight adjustment to sit near arrow */
+    position: relative;
+    z-index: 5;
+    /* Below the arrows */
+}
+
+/* Refined Separator Lines? 
+   The image shows a light grey line separator effect. 
+   Our :before pseudo-element on links handles the grey border of the arrow.
+*/

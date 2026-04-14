@@ -1,0 +1,41 @@
+.scroll_container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+}
+
+.brand_card {
+    width: 200px;
+    height: 100px;
+    background-color: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+}
+
+.brand_text {
+    font-weight: 700;
+    color: var(--medium-gray);
+    font-size: var(--text-lg);
+    opacity: 0.6;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}

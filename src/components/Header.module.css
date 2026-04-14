@@ -1,0 +1,337 @@
+/* src/components/Header.module.css */
+/* ... existing styles ... */
+/* Retain all previous styles, just append the nested styles at the end or integrate cleanly */
+
+.header {
+    width: 100%;
+    font-family: var(--font-primary);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1000;
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+}
+
+/* 1. Top Strip */
+.top_strip {
+    background-color: #2b2b2b;
+    border-bottom: 1px solid #383838;
+    color: #ccc;
+    padding: 8px 0;
+    font-size: 11px;
+}
+
+.top_links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.top_links a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: 500;
+}
+
+.top_links a:hover {
+    color: #fff;
+}
+
+/* 2. Main Header */
+.main_header {
+    background-color: #333333;
+    color: white;
+    padding: 25px 0;
+}
+
+.main_header_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo_container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo_text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.logo_main {
+    font-size: 28px;
+    font-weight: 800;
+    color: #3b9eff;
+    /* Light Blue */
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: -1px;
+}
+
+.logo_sub {
+    font-size: 9px;
+    color: #ddd;
+    letter-spacing: 2px;
+    margin-top: -2px;
+}
+
+.contact_info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.contact_item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon {
+    color: #fff;
+}
+
+.contact_label {
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.contact_sub {
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1.2;
+}
+
+.social_icons {
+    display: flex;
+    gap: 12px;
+    margin-left: 10px;
+}
+
+.social_link {
+    color: #fdd835;
+    transition: opacity 0.2s;
+}
+
+.social_link:hover {
+    opacity: 0.8;
+}
+
+/* 3. Navigation Bar */
+.nav_bar {
+    background-color: #fff;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nav_container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.nav_list {
+    display: flex;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav_item {
+    flex: 1;
+    position: relative;
+    display: flex;
+}
+
+.nav_link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 20px 5px;
+    color: #000;
+    font-weight: 800;
+    font-size: 12px;
+    line-height: 1.3;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.arrow_icon {
+    margin-top: 6px;
+    color: #333;
+}
+
+.nav_item:hover .nav_link,
+.active {
+    background-color: #fdd835;
+    color: #000;
+}
+
+/* Dropdown */
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 280px;
+    background-color: #fdd835;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    padding-bottom: 5px;
+}
+
+.nav_item:hover .dropdown {
+    display: flex;
+}
+
+.dropdown_link {
+    display: block;
+    /* Typically block unless flex needed */
+    padding: 12px 20px;
+    color: #002b49;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: padding-left 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dropdown_link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding-left: 25px;
+}
+
+/* NESTED DROPDOWN STYLES */
+
+.dropdown_item_group {
+    position: relative;
+    /* Anchor for nested dropdown */
+    width: 100%;
+}
+
+.dropdown_link_parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    color: #002b49;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: padding-left 0.2s;
+    width: 100%;
+    cursor: pointer;
+}
+
+.dropdown_link_parent:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding-left: 25px;
+}
+
+.nested_dropdown {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    /* Push to right */
+    width: 280px;
+    background-color: #fdd835;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1002;
+    padding-bottom: 5px;
+    /* Optional: margin-left: -1px to overlap border */
+}
+
+/* Show nested on group hover */
+.dropdown_item_group:hover .nested_dropdown {
+    display: flex;
+}
+
+
+/* Mobile */
+.mobile_menu_btn {
+    display: none;
+    color: white;
+}
+
+@media (max-width: 900px) {
+
+    .nav_bar,
+    .contact_info,
+    .top_strip {
+        display: none;
+    }
+
+    .nav_bar_open {
+        display: block !important;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid #eee;
+    }
+    
+    .nav_list {
+        flex-direction: column;
+    }
+    
+    .nav_item {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .nav_link {
+        width: 100%;
+        text-align: left;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .dropdown {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .nested_dropdown {
+        display: none;
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        padding-left: 15px;
+        background-color: #fdd835;
+    }
+
+    .dropdown_item_group:hover .nested_dropdown {
+        display: flex;
+    }
+
+    .mobile_menu_btn {
+        display: block;
+        cursor: pointer;
+    }
+}
