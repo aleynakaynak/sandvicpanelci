@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description: "En uygun çatı ve cephe kaplama ürünleri, ısı yalıtımı, su yalıtımı ve yapı malzemeleri.",
 };
 
-const AW_ID = 'AW-17669137338';
+const AW_ID = 'AW-18092736793';
 
 export default async function RootLayout({
   children,

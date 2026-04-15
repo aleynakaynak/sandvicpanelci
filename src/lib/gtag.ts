@@ -1,7 +1,7 @@
 'use client';
 
 // Google Ads Conversion ID
-export const AW_ID = 'AW-17669137338';
+export const AW_ID = 'AW-18092736793';
 
 // WhatsApp Click Conversion
 export function trackWhatsAppClick() {
