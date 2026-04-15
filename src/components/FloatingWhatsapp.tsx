@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Phone } from 'lucide-react';
+import { trackWhatsAppClick } from '@/lib/gtag';
 
 const FloatingWhatsapp = () => {
     return (
@@ -9,6 +10,7 @@ const FloatingWhatsapp = () => {
             href="https://wa.me/905319308500"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={trackWhatsAppClick}
             style={{
                 position: 'fixed',
                 bottom: '20px',

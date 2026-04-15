@@ -6,6 +6,7 @@ import { Search, ZoomIn, Phone } from 'lucide-react';
 import ProductCard from './ProductCard';
 import styles from './ProductDetail.module.css';
 import gridStyles from './ProductGrid.module.css';
+import { trackWhatsAppClick } from '@/lib/gtag';
 
 interface ProductDetailProps {
     product: any;
@@ -70,6 +71,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                             href={`https://wa.me/905319308500?text=Sipariş vermek istiyorum: ${product.title}`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={trackWhatsAppClick}
                             className={styles.whatsapp_btn}
                         >
                             <Phone size={18} fill="white" /> WHATSAPP SİPARİŞ
