@@ -14,16 +14,7 @@ interface ProductDetailProps {
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     const [activeTab, setActiveTab] = useState('desc');
 
-    // Prepare Related Products (Mock if not present)
-    const relatedProducts = product.related || [
-        { id: 101, title: 'İzopak PAL Folyolu', price: '850.00 ₺ / adet', img: '' }
-    ];
-
-    const isSandwichPanel = product.title?.toLowerCase().includes('sandviç') || 
-                            product.title?.toLowerCase().includes('panel') || 
-                            (product.category && product.category.toLowerCase().includes('sandviç'));
-                            
-    const priceText = isSandwichPanel ? "350₺ + KDV" : null;
+    const hasRelatedProducts = product.relatedProducts && product.relatedProducts.length > 0;
 
     return (
         <div className={styles.product_wrapper}>
@@ -34,7 +25,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 {/* Left: Image */}
                 <div className={styles.image_column}>
                     <div className={styles.main_image_container}>
-                        {/* Actual Image from data */}
                         {product.img || product.imageUrl || (product.images && product.images[0]) ? (
                             <img 
                                 src={product.img || product.imageUrl || product.images[0]} 
@@ -54,7 +44,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 {/* Right: Info */}
                 <div className={styles.info_column}>
                     <h1 className={styles.title}>{product.title}</h1>
-                    {priceText && <div className={styles.price}>{priceText}</div>}
+
+                    <div className={styles.price_tag}>
+                        {product.price || 'Fiyat Sorunuz'}
+                    </div>
 
                     <div className={styles.short_desc}>
                         {product.shortDesc || product.description || "Sandviç Panelci güvencesiyle en kaliteli ürünleri en uygun fiyatlarla sunuyoruz. Detaylı bilgi için bizimle iletişime geçebilirsiniz."}
@@ -105,12 +98,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 <div className={styles.tab_content}>
                     {activeTab === 'desc' && (
                         <div>
-                            <h3 className={styles.tab_title}>{product.title} Açıklama</h3>
+                            <h3 className={styles.tab_title}>{product.title} Hakkında</h3>
                             <div className="content-body">
-                                <p>{product.fullDesc || product.shortDesc || "Detaylı açıklama bulunmamaktadır."}</p>
-                                {/* Mock extra content if needed */}
+                                <p>{product.fullDesc || product.shortDesc || `${product.title} ürünlerimiz hakkında detaylı bilgi ve fiyat teklifi almak için bizimle iletişime geçebilirsiniz.`}</p>
                                 <h4 style={{ marginTop: '20px', marginBottom: '10px', fontSize: '16px', fontWeight: '700', color: '#333' }}>Ürün Özellikleri</h4>
-                                <p>Kaliteli malzeme, uzun ömürlü kullanım.</p>
+                                <p>Sandviç Panelci güvencesiyle; yüksek kalite standartlarında, uzun ömürlü ve dayanıklı yapı malzemeleri sunuyoruz.</p>
                             </div>
                         </div>
                     )}
@@ -122,22 +114,23 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 </div>
             </div>
 
-            {/* Related Products */}
-            <div className={styles.related_section}>
-                <h3 className={styles.related_title}>{product.title} İle İlgili Ürünler</h3>
-                <div className={gridStyles.product_grid}>
-                    {(product.relatedProducts || []).map((p: any) => (
-                        <ProductCard
-                            key={p.id}
-                            title={p.title}
-                            price={p.price}
-                            image={p.img || p.imageUrl}
-                            link={`/${product.categorySlug || 'kategori'}/urun-${p.id}`}
-                        />
-                    ))}
-                    {(!product.relatedProducts || product.relatedProducts.length === 0) && null}
+            {/* Related Products – only shown when data exists */}
+            {hasRelatedProducts && (
+                <div className={styles.related_section}>
+                    <h3 className={styles.related_title}>{product.title} İle İlgili Ürünler</h3>
+                    <div className={gridStyles.product_grid}>
+                        {product.relatedProducts.map((p: any) => (
+                            <ProductCard
+                                key={p.id}
+                                title={p.title}
+                                price={p.price}
+                                image={p.img || p.imageUrl}
+                                link={`/${product.categorySlug || 'kategori'}/urun-${p.id}`}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            )}
 
         </div>
     );

@@ -67,6 +67,31 @@
     margin-bottom: 20px;
 }
 
+.price_tag {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 800;
+    color: #d32f2f;
+    background-color: #fff8f8;
+    border: 2px solid #f5c6c6;
+    border-radius: 6px;
+    padding: 8px 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+.placeholder_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #bbb;
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+}
+
 .short_desc {
     font-size: 14px;
     color: #666;

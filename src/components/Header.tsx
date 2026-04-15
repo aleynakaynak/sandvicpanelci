@@ -128,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ menuData }) => {
                                 <div className={styles.contact_label}>
                                     <a href="tel:+905319308500" style={{ textDecoration: 'none', color: 'inherit' }}>0531 930 85 00</a>
                                 </div>
-                                <div className={styles.contact_sub}>info@sadvicpanelyapi.com.tr</div>
+                                <div className={styles.contact_sub}>info@sandvicpanelyapi.com.tr</div>
                             </div>
                         </div>
                         <div className={styles.contact_item}>

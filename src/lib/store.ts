@@ -17,7 +17,7 @@ const defaultSettings: SiteSettings = {
     contactPhone2: '',
     whatsapp1: '+90 531 930 85 00',
     whatsapp2: '',
-    contactEmail: 'info@sadvicpanelyapi.com.tr',
+    contactEmail: 'info@sandvicpanelyapi.com.tr',
     address1: 'Merkez: Hadımköy',
     address2: 'Depo: Çorlu',
     mapEmbedUrl: 'https://maps.google.com/maps?q=Hadımköy&t=&z=13&ie=UTF8&iwloc=&output=embed',

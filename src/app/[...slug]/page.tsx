@@ -90,7 +90,7 @@ const data: Record<string, any> = {
         parent: 'home',
         type: 'list',
         subCategories: [
-            { title: 'Desenli Membran', count: 6, link: '/desenli-membran', img: '/images/products/membran.jpg' },
+            { title: 'Desenli Membran', count: 6, link: '/desenli-membran', img: '/images/products/desenli-membran.jpg' },
             { title: 'Membran Fiyatları', count: 25, link: '/membran', img: '/images/products/membran.jpg' },
             { title: 'Likit Membranlar', count: 10, link: '/likit-membran', img: '/images/products/likit-membran.jpg' }
         ],
@@ -120,7 +120,7 @@ const data: Record<string, any> = {
         subCategories: [
             { title: 'Ahşap Ürünler', count: 8, link: '/ahsap-urunler', img: '/images/products/plywood.jpg' },
             { title: 'Çatı Çıkış Kapakları', count: 4, link: '/cati-cikis', img: '/images/products/cati-cikis-kapagi.jpg' },
-            { title: 'Panel ve Trapez Vidaları', count: 15, link: '/vidalar', img: '' }
+            { title: 'Panel ve Trapez Vidaları', count: 15, link: '/vidalar', img: '/images/products/vidalar.jpg' }
         ],
         relatedProducts: [
             { id: 701, title: 'Panel Vidası 5.5 x 60mm', price: 'Fiyat Sorunuz', img: '' },
@@ -143,11 +143,19 @@ const data: Record<string, any> = {
     // --- EXPLICIT PRODUCT DETAIL PAGES ---
     'sandvic-panel': {
         title: 'Sandviç Panel',
-        price: 'Fiyat Sorunuz',
+        price: '350₺ + KDV',
         img: '/images/products/sandvic-panel.jpg',
         type: 'product_detail',
         category: 'Çatı Kaplama',
         categorySlug: 'cati-kaplama'
+    },
+    'cephe-panel': {
+        title: 'Cephe Panel',
+        price: '350₺ + KDV',
+        img: '/images/products/sandvic-panel.jpg',
+        type: 'product_detail',
+        category: 'Duvar ve Cephe',
+        categorySlug: 'duvar-cephe'
     },
     'osb-levha': {
         title: 'OSB Levha',

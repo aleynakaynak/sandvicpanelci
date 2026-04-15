@@ -17,9 +17,9 @@ const categories = [
 ];
 
 const topRated = [
-    { title: 'Çatı Paneli 3 Hadve', price: 'Fiyat Sorunuz', img: '/images/products/sandvic-panel.jpg' },
-    { title: 'Betopan Dış Cephe', price: 'Fiyat Sorunuz', img: '/images/products/betopan.jpg' },
-    { title: 'Osb-3 Yerli Levha', price: 'Fiyat Sorunuz', img: '/images/products/osb-levha.jpg' },
+    { title: 'Çatı Paneli 3 Hadve', price: 'Fiyat Sorunuz', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel' },
+    { title: 'Betopan Dış Cephe', price: 'Fiyat Sorunuz', img: '/images/products/betopan.jpg', link: '/betopan' },
+    { title: 'Osb-3 Yerli Levha', price: 'Fiyat Sorunuz', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
 ];
 
 const SidebarRight = () => {
@@ -48,17 +48,16 @@ const SidebarRight = () => {
 
             {/* Top Rated */}
             <div className={styles.widget}>
-                <h3 className={styles.widget_title}>En çok oylanan ürünler</h3>
+                <h3 className={styles.widget_title}>Öne Çıkan Ürünler</h3>
                 <div className={styles.top_rated_list}>
                     {topRated.map((item, i) => (
                         <div key={i} className={styles.top_rated_item}>
                             <div className={styles.item_info}>
-                                <Link href="#" className={styles.item_title}>{item.title}</Link>
-                                <div className={styles.stars}>⭐⭐⭐⭐⭐</div>
+                                <Link href={item.link} className={styles.item_title}>{item.title}</Link>
                                 <div className={styles.item_price}>{item.price}</div>
                             </div>
                             <div className={styles.item_thumb}>
-                                <img src={item.img} alt={item.title} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '4px' }} />
+                                <img src={item.img} alt={item.title} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: '4px' }} />
                             </div>
                         </div>
                     ))}

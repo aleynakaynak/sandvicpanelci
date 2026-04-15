@@ -22,9 +22,6 @@ const Footer = () => {
                         <div className={styles.heading_left}>
                             SANDVİÇ PANELCİ
                         </div>
-                        <div style={{ marginBottom: '20px' }}>
-                            <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#d32f2f', margin: 0 }}>SANDVİÇ PANELCİ</h2>
-                        </div>
 
                         <p className={styles.intro}>
                             En iyi yalıtım ve cephe sistemleri için Türkiye'nin dört bir yanına hizmet veriyoruz. Sandviç Panelci kalitesi ve güvencesiyle daima yanınızdayız.
@@ -67,7 +64,7 @@ const Footer = () => {
                         </div>
 
                         <div className={styles.contact_text}>
-                            <span style={{ color: '#3b9eff' }}>E-Posta :</span> <a href="mailto:info@sadvicpanelyapi.com.tr">info@sadvicpanelyapi.com.tr</a>
+                            <span style={{ color: '#3b9eff' }}>E-Posta :</span> <a href="mailto:info@sandvicpanelyapi.com.tr">info@sandvicpanelyapi.com.tr</a>
                         </div>
                     </div>
 

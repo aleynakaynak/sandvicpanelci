@@ -37,7 +37,7 @@ const categoryDataMap: Record<string, { name: string, img: string, link: string 
     ],
     '/su-yalitim': [
         { name: 'Membran', img: '/images/products/membran.jpg', link: '/membran' },
-        { name: 'Desenli Membran', img: '/images/products/membran.jpg', link: '/desenli-membran' },
+        { name: 'Desenli Membran', img: '/images/products/desenli-membran.jpg', link: '/desenli-membran' },
         { name: 'Likit Membran', img: '/images/products/likit-membran.jpg', link: '/likit-membran' },
     ],
     '/duvar-cephe': [
@@ -54,7 +54,7 @@ const categoryDataMap: Record<string, { name: string, img: string, link: string 
     ],
     '/aksesuar': [
         { name: 'Çatı Çıkış Kapakları', img: '/images/products/cati-cikis-kapagi.jpg', link: '/cati-cikis' },
-        { name: 'Vidalar', img: '', link: '/vidalar' },
+        { name: 'Vidalar', img: '/images/products/vidalar.jpg', link: '/vidalar' },
     ],
     '/ahsap-urunler': [
         { name: 'Plywood', img: '/images/products/plywood.jpg', link: '/plywood' },
@@ -124,18 +124,20 @@ const StartCategories = () => {
                             <Link key={idx} href={cat.link} style={{ textDecoration: 'none', textAlign: 'center' }}>
                                 {/* Image Container */}
                                 <div style={{
-                                    height: '140px',
-                                    backgroundColor: '#fff',
+                                    height: '160px',
+                                    backgroundColor: '#f5f5f5',
                                     marginBottom: '10px',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    overflow: 'hidden'
+                                    overflow: 'hidden',
+                                    borderRadius: '6px',
+                                    transition: 'box-shadow 0.2s, transform 0.2s',
                                 }}>
-                                    <img src={cat.img} alt={cat.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    <img src={cat.img} alt={cat.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                                 </div>
                                 {/* Title */}
-                                <h3 style={{ fontSize: '16px', color: '#333', fontWeight: '400', fontFamily: 'serif' }}>{cat.name}</h3>
+                                <h3 style={{ fontSize: '14px', color: '#333', fontWeight: '600', fontFamily: 'inherit', lineHeight: '1.3' }}>{cat.name}</h3>
                             </Link>
                         ))}
                     </div>
