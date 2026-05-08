@@ -9,6 +9,41 @@ import PriceTable from '@/components/PriceTable';
 import SandvicPanelCalculator from '@/components/SandvicPanelCalculator';
 import styles from '@/components/PageHeader.module.css';
 import gridStyles from '@/components/ProductGrid.module.css';
+import { Metadata } from 'next';
+
+// --- SEO GENERATION ---
+export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const pageKey = slug[slug.length - 1] === 'membran-fiyatlari' ? 'membran' : slug[slug.length - 1];
+    const content = data[pageKey];
+    
+    const domain = 'https://www.sandvicpanelyapi.com.tr';
+    const currentPath = `/${slug.join('/')}`;
+    const canonicalUrl = `${domain}${currentPath}`;
+
+    if (!content) {
+        return {
+            title: 'Ürün Bulunamadı | Sandviç Panelci',
+            alternates: { canonical: canonicalUrl }
+        };
+    }
+
+    return {
+        title: `${content.title} | Sandviç Panelci`,
+        description: content.shortDesc || `${content.title} modelleri ve güncel fiyatları. En uygun seçenekler ve uzman montaj desteği için hemen bilgi alın.`,
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        openGraph: {
+            title: `${content.title} | Sandviç Panelci`,
+            description: content.shortDesc,
+            url: canonicalUrl,
+            siteName: 'Sandviç Panelci',
+            locale: 'tr_TR',
+            type: 'website',
+        },
+    };
+}
 
 // --- DATA WAREHOUSE FOR ALL CATEGORIES ---
 const data: Record<string, any> = {
@@ -55,7 +90,8 @@ const data: Record<string, any> = {
         type: 'list',
         subCategories: [
             { title: 'Sandviç Panel', count: 5, link: '/sandvic-panel', img: '/images/products/sandvic-panel.jpg' },
-            { title: 'Osb Levha', count: 6, link: '/osb-levha', img: '/images/products/osb-levha.jpg' },
+            { title: 'Sandviç Panel (Antrasit)', count: 1, link: '/sandvic-panel-antrasit', img: '/images/products/sandvic-panel-antrasit.jpg' },
+            { title: 'Osb Levha 11mm', count: 6, link: '/osb-levha', img: '/images/products/osb-levha.jpg' },
             { title: 'Shingle (Şıngıl) Fiyatları', count: 4, link: '/shingle', img: '/images/products/shingle.jpg' },
             { title: 'Polikarbon Levha Fiyatları', count: 9, link: '/polyester', img: '/images/products/polikarbon.jpg' },
             { title: 'Eternit Fiyatları', count: 3, link: '/eternit', img: '/images/products/eternit.jpg' },
@@ -63,8 +99,8 @@ const data: Record<string, any> = {
         ],
         relatedProducts: [
             { id: 301, title: 'Çatı Paneli 40mm', price: 'Fiyat Sorunuz', img: '/images/products/sandvic-panel.jpg' },
-            { id: 302, title: 'Osb-3 11mm', price: 'Fiyat Sorunuz', img: '/images/products/osb-levha.jpg' },
-            { id: 303, title: 'Trapez Vida 100 Adet', price: 'Fiyat Sorunuz', img: '' }
+            { id: 302, title: 'Osb-3 11mm', price: '400₺ + KDV', img: '/images/products/osb-levha.jpg' },
+            { id: 303, title: 'Trapez Vida 100 Adet', price: 'Fiyat Sorunuz', img: '/images/products/vidalar.jpg' }
         ]
     },
     'isi-yalitim': {
@@ -104,11 +140,13 @@ const data: Record<string, any> = {
         parent: 'home',
         type: 'list',
         subCategories: [
+            { title: 'Trapez Sac 0.50mm', count: 3, link: '/trapez-sac', img: '/images/products/trapez-sac.jpg' },
             { title: 'Köşebent Demir', count: 15, link: '/kosebent', img: '/images/products/kosebent.jpg' },
             { title: 'Demir Kutu Profil', count: 30, link: '/kutu-profil', img: '/images/products/kutu-profil.jpg' },
             { title: 'Galvaniz Sac', count: 12, link: '/galvaniz-sac', img: '/images/products/galvaniz-sac.jpg' }
         ],
         relatedProducts: [
+            { id: 3001, title: 'Trapez Sac 0.50mm', price: '290₺ + KDV', img: '/images/products/trapez-sac.jpg', link: '/trapez-sac' },
             { id: 601, title: '40x40 Kutu Profil 2mm', price: 'Fiyat Sorunuz', img: '/images/products/kutu-profil.jpg' },
             { id: 602, title: 'Galvaniz Trapez Sac 0.50mm', price: 'Fiyat Sorunuz', img: '/images/products/galvaniz-sac.jpg' }
         ]
@@ -119,11 +157,11 @@ const data: Record<string, any> = {
         type: 'list',
         subCategories: [
             { title: 'Ahşap Ürünler', count: 8, link: '/ahsap-urunler', img: '/images/products/plywood.jpg' },
-            { title: 'Çatı Çıkış Kapakları', count: 4, link: '/cati-cikis', img: '/images/products/cati-cikis-kapagi.jpg' },
+            { title: 'Çatı Çıkış Kapakları', count: 3, link: '/cati-cikis', img: '/images/products/cati-cikis-panel.jpg' },
             { title: 'Panel ve Trapez Vidaları', count: 15, link: '/vidalar', img: '/images/products/vidalar.jpg' }
         ],
         relatedProducts: [
-            { id: 701, title: 'Panel Vidası 5.5 x 60mm', price: 'Fiyat Sorunuz', img: '' },
+            { id: 701, title: 'Panel Vidası 5.5 x 60mm', price: 'Fiyat Sorunuz', img: '/images/products/vidalar.jpg' },
 
         ]
     },
@@ -143,11 +181,30 @@ const data: Record<string, any> = {
     // --- EXPLICIT PRODUCT DETAIL PAGES ---
     'sandvic-panel': {
         title: 'Sandviç Panel',
+        parent: 'cati-kaplama',
+        type: 'list',
+        img: '/images/products/sandvic-panel.jpg',
+        subCategories: [],
+        relatedProducts: [
+            { id: 1001, title: 'Sandviç Panel (Beyaz)', price: '350₺ + KDV', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel-beyaz' },
+            { id: 1002, title: 'Sandviç Panel (Antrasit)', price: '400₺ + KDV', img: '/images/products/sandvic-panel-antrasit.jpg', link: '/sandvic-panel-antrasit' },
+        ]
+    },
+    'sandvic-panel-beyaz': {
+        title: 'Sandviç Panel (Beyaz)',
         price: '350₺ + KDV',
         img: '/images/products/sandvic-panel.jpg',
         type: 'product_detail',
-        category: 'Çatı Kaplama',
-        categorySlug: 'cati-kaplama'
+        category: 'Sandviç Panel',
+        categorySlug: 'sandvic-panel'
+    },
+    'sandvic-panel-antrasit': {
+        title: 'Sandviç Panel (Antrasit)',
+        price: '400₺ + KDV',
+        img: '/images/products/sandvic-panel-antrasit.jpg',
+        type: 'product_detail',
+        category: 'Sandviç Panel',
+        categorySlug: 'sandvic-panel'
     },
     'cephe-panel': {
         title: 'Cephe Panel',
@@ -158,8 +215,8 @@ const data: Record<string, any> = {
         categorySlug: 'duvar-cephe'
     },
     'osb-levha': {
-        title: 'OSB Levha',
-        price: 'Fiyat Sorunuz',
+        title: 'OSB Levha 11mm',
+        price: '400₺ + KDV',
         img: '/images/products/osb-levha.jpg',
         type: 'product_detail',
         category: 'Ahşap Ürünler',
@@ -220,6 +277,58 @@ const data: Record<string, any> = {
         type: 'product_detail',
         category: 'Duvar ve Cephe',
         categorySlug: 'duvar-cephe'
+    },
+    'cati-cikis': {
+        title: 'Çatı Çıkış Kapakları',
+        parent: 'aksesuar',
+        type: 'list',
+        img: '/images/products/cati-cikis-panel.jpg',
+        subCategories: [],
+        relatedProducts: [
+            { id: 2001, title: 'Çatı Çıkış Kapağı (Panel)', price: 'Fiyat Sorunuz', img: '/images/products/cati-cikis-panel.jpg', link: '/cati-cikis-panel' },
+            { id: 2002, title: 'Shingle Çıkış Kapağı', price: 'Fiyat Sorunuz', img: '/images/products/cati-cikis-shingle.jpg', link: '/cati-cikis-shingle' },
+            { id: 2003, title: 'Trapez Çıkış Kapağı', price: 'Fiyat Sorunuz', img: '/images/products/cati-cikis-trapez.jpg', link: '/cati-cikis-trapez' },
+        ]
+    },
+    'cati-cikis-panel': {
+        title: 'Çatı Çıkış Kapağı (Panel)',
+        price: 'Fiyat Sorunuz',
+        img: '/images/products/cati-cikis-panel.jpg',
+        type: 'product_detail',
+        category: 'Çatı Çıkış Kapakları',
+        categorySlug: 'cati-cikis'
+    },
+    'cati-cikis-shingle': {
+        title: 'Shingle Çıkış Kapağı',
+        price: 'Fiyat Sorunuz',
+        img: '/images/products/cati-cikis-shingle.jpg',
+        type: 'product_detail',
+        category: 'Çatı Çıkış Kapakları',
+        categorySlug: 'cati-cikis'
+    },
+    'cati-cikis-trapez': {
+        title: 'Trapez Çıkış Kapağı',
+        price: 'Fiyat Sorunuz',
+        img: '/images/products/cati-cikis-trapez.jpg',
+        type: 'product_detail',
+        category: 'Çatı Çıkış Kapakları',
+        categorySlug: 'cati-cikis'
+    },
+    'trapez-sac': {
+        title: 'Trapez Sac 0.50mm',
+        price: '290₺ + KDV',
+        img: '/images/products/trapez-sac.jpg',
+        type: 'product_detail',
+        category: 'Profil ve Galvaniz Sac',
+        categorySlug: 'profil-sac'
+    },
+    'vidalar': {
+        title: 'Panel ve Trapez Vidaları',
+        price: 'Fiyat Sorunuz',
+        img: '/images/products/vidalar.jpg',
+        type: 'product_detail',
+        category: 'Aksesuarlar',
+        categorySlug: 'aksesuar'
     }
     // Add sub-listings as needed (e.g. /alcipan could be a list if it has items, or just generic products)
 };
@@ -338,7 +447,7 @@ export default async function CatchAllPage({ params }: { params: Promise<{ slug:
                                     title={p.title} 
                                     price={p.price} 
                                     image={p.img || ''}
-                                    link={`/${slug.join('/')}/urun-${p.id}`} 
+                                    link={p.link || `/${slug.join('/')}/urun-${p.id}`} 
                                 />
                             ))}
                             {(!content.relatedProducts || content.relatedProducts.length === 0) && (

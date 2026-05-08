@@ -71,6 +71,7 @@ const HeroSlider = () => {
                             backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.10) 100%), url(${slide.img})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
+                            ...(index === 0 ? { contain: 'layout' } : {}),
                         }}
                     >
                         <div className="container" style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center' }}>

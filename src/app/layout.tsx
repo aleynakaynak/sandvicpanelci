@@ -14,8 +14,15 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Sandviç Panelci - İnşaat ve Yalıtım Malzemeleri",
-  description: "En uygun çatı ve cephe kaplama ürünleri, ısı yalıtımı, su yalıtımı ve yapı malzemeleri.",
+  title: "Sandviç Panel Satışı ve Montajı | Sandviç Panelci",
+  description: "Türkiye genelinde sandviç panel satışı ve montajı. Çatı ve cephe kaplama, ısı yaltımı, su yaltımı. Hemen teklif alın!",
+  keywords: "sandviç panel satışı, sandviç panel montajı, sandviç panel fiyatları, çatı paneli, cephe paneli, sandviç panelci, izmir sandviç panel",
+  openGraph: {
+    title: "Sandviç Panel Satışı ve Montajı | Sandviç Panelci",
+    description: "Türkiye genelinde sandviç panel satışı ve montajı. Hemen teklif al!",
+    type: 'website',
+    locale: 'tr_TR',
+  },
 };
 
 const AW_ID = 'AW-18092736793';
@@ -31,6 +38,19 @@ export default async function RootLayout({
   return (
     <html lang="tr">
       <head>
+        <link rel="canonical" href="https://www.sandvicpanelyapi.com.tr" />
+        {/* Preconnect for font performance (LCP improvement) */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Hero görselini önceden yükle – LCP iyileştirmesi */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/sandvic-panel-hero.png"
+          fetchPriority="high"
+        />
+
         {/* ── Google Ads Base Tag ── */}
         <Script
           id="google-ads-gtag-js"
@@ -45,7 +65,7 @@ export default async function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${AW_ID}');
+              gtag('config', '${AW_ID}', { send_page_view: true });
             `,
           }}
         />

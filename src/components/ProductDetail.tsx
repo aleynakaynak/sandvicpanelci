@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, ZoomIn, Phone } from 'lucide-react';
+import Image from 'next/image';
+import Script from 'next/script';
 import ProductCard from './ProductCard';
 import styles from './ProductDetail.module.css';
 import gridStyles from './ProductGrid.module.css';
-import { trackWhatsAppClick } from '@/lib/gtag';
+import { trackWhatsAppClick, trackQuoteRequest } from '@/lib/gtag';
 
 interface ProductDetailProps {
     product: any;
@@ -16,9 +18,33 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     const [activeTab, setActiveTab] = useState('desc');
 
     const hasRelatedProducts = product.relatedProducts && product.relatedProducts.length > 0;
+    
+    const productSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: product.title,
+        image: product.img || product.imageUrl || (product.images && product.images[0]),
+        description: product.shortDesc || product.description,
+        brand: {
+            '@type': 'Brand',
+            name: 'Sandviç Panelci',
+        },
+        offers: {
+            '@type': 'Offer',
+            url: typeof window !== 'undefined' ? window.location.href : '',
+            priceCurrency: 'TRY',
+            price: product.price ? product.price.replace(/[^0-9]/g, '') : '0',
+            availability: 'https://schema.org/InStock',
+        },
+    };
 
     return (
         <div className={styles.product_wrapper}>
+            <Script
+                id="product-schema"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+            />
 
             {/* Top Section */}
             <div className={styles.top_section}>
@@ -27,10 +53,13 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 <div className={styles.image_column}>
                     <div className={styles.main_image_container}>
                         {product.img || product.imageUrl || (product.images && product.images[0]) ? (
-                            <img 
+                            <Image 
                                 src={product.img || product.imageUrl || product.images[0]} 
                                 alt={product.title} 
-                                style={{ maxWidth: '100%', borderRadius: '8px' }} 
+                                width={800}
+                                height={600}
+                                style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
+                                priority
                             />
                         ) : (
                             <div className={styles.placeholder_box}>
@@ -64,8 +93,13 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
                     {/* Actions */}
                     <div className={styles.actions}>
-                        <Link href="/contact" className={styles.contact_btn}>
-                            İLETİŞİME GEÇ
+                        <Link
+                            href="/contact"
+                            className={styles.contact_btn}
+                            onClick={trackQuoteRequest}
+                            id="product-teklif-al-btn"
+                        >
+                            TEKLİF AL
                         </Link>
                         <a
                             href={`https://wa.me/905319308500?text=Sipariş vermek istiyorum: ${product.title}`}
@@ -73,6 +107,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                             rel="noopener noreferrer"
                             onClick={trackWhatsAppClick}
                             className={styles.whatsapp_btn}
+                            id="product-whatsapp-btn"
                         >
                             <Phone size={18} fill="white" /> WHATSAPP SİPARİŞ
                         </a>

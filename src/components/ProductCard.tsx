@@ -36,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ title, category, link, price,
 
                 <div className={styles.details}>
                     <h3 className={styles.title}>{title}</h3>
-                    {priceText && <div className={styles.price}>{priceText}</div>}
+                    {(price || priceText) && <div className={styles.price}>{price || priceText}</div>}
 
                     <div className={styles.button_container}>
                         <span className={styles.button}>ÜRÜNÜ İNCELE</span>

@@ -19,7 +19,7 @@ const categories = [
 const topRated = [
     { title: 'Çatı Paneli 3 Hadve', price: 'Fiyat Sorunuz', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel' },
     { title: 'Betopan Dış Cephe', price: 'Fiyat Sorunuz', img: '/images/products/betopan.jpg', link: '/betopan' },
-    { title: 'Osb-3 Yerli Levha', price: 'Fiyat Sorunuz', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
+    { title: 'Osb-3 Levha 11mm', price: '400₺ + KDV', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
 ];
 
 const SidebarRight = () => {

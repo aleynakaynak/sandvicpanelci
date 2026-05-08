@@ -189,3 +189,15 @@ button {
         gap: 12px;
     }
 }
+
+/* Accessibility: Minimum touch targets for mobile */
+@media (max-width: 768px) {
+    button, 
+    .btn, 
+    a[class*="btn"], 
+    input[type="submit"], 
+    input[type="button"] {
+        min-height: 48px;
+        min-width: 48px;
+    }
+}

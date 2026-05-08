@@ -8,11 +8,13 @@ import styles from './StartCategories.module.css';
 const defaultCategories = [
     { name: 'Osb Levha', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
     { name: 'Sandviç Panel', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel' },
+    { name: 'Sandviç Panel (Antrasit)', img: '/images/products/sandvic-panel-antrasit.jpg', link: '/sandvic-panel-antrasit' },
     { name: 'Shingle', img: '/images/products/shingle.jpg', link: '/shingle' },
     { name: 'Plywood', img: '/images/products/plywood.jpg', link: '/plywood' },
     { name: 'Çatı Malzemeleri', img: '/images/products/sandvic-panel.jpg', link: '/cati-kaplama' },
     { name: 'Camyünü', img: '/images/products/cam-yunu.jpg', link: '/camyunu' },
     { name: 'Boyalı Profil', img: '/images/products/boyali-profil.jpg', link: '/profil-sac' },
+    { name: 'Trapez Sac 0.50mm', img: '/images/products/trapez-sac.jpg', link: '/trapez-sac' },
     { name: 'Betopan', img: '/images/products/betopan.jpg', link: '/betopan' },
     { name: 'Taşyünü', img: '/images/products/tas-yunu.jpg', link: '/tasyunu' },
     { name: 'Xps-Foamboard', img: '/images/products/xps.jpg', link: '/xps' },
@@ -23,7 +25,8 @@ const defaultCategories = [
 const categoryDataMap: Record<string, { name: string, img: string, link: string }[]> = {
     '/cati-kaplama': [
         { name: 'Sandviç Panel', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel' },
-        { name: 'Osb Levha', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
+        { name: 'Sandviç Panel (Antrasit)', img: '/images/products/sandvic-panel-antrasit.jpg', link: '/sandvic-panel-antrasit' },
+        { name: 'Osb Levha 11mm', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
         { name: 'Shingle', img: '/images/products/shingle.jpg', link: '/shingle' },
         { name: 'Polikarbon Levha Fiyatları', img: '/images/products/polikarbon.jpg', link: '/polyester' },
         { name: 'Eternit', img: '/images/products/eternit.jpg', link: '/eternit' },
@@ -47,6 +50,7 @@ const categoryDataMap: Record<string, { name: string, img: string, link: string 
         { name: 'Boardex', img: '/images/products/boardex.jpg', link: '/boardex' },
     ],
     '/profil-sac': [
+        { name: 'Trapez Sac 0.50mm', img: '/images/products/trapez-sac.jpg', link: '/trapez-sac' },
         { name: 'Boyalı Profil', img: '/images/products/boyali-profil.jpg', link: '/profil-sac' },
         { name: 'Köşebent', img: '/images/products/kosebent.jpg', link: '/kosebent' },
         { name: 'Kutu Profil', img: '/images/products/kutu-profil.jpg', link: '/kutu-profil' },
