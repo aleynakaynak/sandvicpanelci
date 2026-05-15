@@ -17,9 +17,12 @@ export async function createProduct(formData: FormData) {
         throw new Error('Title and Price are required');
     }
 
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
     const newProduct: Product = {
         id: Date.now().toString(), // Simple ID generation
         title,
+        slug,
         price,
         categorySlug,
         description,
@@ -38,9 +41,12 @@ export async function updateProduct(id: string, formData: FormData) {
     const categorySlug = formData.get('categorySlug') as string;
     const description = formData.get('description') as string;
 
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+
     const product: Product = {
         id,
         title,
+        slug,
         price,
         categorySlug,
         description,

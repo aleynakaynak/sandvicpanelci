@@ -68,6 +68,39 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     };
 }
 
+export async function saveProduct(product: Product) {
+    // Implementation for saving product
+    const supabase = await createClient();
+    if (product.id && product.id.trim() !== '') {
+        await supabase.from('products').update({
+            title: product.title,
+            slug: product.slug,
+            price: product.price,
+            category_slug: product.categorySlug,
+            short_description: product.description,
+            description: product.longDescription,
+            image_url: product.imageUrl,
+            is_active: product.active
+        }).eq('id', product.id);
+    } else {
+        await supabase.from('products').insert([{
+            title: product.title,
+            slug: product.slug,
+            price: product.price,
+            category_slug: product.categorySlug,
+            short_description: product.description,
+            description: product.longDescription,
+            image_url: product.imageUrl,
+            is_active: product.active
+        }]);
+    }
+}
+
+export async function deleteProduct(id: string) {
+    const supabase = await createClient();
+    await supabase.from('products').delete().eq('id', id);
+}
+
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
     const supabase = await createClient();
     const { data, error } = await supabase.from('categories').select('*').eq('slug', slug).single();
