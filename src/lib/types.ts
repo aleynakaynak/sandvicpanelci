@@ -15,9 +15,12 @@ export interface Reference {
 export interface Product {
     id: string;
     title: string;
+    slug: string; // Added for routing
     price: string;
     categorySlug: string;
     description?: string;
+    longDescription?: string; // Added for details
+    specs?: Record<string, string>; // Added for technical details
     imageUrl?: string;
     active: boolean;
 }

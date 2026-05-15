@@ -1,7 +1,7 @@
 import React from 'react';
 import HeroSlider from '@/components/HeroSlider';
-import HeroQuoteForm from '@/components/HeroQuoteForm';
 import StartCategories from '@/components/StartCategories';
+import BrandCarousel from '@/components/BrandCarousel';
 import { Truck, ShieldCheck, CheckCircle, Star } from 'lucide-react';
 import styles from './page.module.css';
 import * as store from '@/lib/store';
@@ -9,6 +9,7 @@ import Link from 'next/link';
 
 export default async function Home() {
   const blogPosts = await store.getBlogPosts();
+  const references = await store.getReferences();
 
   // If no blog posts, use placeholders
   const displayPosts = blogPosts.length > 0 ? blogPosts : [
@@ -19,10 +20,8 @@ export default async function Home() {
 
   return (
     <main>
-      <HeroSlider />
 
-      {/* Hero CTA – Metraj / Teklif Al formu */}
-      <HeroQuoteForm />
+      <HeroSlider />
 
       {/* Category Grid Section */}
       <StartCategories />
@@ -83,6 +82,9 @@ export default async function Home() {
             ))}
           </div>
         </div>
+
+        {/* References Section */}
+        <BrandCarousel references={references} />
 
       </div>
 

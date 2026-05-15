@@ -5,26 +5,23 @@ import Link from 'next/link';
 import { Search, ZoomIn, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Script from 'next/script';
-import ProductCard from './ProductCard';
 import styles from './ProductDetail.module.css';
-import gridStyles from './ProductGrid.module.css';
 import { trackWhatsAppClick, trackQuoteRequest } from '@/lib/gtag';
+import { Product } from '@/lib/types';
 
 interface ProductDetailProps {
-    product: any;
+    product: Product;
 }
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     const [activeTab, setActiveTab] = useState('desc');
 
-    const hasRelatedProducts = product.relatedProducts && product.relatedProducts.length > 0;
-    
     const productSchema = {
         '@context': 'https://schema.org',
         '@type': 'Product',
         name: product.title,
-        image: product.img || product.imageUrl || (product.images && product.images[0]),
-        description: product.shortDesc || product.description,
+        image: product.imageUrl,
+        description: product.description,
         brand: {
             '@type': 'Brand',
             name: 'Sandviç Panelci',
@@ -52,9 +49,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 {/* Left: Image */}
                 <div className={styles.image_column}>
                     <div className={styles.main_image_container}>
-                        {product.img || product.imageUrl || (product.images && product.images[0]) ? (
+                        {product.imageUrl ? (
                             <Image 
-                                src={product.img || product.imageUrl || product.images[0]} 
+                                src={product.imageUrl} 
                                 alt={product.title} 
                                 width={800}
                                 height={600}
@@ -80,14 +77,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                     </div>
 
                     <div className={styles.short_desc}>
-                        {product.shortDesc || product.description || "Sandviç Panelci güvencesiyle en kaliteli ürünleri en uygun fiyatlarla sunuyoruz. Detaylı bilgi için bizimle iletişime geçebilirsiniz."}
+                        {product.description || "Sandviç Panelci güvencesiyle en kaliteli ürünleri en uygun fiyatlarla sunuyoruz."}
                     </div>
 
                     {/* Meta */}
                     <div className={styles.meta_row}>
-                        Kategoriler:
-                        <Link href={`/${product.categorySlug || 'kategori'}`} className={styles.meta_link}>
-                            {product.category || 'Genel'}
+                        Kategori:
+                        <Link href={`/${product.categorySlug}`} className={styles.meta_link}>
+                            {product.categorySlug.replace(/-/g, ' ').toUpperCase()}
                         </Link>
                     </div>
 
@@ -125,10 +122,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                         AÇIKLAMA
                     </button>
                     <button
-                        className={`${styles.tab_btn} ${activeTab === 'reviews' ? styles.active : ''}`}
-                        onClick={() => setActiveTab('reviews')}
+                        className={`${styles.tab_btn} ${activeTab === 'specs' ? styles.active : ''}`}
+                        onClick={() => setActiveTab('specs')}
                     >
-                        YORUMLAR (0)
+                        TEKNİK ÖZELLİKLER
                     </button>
                 </div>
 
@@ -137,38 +134,31 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                         <div>
                             <h3 className={styles.tab_title}>{product.title} Hakkında</h3>
                             <div className="content-body">
-                                <p>{product.fullDesc || product.shortDesc || `${product.title} ürünlerimiz hakkında detaylı bilgi ve fiyat teklifi almak için bizimle iletişime geçebilirsiniz.`}</p>
-                                <h4 style={{ marginTop: '20px', marginBottom: '10px', fontSize: '16px', fontWeight: '700', color: '#333' }}>Ürün Özellikleri</h4>
-                                <p>Sandviç Panelci güvencesiyle; yüksek kalite standartlarında, uzun ömürlü ve dayanıklı yapı malzemeleri sunuyoruz.</p>
+                                <p>{product.longDescription || product.description || `${product.title} ürünlerimiz hakkında detaylı bilgi ve fiyat teklifi almak için bizimle iletişime geçebilirsiniz.`}</p>
                             </div>
                         </div>
                     )}
-                    {activeTab === 'reviews' && (
+                    {activeTab === 'specs' && (
                         <div>
-                            <p>Henüz yorum yapılmamış.</p>
+                            <h3 className={styles.tab_title}>Teknik Detaylar</h3>
+                            {product.specs ? (
+                                <table className={styles.specs_table}>
+                                    <tbody>
+                                        {Object.entries(product.specs).map(([key, val]) => (
+                                            <tr key={key}>
+                                                <td><strong>{key}</strong></td>
+                                                <td>{val}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <p>Bu ürün için teknik özellik tablosu henüz eklenmemiştir. Lütfen bilgi alınız.</p>
+                            )}
                         </div>
                     )}
                 </div>
             </div>
-
-            {/* Related Products – only shown when data exists */}
-            {hasRelatedProducts && (
-                <div className={styles.related_section}>
-                    <h3 className={styles.related_title}>{product.title} İle İlgili Ürünler</h3>
-                    <div className={gridStyles.product_grid}>
-                        {product.relatedProducts.map((p: any) => (
-                            <ProductCard
-                                key={p.id}
-                                title={p.title}
-                                price={p.price}
-                                image={p.img || p.imageUrl}
-                                link={`/${product.categorySlug || 'kategori'}/urun-${p.id}`}
-                            />
-                        ))}
-                    </div>
-                </div>
-            )}
-
         </div>
     );
 };

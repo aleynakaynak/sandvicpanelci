@@ -11,7 +11,7 @@ const defaultCategories = [
     { name: 'Sandviç Panel (Antrasit)', img: '/images/products/sandvic-panel-antrasit.jpg', link: '/sandvic-panel-antrasit' },
     { name: 'Shingle', img: '/images/products/shingle.jpg', link: '/shingle' },
     { name: 'Plywood', img: '/images/products/plywood.jpg', link: '/plywood' },
-    { name: 'Çatı Malzemeleri', img: '/images/products/sandvic-panel.jpg', link: '/cati-kaplama' },
+
     { name: 'Camyünü', img: '/images/products/cam-yunu.jpg', link: '/camyunu' },
     { name: 'Boyalı Profil', img: '/images/products/boyali-profil.jpg', link: '/profil-sac' },
     { name: 'Trapez Sac 0.50mm', img: '/images/products/trapez-sac.jpg', link: '/trapez-sac' },

@@ -32,82 +32,139 @@ export async function getProducts(): Promise<Product[]> {
     const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
 
     if (error || !data || data.length === 0) {
-        return [
-            {
-                id: 'p1',
-                title: 'Çatı Sandviç Panel - 3 Hadveli',
-                price: 'Fiyat Sorunuz',
-                categorySlug: 'sandvic-panel',
-                description: 'Endüstriyel yapılar için yüksek ısı yalıtımı sağlayan 3 hadveli çatı paneli.',
-                imageUrl: '/images/products/sandvic-panel.jpg',
-                active: true
-            },
-            {
-                id: 'p2',
-                title: 'Betopan - 12mm Dış Cephe Levhası',
-                price: 'Fiyat Sorunuz',
-                categorySlug: 'betopan',
-                description: 'Suya ve neme dayanıklı, yangın sınıfı yüksek dış cephe kaplama levhası.',
-                imageUrl: '/images/products/betopan.jpg',
-                active: true
-            },
-            {
-                id: 'p3',
-                title: 'Osb-3 Levha 11mm',
-                price: 'Fiyat Sorunuz',
-                categorySlug: 'osb-levha',
-                description: 'Çatı altı ve dekoratif amaçlı kullanılan dayanıklı ahşap levha.',
-                imageUrl: '/images/products/osb-levha.jpg',
-                active: true
-            }
-        ];
+        return fallbackProducts;
     }
 
     return data.map((p: any) => ({
         id: p.id.toString(),
         title: p.title,
-        price: 'Detaylı Bilgi', 
-        categorySlug: p.slug,
+        slug: p.slug,
+        price: p.price || 'Fiyat Sorunuz', 
+        categorySlug: p.category_slug || '',
         description: p.short_description || '',
         imageUrl: p.image_url || '',
         active: p.is_active,
     }));
 }
 
-export async function saveProduct(product: Product) {
+export async function getProductBySlug(slug: string): Promise<Product | null> {
     const supabase = await createClient();
-    if (product.id && product.id.trim() !== '') {
-        await supabase.from('products').update({
-            title: product.title,
-            short_description: product.description,
-            is_active: product.active
-        }).eq('id', product.id);
-    } else {
-        await supabase.from('products').insert([{
-            title: product.title,
-            slug: product.title.toLowerCase().replace(/ /g, '-'),
-            short_description: product.description,
-            is_active: product.active
-        }]);
+    const { data, error } = await supabase.from('products').select('*').eq('slug', slug).single();
+
+    if (error || !data) {
+        return fallbackProducts.find(p => p.slug === slug) || null;
     }
+
+    return {
+        id: data.id.toString(),
+        title: data.title,
+        slug: data.slug,
+        price: data.price || 'Fiyat Sorunuz',
+        categorySlug: data.category_slug || '',
+        description: data.short_description || '',
+        longDescription: data.description || '',
+        imageUrl: data.image_url || '',
+        active: data.is_active,
+    };
 }
 
-export async function deleteProduct(id: string) {
+export async function getCategoryBySlug(slug: string): Promise<Category | null> {
     const supabase = await createClient();
-    await supabase.from('products').delete().eq('id', id);
+    const { data, error } = await supabase.from('categories').select('*').eq('slug', slug).single();
+
+    if (error || !data) {
+        const cats = await getCategories();
+        return cats.find(c => c.slug === slug) || null;
+    }
+
+    return {
+        id: data.id.toString(),
+        slug: data.slug,
+        title: data.name,
+        parentId: data.parent_id?.toString(),
+        imageUrl: data.image_url || '',
+        order: data.display_order
+    };
 }
+
+export async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
+    const supabase = await createClient();
+    
+    // First, try to fetch products directly assigned to this category
+    const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('category_slug', categorySlug)
+        .eq('is_active', true);
+
+    if (error || !data || data.length === 0) {
+        // Fallback: Check fallbackProducts
+        const filtered = fallbackProducts.filter(p => p.categorySlug === categorySlug);
+        if (filtered.length > 0) return filtered;
+
+        // If no products found, try to find products in subcategories if this is a parent category
+        return [];
+    }
+
+    return data.map((p: any) => ({
+        id: p.id.toString(),
+        title: p.title,
+        slug: p.slug,
+        price: p.price || 'Fiyat Sorunuz',
+        categorySlug: p.category_slug || '',
+        description: p.short_description || '',
+        imageUrl: p.image_url || '',
+        active: p.is_active,
+    }));
+}
+
+const fallbackProducts: Product[] = [
+    {
+        id: 'p1',
+        title: 'PUR Yalıtımlı Çatı Paneli',
+        slug: 'pur-yalitimli-cati-paneli',
+        price: 'Fiyat Sorunuz',
+        categorySlug: 'cati-panelleri',
+        description: '3 Hadveli PUR yalıtımlı endüstriyel çatı paneli.',
+        imageUrl: '/images/products/sandvic-panel.jpg',
+        active: true
+    },
+    {
+        id: 'p2',
+        title: 'Mineral Yünlü Cephe Paneli',
+        slug: 'mineral-yunlu-cephe-paneli',
+        price: 'Fiyat Sorunuz',
+        categorySlug: 'cephe-panelleri',
+        description: 'Yangın dayanımlı mineral yün dolgulu cephe paneli.',
+        imageUrl: '/images/products/sandvic-panel.jpg',
+        active: true
+    },
+    {
+        id: 'p3',
+        title: '27/200 Trapez Sac',
+        slug: '27-200-trapez-sac',
+        price: 'Fiyat Sorunuz',
+        categorySlug: 'trapez-saclar',
+        description: '0.50mm kalınlığında boyalı galvaniz trapez sac.',
+        imageUrl: '/images/products/trapez-sac.jpg',
+        active: true
+    }
+];
 
 export async function getCategories(): Promise<Category[]> {
     const supabase = await createClient();
     const { data, error } = await supabase.from('categories').select('*').order('display_order', { ascending: true });
 
     if (error || !data || data.length === 0) {
-        return defaultHeaderMenu.map(c => ({
-            id: c.id,
-            title: c.title,
-            slug: c.link.replace('/', ''),
-            order: parseInt(c.id, 10) || 1
-        }));
+        return [
+            { id: '1', title: 'Çatı Panelleri', slug: 'cati-panelleri', order: 1 },
+            { id: '2', title: 'Cephe Panelleri', slug: 'cephe-panelleri', order: 2 },
+            { id: '3', title: 'Trapez Saclar', slug: 'trapez-saclar', order: 3 },
+            { id: '4', title: 'Yalıtım Malzemeleri', slug: 'yalitim-malzemeleri', order: 4 },
+            { id: '5', title: 'OSB ve Plywood', slug: 'osb-plywood', order: 5 },
+            { id: '6', title: 'Boyalı Profiller ve Galvanizli Saclar', slug: 'profil-sac', order: 6 },
+            { id: '7', title: 'Aksesuarlar ve Ek Ürünler', slug: 'aksesuar', order: 7 }
+        ];
     }
 
     return data.map((c: any) => ({
@@ -130,75 +187,66 @@ export async function saveSettings(settings: SiteSettings) {
 
 // --- BLOG ---
 export async function getBlogPosts(): Promise<BlogPost[]> {
-    const supabase = await createClient();
-    const { data, error } = await supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
-    
-    if (error || !data || data.length === 0) {
-        // Fallback realistic blog posts if DB table is missing
-        return [
-            {
-                id: '1',
-                slug: 'trapez-sac-ve-kullanim-alanlari',
-                title: 'Trapez Sac Nedir ve Nerelerde Kullanılır?',
-                excerpt: 'Endüstriyel yapılardan prefabrik yapılara kadar geniş bir kullanım alanına sahip olan trapez saclar hakkında bilmeniz gereken her şey.',
-                content: `
-                    <p>Trapez sac, endüstriyel yapılardan prefabrik yapılara kadar geniş bir kullanım alanına sahiptir. Çatı ve cephe kaplamalarında hızlı ve ekonomik bir çözüm arıyorsanız, dayanıklı trapez sac ürünlerimiz tam size göre.</p>
-                    <h3>Trapez Sacın Avantajları</h3>
-                    <ul>
-                        <li>Yüksek taşıma kapasitesine sahiptir.</li>
-                        <li>Montajı hızlı ve pratiktir.</li>
-                        <li>Farklı renk ve form seçenekleri sunar.</li>
-                        <li>Uzun ömürlü ve korozyona karşı dayanıklıdır.</li>
-                    </ul>
-                    <p>Sandviç Panelci olarak en kaliteli trapez sac ürünlerini en uygun fiyatlarla sizlere sunuyoruz.</p>
-                `,
-                date: new Date().toISOString(),
-                imageUrl: '/images/products/sandvic-panel.jpg'
-            },
-            {
-                id: '2',
-                slug: 'sandvic-panel-avantajlari',
-                title: 'Sandviç Panel Kullanımının Avantajları',
-                excerpt: 'Isı ve ses yalıtımında üstün performans sağlayan sandviç panellerin projenize katacağı değerleri inceleyelim.',
-                content: `
-                    <p>Sandviç paneller, iki metal katman arasına yerleştirilen yalıtım malzemesi (Poliüretan, Taşyünü vb.) sayesinde binalarda mükemmel ısı ve ses yalıtımı sağlar. Montaj kolaylığı ve uzun ömürlü olması en büyük avantajlarındandır.</p>
-                    <h3>Neden Sandviç Panel Tercih Etmelisiniz?</h3>
-                    <p>Enerji tasarrufu günümüzde binalar için en kritik konulardan biridir. Sandviç paneller, düşük ısı iletim katsayıları ile ısıtma ve soğutma maliyetlerinizi %50'ye varan oranlarda düşürebilir.</p>
-                    <p>Ayrıca yangın dayanımı yüksek taşyünü dolgulu panellerimiz ile binalarınızın güvenliğini en üst seviyeye taşıyabilirsiniz.</p>
-                `,
-                date: new Date(Date.now() - 86400000).toISOString(),
-                imageUrl: '/images/products/sandvic-panel.jpg'
-            },
-            {
-                id: '3',
-                slug: 'isi-yalitiminda-dikkat-edilmesi-gerekenler',
-                title: 'Çatı ve Isı Yalıtımında Püf Noktalar',
-                excerpt: 'Enerji tasarrufu sağlamak ve bina ömrünü uzatmak için doğru yalıtım malzemesi seçimi nasıl yapılmalı?',
-                content: `
-                    <p>Yalıtım, binanın kalbidir. Doğru yalıtım malzemesi kullanımı kışın ısınma, yazın soğutma giderlerini ciddi oranda düşürür. Taşyünü veya XPS gibi farklı materyallerin doğru yüzeylere uygulanması kritik bir öneme sahiptir.</p>
-                    <p>Isı yalıtımı yaparken dikkat edilmesi gerekenler:</p>
-                    <ol>
-                        <li>İklim koşullarına uygun yalıtım kalınlığı seçilmeli.</li>
-                        <li>Uygulama yapılacak yüzey temiz ve kuru olmalı.</li>
-                        <li>Isı köprüleri (kaideler, birleşim yerleri) mutlaka izole edilmeli.</li>
-                    </ol>
-                    <p>Sandviç Panelci uzman ekibiyle projeniz için en doğru yalıtım analizini yapmaya hazırdır.</p>
-                `,
-                date: new Date(Date.now() - 172800000).toISOString(),
-                imageUrl: '/images/products/tas-yunu.jpg'
-            }
-        ];
+    try {
+        const supabase = await createClient();
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 3000);
+        const { data, error } = await supabase
+            .from('blog_posts')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .abortSignal(controller.signal);
+        clearTimeout(timeout);
+
+        if (error || !data || data.length === 0) {
+            return fallbackBlogPosts();
+        }
+
+        return data.map((p: any) => ({
+            id: p.id.toString(),
+            slug: p.slug,
+            title: p.title,
+            excerpt: p.excerpt || '',
+            content: p.content,
+            date: p.created_at,
+            imageUrl: p.featured_image
+        }));
+    } catch {
+        // Supabase unreachable or timed out — return static fallback
     }
-    
-    return data.map((p: any) => ({
-        id: p.id.toString(),
-        slug: p.slug,
-        title: p.title,
-        excerpt: p.excerpt || '',
-        content: p.content,
-        date: p.created_at,
-        imageUrl: p.featured_image
-    }));
+    return fallbackBlogPosts();
+}
+
+function fallbackBlogPosts(): BlogPost[] {
+    return [
+        {
+            id: '1',
+            slug: 'trapez-sac-ve-kullanim-alanlari',
+            title: 'Trapez Sac Nedir ve Nerelerde Kullanılır?',
+            excerpt: 'Endüstriyel yapılardan prefabrik yapılara kadar geniş bir kullanım alanına sahip olan trapez saclar hakkında bilmeniz gereken her şey.',
+            content: '<p>Trapez sac, endüstriyel yapılardan prefabrik yapılara kadar geniş bir kullanım alanına sahiptir.</p>',
+            date: new Date().toISOString(),
+            imageUrl: '/images/products/sandvic-panel.jpg'
+        },
+        {
+            id: '2',
+            slug: 'sandvic-panel-avantajlari',
+            title: 'Sandviç Panel Kullanımının Avantajları',
+            excerpt: 'Isı ve ses yalıtımında üstün performans sağlayan sandviç panellerin projenize katacağı değerleri inceleyelim.',
+            content: '<p>Sandviç paneller mükemmel ısı ve ses yalıtımı sağlar.</p>',
+            date: new Date(Date.now() - 86400000).toISOString(),
+            imageUrl: '/images/products/sandvic-panel.jpg'
+        },
+        {
+            id: '3',
+            slug: 'isi-yalitiminda-dikkat-edilmesi-gerekenler',
+            title: 'Çatı ve Isı Yalıtımında Püf Noktalar',
+            excerpt: 'Enerji tasarrufu sağlamak ve bina ömrünü uzatmak için doğru yalıtım malzemesi seçimi nasıl yapılmalı?',
+            content: '<p>Yalıtım, binanın kalbidir. Doğru yalıtım malzemesi enerji tasarrufu sağlar.</p>',
+            date: new Date(Date.now() - 172800000).toISOString(),
+            imageUrl: '/images/products/tas-yunu.jpg'
+        }
+    ];
 }
 
 export async function getBlogPost(slugOrId: string): Promise<BlogPost | undefined> {
@@ -263,3 +311,23 @@ export async function getReferences(): Promise<Reference[]> {
 export async function saveReference(ref: Reference) { }
 
 export async function deleteReference(id: string) { }
+
+// --- HELPERS ---
+export function getCategoryTree(categories: Category[]) {
+    const map: { [key: string]: any } = {};
+    const tree: any[] = [];
+
+    categories.forEach(cat => {
+        map[cat.id] = { ...cat, children: [] };
+    });
+
+    categories.forEach(cat => {
+        if (cat.parentId && map[cat.parentId]) {
+            map[cat.parentId].children.push(map[cat.id]);
+        } else {
+            tree.push(map[cat.id]);
+        }
+    });
+
+    return tree;
+}

@@ -201,3 +201,286 @@ button {
         min-width: 48px;
     }
 }
+
+/* ── SITE HEADER (sh-) ── */
+.sh-root {
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+}
+
+.sh-top-bar {
+    background-color: #1a1a1a;
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+}
+
+.sh-top-bar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.sh-top-bar-link {
+    color: #999 !important;
+    font-size: 13px;
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.sh-top-bar-link:hover {
+    color: #fdd835 !important;
+}
+
+.sh-main-header {
+    background-color: #ffffff;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.sh-main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sh-logo {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.sh-logo-bold {
+    font-size: 28px;
+    font-weight: 900;
+    color: #d32f2f;
+    line-height: 1;
+}
+
+.sh-logo-light {
+    font-size: 10px;
+    color: #666;
+    letter-spacing: 3px;
+    margin-top: 4px;
+}
+
+.sh-contacts {
+    display: flex;
+    gap: 35px;
+}
+
+.sh-contact-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sh-contact-icon {
+    width: 40px;
+    height: 40px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d32f2f;
+}
+
+.sh-contact-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sh-contact-label {
+    font-size: 11px;
+    color: #999;
+    font-weight: 600;
+}
+
+.sh-contact-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}
+
+.sh-nav-wrapper {
+    background-color: #1c1c1c;
+    position: relative; /* Added to anchor absolute panels */
+}
+
+.sh-nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.sh-nav-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.sh-nav-item {
+    position: static; /* Allows mega-panel to take full width of sh-nav-wrapper or sh-root */
+}
+
+.sh-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 15px;
+    color: #eee !important;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.sh-nav-link:hover, .sh-nav-link.active {
+    background-color: #252525;
+    color: #fdd835 !important;
+}
+
+.sh-mega-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    padding: 40px 0;
+    border-top: 2px solid #fdd835;
+    z-index: 9999;
+    
+    /* CSS-only Visibility toggle */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+}
+
+.sh-nav-item:hover .sh-mega-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.sh-mega-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: grid;
+    gap: 40px;
+}
+
+.sh-mega-col-title {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+    color: #222 !important;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d32f2f;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.sh-mega-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sh-mega-link-item {
+    color: #555 !important;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.sh-mega-link-item:hover {
+    color: #d32f2f !important;
+    padding-left: 8px;
+}
+
+.sh-simple-panel {
+    position: absolute;
+    top: 100%;
+    background: #fff;
+    min-width: 240px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-top: 3px solid #d32f2f;
+    padding: 15px 0;
+    z-index: 9999;
+
+    /* CSS-only Visibility toggle */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+}
+
+.sh-nav-item:hover .sh-simple-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.sh-simple-link {
+    display: block;
+    padding: 12px 25px;
+    color: #333 !important;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.sh-simple-link:hover {
+    background: #f9f9f9;
+    color: #d32f2f !important;
+    padding-left: 30px;
+}
+
+.sh-toggle {
+    display: none;
+    padding: 10px;
+}
+
+@media (max-width: 992px) {
+    .sh-contacts, .sh-top-bar { display: none !important; }
+    .sh-toggle { display: block !important; }
+    .sh-nav-wrapper {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #1c1c1c;
+    }
+    .sh-nav-wrapper.isOpen { display: block !important; }
+    .sh-nav-list { flex-direction: column !important; }
+    .sh-mega-panel, .sh-simple-panel {
+        position: static !important;
+        display: block !important;
+        padding: 10px 20px !important;
+        background: #151515 !important;
+        box-shadow: none !important;
+    }
+    .sh-mega-grid { grid-template-columns: 1fr !important; }
+    .sh-mega-link-item, .sh-simple-link { color: #aaa !important; }
+    .sh-mega-col-title { color: #fdd835 !important; }
+}

@@ -5,7 +5,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsapp from '@/components/FloatingWhatsapp';
-import * as store from '@/lib/store';
+import { getCategories, getSettings } from '@/lib/store';
 
 const roboto = Roboto({
   weight: ['400', '500', '700'],
@@ -32,8 +32,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await store.getSettings();
-  const menuData = settings.headerMenu || [];
+  const categories = await getCategories();
+  const settings = await getSettings();
 
   return (
     <html lang="tr">
@@ -71,11 +71,11 @@ export default async function RootLayout({
         />
       </head>
       <body className={roboto.className}>
-        <Header menuData={menuData} />
+        <Header categories={categories} />
         <main>
           {children}
         </main>
-        <Footer />
+        <Footer categories={categories} settings={settings} />
         <FloatingWhatsapp />
       </body>
     </html>
