@@ -249,7 +249,7 @@ export default function Header({ categories }: HeaderProps) {
                     background: '#fff',
                     boxShadow: '0 20px 50px rgba(0,0,0,0.18)',
                     borderTop: '3px solid #d32f2f',
-                    zIndex: 50,
+                    zIndex: 999,
                     opacity: 0,
                     visibility: 'hidden',
                     pointerEvents: 'none',
@@ -283,20 +283,29 @@ export default function Header({ categories }: HeaderProps) {
                           >
                             {col.heading}
                           </Link>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
                             {col.links.map(link => (
                               <Link
                                 key={link.href}
                                 href={link.href}
                                 style={{
                                   fontSize: 14,
-                                  color: '#555',
+                                  color: '#333',
                                   textDecoration: 'none',
-                                  fontWeight: 500,
-                                  transition: 'color 0.15s, padding-left 0.15s',
-                                  display: 'block',
+                                  fontWeight: 600,
+                                  backgroundColor: '#f8f9fa',
+                                  padding: '16px 12px',
+                                  borderRadius: '8px',
+                                  border: '1px solid #eaeaea',
+                                  transition: 'all 0.2s ease',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  textAlign: 'center',
+                                  minHeight: '70px',
+                                  boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
                                 }}
-                                className="mega-link"
+                                className="mega-card-link"
                               >
                                 {link.label}
                               </Link>
@@ -342,6 +351,13 @@ export default function Header({ categories }: HeaderProps) {
         .mega-link:hover {
           color: #d32f2f !important;
           padding-left: 6px !important;
+        }
+        .mega-card-link:hover {
+          background-color: #fff !important;
+          border-color: #d32f2f !important;
+          color: #d32f2f !important;
+          box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15) !important;
+          transform: translateY(-2px);
         }
         @media (max-width: 1024px) {
           .nav-mobile-toggle { display: block !important; }
