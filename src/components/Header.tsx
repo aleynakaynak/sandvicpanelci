@@ -22,8 +22,8 @@ const NAV = [
         heading: 'Çatı Panelleri',
         href: '/cati-panelleri',
         links: [
-          { label: 'PUR/PIR Yalıtımlı', href: '/cati-panelleri/pur-yalitimli' },
-          { label: 'Mineral Yün Yalıtımlı', href: '/cati-panelleri/mineral-yun-yalitimli' },
+          { label: 'PUR/PIR Yalıtımlı Çatı Panelleri', href: '/cati-panelleri/pur-yalitimli' },
+          { label: 'Mineral Yün Yalıtımlı Çatı Panelleri', href: '/cati-panelleri/mineral-yun-yalitimli' },
           { label: 'Ekonomik Çatı Panel', href: '/cati-panelleri/ekonomik' },
         ],
       },
@@ -31,8 +31,8 @@ const NAV = [
         heading: 'Cephe Panelleri',
         href: '/cephe-panelleri',
         links: [
-          { label: 'PUR/PIR Yalıtımlı', href: '/cephe-panelleri/pur-yalitimli' },
-          { label: 'Mineral Yün Yalıtımlı', href: '/cephe-panelleri/mineral-yun-yalitimli' },
+          { label: 'PUR/PIR Yalıtımlı Cephe Panelleri', href: '/cephe-panelleri/pur-yalitimli' },
+          { label: 'Mineral Yün Yalıtımlı Cephe Panelleri', href: '/cephe-panelleri/mineral-yun-yalitimli' },
           { label: 'Ekonomik Cephe Panel', href: '/cephe-panelleri/ekonomik' },
         ],
       },
