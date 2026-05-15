@@ -70,7 +70,6 @@ const categoryDataMap: Record<string, { name: string, img: string, link: string 
 };
 
 const sideMenuResponse = [
-    { title: 'Çatı Kaplama Malzemeleri', link: '/cati-kaplama' },
     { title: 'Aksesuar – Ek Ürünler', link: '/aksesuar' },
     { title: 'Isı Yalıtım', link: '/isi-yalitim' },
     { title: 'Su Yalıtım', link: '/su-yalitim' },
