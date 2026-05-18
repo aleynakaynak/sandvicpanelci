@@ -3,171 +3,199 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Phone, MapPin, ChevronDown } from 'lucide-react';
-import { Category } from '@/lib/types';
+import { Menu, X, Phone, MapPin, ChevronDown, ChevronRight, ArrowRight, Layers, Building2, Trees, Droplets, Wrench, Package, Briefcase } from 'lucide-react';
 
-interface HeaderProps {
-  categories?: Category[];
-}
-
-// ─── NAV STRUCTURE ───────────────────────────────────────────────────────────
-// Bu yapı kesindir. Değiştirilmez.
+// ─── STATİK MENÜ VERİSİ ──────────────────────────────────────
 const NAV = [
   {
-    id: 'sandvic-panel',
-    label: 'Sandviç Panel Kaplama Malzemeleri',
-    href: '/cati-panelleri',
-    cols: [
+    id: 1, label: 'Sandviç Panel Kaplama Malzemeleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri', type: 'sandvic',
+    icon: <Layers size={14} />,
+    columns: [
       {
-        heading: 'Çatı Panelleri',
-        href: '/cati-panelleri',
+        id: 7, label: 'Çatı Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri',
         links: [
-          { label: 'PUR/PIR Yalıtımlı Çatı Panelleri', href: '/cati-panelleri/pur-yalitimli' },
-          { label: 'Mineral Yün Yalıtımlı Çatı Panelleri', href: '/cati-panelleri/mineral-yun-yalitimli' },
-          { label: 'Ekonomik Çatı Panel', href: '/cati-panelleri/ekonomik' },
+          { label: 'PUR/PIR Yalıtımlı Çatı Panelleri',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri' },
+          { label: 'Mineral Yün Yalıtımlı Çatı Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri' },
+          { label: 'Ekonomik Çatı Panel',                   href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel' },
         ],
       },
       {
-        heading: 'Cephe Panelleri',
-        href: '/cephe-panelleri',
+        id: 8, label: 'Cephe Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri',
         links: [
-          { label: 'PUR/PIR Yalıtımlı Cephe Panelleri', href: '/cephe-panelleri/pur-yalitimli' },
-          { label: 'Mineral Yün Yalıtımlı Cephe Panelleri', href: '/cephe-panelleri/mineral-yun-yalitimli' },
-          { label: 'Ekonomik Cephe Panel', href: '/cephe-panelleri/ekonomik' },
+          { label: 'PUR/PIR Yalıtımlı Cephe Panelleri',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri' },
+          { label: 'Mineral Yün Yalıtımlı Cephe Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/mineral-yun-yalitimli-cephe-panelleri' },
+          { label: 'Ekonomik Cephe Panel',                   href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/ekonomik-cephe-panel' },
         ],
       },
     ],
   },
   {
-    id: 'trapez-saclar',
-    label: 'Trapez Saclar',
-    href: '/trapez-saclar',
-    cols: [
+    id: 2, label: 'Trapez Saclar', href: '/urunler/trapez-saclar', type: 'list',
+    icon: <Building2 size={14} />,
+    links: [
+      { label: 'Kenet Levhalar',  href: '/urunler/trapez-saclar/kenet-levhalar' },
+      { label: 'Rulo Bobin Sac',  href: '/urunler/trapez-saclar/rulo-bobin-sac' },
+      { label: '27/200 – 1000',   href: '/urunler/trapez-saclar/27-200-1000' },
+      { label: '38/151 – 906',    href: '/urunler/trapez-saclar/38-151-906' },
+      { label: '55/300 – 900',    href: '/urunler/trapez-saclar/55-300-900' },
+    ],
+  },
+  {
+    id: 3, label: 'OSB ve Plywood', href: '/urunler/osb-ve-plywood', type: 'list',
+    icon: <Trees size={14} />,
+    links: [
+      { label: 'OSB',     href: '/urunler/osb-ve-plywood/osb' },
+      { label: 'Plywood', href: '/urunler/osb-ve-plywood/plywood' },
+    ],
+  },
+  {
+    id: 4, label: 'Yalıtım Malzemeleri', href: '/urunler/yalitim-malzemeleri', type: 'yalitim',
+    icon: <Droplets size={14} />,
+    columns: [
       {
-        heading: 'Trapez Saclar',
-        href: '/trapez-saclar',
+        id: 16, label: 'Isı Yalıtımı', href: '/urunler/yalitim-malzemeleri/isi-yalitimi',
+        accent: '#e65100',
         links: [
-          { label: 'Kenet Levhalar', href: '/trapez-saclar/kenet-levhalar' },
-          { label: 'Rulo Bobin Sac', href: '/trapez-saclar/rulo-bobin-sac' },
-          { label: '27/200 – 1000', href: '/trapez-saclar/27-200' },
-          { label: '38/151 – 906', href: '/trapez-saclar/38-151' },
-          { label: '55/300 – 900', href: '/trapez-saclar/55-300' },
+          { label: 'Taşyünü', href: '/urunler/yalitim-malzemeleri/isi-yalitimi/tasyunu' },
+          { label: 'XPS',     href: '/urunler/yalitim-malzemeleri/isi-yalitimi/xps' },
+          { label: 'Camyünü', href: '/urunler/yalitim-malzemeleri/isi-yalitimi/camyunu' },
+          { label: 'EPS',     href: '/urunler/yalitim-malzemeleri/isi-yalitimi/eps' },
+        ],
+      },
+      {
+        id: 17, label: 'Su Yalıtımı', href: '/urunler/yalitim-malzemeleri/su-yalitimi',
+        accent: '#1565c0',
+        links: [
+          { label: 'Membran',         href: '/urunler/yalitim-malzemeleri/su-yalitimi/membran' },
+          { label: 'Likit Membran',   href: '/urunler/yalitim-malzemeleri/su-yalitimi/likit-membran' },
+          { label: 'Desenli Membran', href: '/urunler/yalitim-malzemeleri/su-yalitimi/desenli-membran' },
         ],
       },
     ],
   },
   {
-    id: 'osb-plywood',
-    label: 'OSB ve Plywood',
-    href: '/osb-plywood',
-    cols: [
-      {
-        heading: 'OSB ve Plywood',
-        href: '/osb-plywood',
-        links: [
-          { label: 'OSB', href: '/osb-plywood/osb' },
-          { label: 'Plywood', href: '/osb-plywood/plywood' },
-        ],
-      },
+    id: 5, label: 'Boyalı Profiller ve Galvanizli Saclar', href: '/urunler/boyali-profiller-galvanizli-saclar', type: 'list',
+    icon: <Wrench size={14} />,
+    links: [
+      { label: 'Boyalı Profiller',  href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller' },
+      { label: 'Galvanizli Saclar', href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar' },
     ],
   },
   {
-    id: 'yalitim',
-    label: 'Yalıtım Malzemeleri',
-    href: '/yalitim-malzemeleri',
-    cols: [
-      {
-        heading: 'Isı Yalıtımı',
-        href: '/isi-yalitimi',
-        links: [
-          { label: 'Taşyünü', href: '/isi-yalitimi/tasyunu' },
-          { label: 'XPS', href: '/isi-yalitimi/xps' },
-          { label: 'Camyünü', href: '/isi-yalitimi/camyunu' },
-          { label: 'EPS', href: '/isi-yalitimi/eps' },
-        ],
-      },
-      {
-        heading: 'Su Yalıtımı',
-        href: '/su-yalitimi',
-        links: [
-          { label: 'Mebran', href: '/su-yalitimi/mebran' },
-          { label: 'Likit Mebran', href: '/su-yalitimi/likit-mebran' },
-          { label: 'Desenli Mebran', href: '/su-yalitimi/desenli-mebran' },
-        ],
-      },
+    id: 6, label: 'Aksesuarlar ve Ek Ürünler', href: '/urunler/aksesuarlar-ve-ek-urunler', type: 'list',
+    icon: <Package size={14} />,
+    links: [
+      { label: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar' },
+      { label: 'Çatı Çıkış Kapakları', href: '/urunler/aksesuarlar-ve-ek-urunler/cati-cikis-kapaklari' },
     ],
   },
-  {
-    id: 'profil-sac',
-    label: 'Boyalı Profiller ve Galvanizli Saclar',
-    href: '/profil-sac',
-    cols: [
-      {
-        heading: 'Profiller ve Saclar',
-        href: '/profil-sac',
-        links: [
-          { label: 'Boyalı Profiller', href: '/profil-sac/boyali-profil' },
-          { label: 'Galvanizli Saclar', href: '/profil-sac/galvaniz-sac' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'aksesuar',
-    label: 'Aksesuarlar ve Ek Ürünler',
-    href: '/aksesuar',
-    cols: [
-      {
-        heading: 'Aksesuarlar',
-        href: '/aksesuar',
-        links: [
-          { label: 'Vidalar', href: '/aksesuar/vidalar' },
-          { label: 'Çatı Çıkış Kapakları', href: '/aksesuar/cati-cikis-kapaklari' },
-        ],
-      },
-    ],
-  },
-];
+] as const;
 
-export default function Header({ categories }: HeaderProps) {
+const KURUMSAL = {
+  id: 7, label: 'Kurumsal & Araçlar', href: '/about', type: 'list',
+  icon: <Briefcase size={14} />,
+  links: [
+    { label: 'Maliyet Hesaplama', href: '/hesaplama' },
+    { label: 'Hakkımızda',        href: '/about' },
+    { label: 'İletişim',          href: '/contact' },
+    { label: 'Blog',              href: '/blog' },
+  ],
+} as const;
+
+export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted]       = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   if (pathname?.startsWith('/admin')) return null;
+
+  // ── Mega panel içeriği ─────────────────────────────────────
+  function MegaContent({ item }: { item: typeof NAV[number] | typeof KURUMSAL }) {
+    if (item.type === 'sandvic') {
+      const it = item as typeof NAV[0];
+      return (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
+          {it.columns.map(col => (
+            <div key={col.id}>
+              <Link href={col.href} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 12, fontWeight: 900, color: '#111', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: 0.5, paddingBottom: 12, marginBottom: 14, borderBottom: '2px solid #d32f2f' }}>
+                {col.label} <ArrowRight size={12} color="#d32f2f" />
+              </Link>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10 }}>
+                {col.links.map(lk => (
+                  <Link key={lk.href} href={lk.href} className="hdr-box" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '14px 8px', gap: 8, borderRadius: 10, border: '1.5px solid #eee', background: '#fafafa', textDecoration: 'none', transition: 'all 0.18s' }}>
+                    <div style={{ width: 38, height: 38, borderRadius: 8, background: '#fff3f3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Layers size={17} color="#d32f2f" />
+                    </div>
+                    <span style={{ fontSize: 10.5, fontWeight: 800, color: '#333', lineHeight: 1.4 }}>{lk.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (item.type === 'yalitim') {
+      const it = item as typeof NAV[3];
+      return (
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
+          {it.columns.map(col => (
+            <div key={col.id}>
+              <Link href={col.href} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 12, fontWeight: 900, color: '#111', textDecoration: 'none', textTransform: 'uppercase', letterSpacing: 0.5, paddingBottom: 12, marginBottom: 12, borderBottom: `2px solid ${col.accent}` }}>
+                {col.label} <ArrowRight size={12} color={col.accent} />
+              </Link>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {col.links.map(lk => (
+                  <Link key={lk.href} href={lk.href} className="hdr-link" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 12px', borderRadius: 7, fontSize: 13, fontWeight: 600, color: '#444', textDecoration: 'none', transition: 'all 0.14s' }}>
+                    <ChevronRight size={12} color={col.accent} style={{ flexShrink: 0 }} />
+                    {lk.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    // list type
+    const it = item as typeof NAV[1];
+    return (
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 20px', display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+        {it.links.map(lk => (
+          <Link key={lk.href} href={lk.href} className="hdr-link" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px', borderRadius: 7, fontSize: 13, fontWeight: 600, color: '#444', textDecoration: 'none', transition: 'all 0.14s', minWidth: 160 }}>
+            <ChevronRight size={12} color="#d32f2f" style={{ flexShrink: 0 }} />
+            {lk.label}
+          </Link>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <header style={{ position: 'relative', zIndex: 1000 }}>
 
-      {/* ── TOP BAR ── */}
+      {/* TOP BAR */}
       <div style={{ background: '#111', padding: '6px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', display: 'flex', justifyContent: 'flex-end', gap: 24 }}>
-          <Link href="/blog" style={{ color: '#aaa', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>Blog</Link>
-          <Link href="/about" style={{ color: '#aaa', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>Hakkımızda</Link>
+          <Link href="/blog"    style={{ color: '#aaa', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>Blog</Link>
+          <Link href="/about"   style={{ color: '#aaa', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>Hakkımızda</Link>
           <Link href="/contact" style={{ color: '#aaa', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>İletişim</Link>
         </div>
       </div>
 
-      {/* ── MAIN HEADER (Logo + Contact) ── */}
+      {/* MAIN HEADER */}
       <div style={{ background: '#fff', borderBottom: '1px solid #eee', padding: '16px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-
-          {/* Logo */}
           <Link href="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
             <span style={{ fontSize: 28, fontWeight: 900, color: '#d32f2f', letterSpacing: -1 }}>SANDVİÇ</span>
             <span style={{ fontSize: 13, fontWeight: 400, color: '#555', letterSpacing: 4 }}>PANELCİ</span>
           </Link>
-
-          {/* Contact blocks */}
-          <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 32, alignItems: 'center' }} className="hdr-contacts">
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#fff3f3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Phone size={18} color="#d32f2f" />
@@ -187,201 +215,75 @@ export default function Header({ categories }: HeaderProps) {
               </div>
             </div>
           </div>
-
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setMobileOpen(o => !o)}
-            style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 8 }}
-            className="nav-mobile-toggle"
-            aria-label="Menü"
-          >
+          <button onClick={() => setMobileOpen(o => !o)} className="hdr-toggle" style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 8 }} aria-label="Menü">
             {mobileOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* ── NAV BAR ── */}
-      <nav
-        style={{
-          background: '#1c1c1c',
-          position: 'relative',
-          zIndex: 50,
-        }}
-        className={`nav-wrapper${mobileOpen ? ' nav-open' : ''}`}
-      >
+      {/* NAV BAR */}
+      <nav style={{ background: '#1c1c1c', position: 'relative', zIndex: 50 }} className={`hdr-nav${mobileOpen ? ' hdr-open' : ''}`}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
-          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'row', margin: 0, padding: 0 }} className="nav-list">
+          <ul style={{ listStyle: 'none', display: 'flex', margin: 0, padding: 0 }} className="hdr-list">
 
             {NAV.map(item => (
-              <li key={item.id} style={{ position: 'static' }} className="nav-item">
-
-                {/* Top-level label */}
+              <li key={item.id} style={{ position: 'static' }} className="hdr-item">
                 <Link
                   href={item.href}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    padding: '18px 14px',
-                    color: '#eee',
-                    fontSize: 13,
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    textDecoration: 'none',
-                    whiteSpace: 'nowrap',
-                    letterSpacing: 0.3,
-                    transition: 'color 0.2s, background 0.2s',
-                  }}
-                  className={`nav-link${pathname === item.href ? ' nav-active' : ''}`}
+                  style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '17px 12px', color: '#eee', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap', letterSpacing: 0.3, transition: 'color 0.18s, background 0.18s' }}
+                  className={`hdr-link${pathname === item.href ? ' hdr-active' : ''}`}
                 >
                   {item.label}
-                  <ChevronDown size={12} style={{ opacity: 0.5, flexShrink: 0 }} />
+                  <ChevronDown size={11} style={{ opacity: 0.5 }} />
                 </Link>
 
-                {/* ── MEGA PANEL ── */}
+                {/* Mega Panel */}
                 {mounted && (
-                  <div className="mega-panel" style={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: 0,
-                    right: 0,
-                    width: '100%',
-                    background: '#fff',
-                    boxShadow: '0 20px 50px rgba(0,0,0,0.18)',
-                    borderTop: '3px solid #d32f2f',
-                    zIndex: 999,
-                    opacity: 0,
-                    visibility: 'hidden',
-                    pointerEvents: 'none',
-                    transform: 'translateY(8px)',
-                    transition: 'opacity 0.22s ease, transform 0.22s ease, visibility 0.22s',
-                  }}>
-                    <div style={{
-                      maxWidth: 1200,
-                      margin: '0 auto',
-                      padding: '36px 20px',
-                      display: 'grid',
-                      gridTemplateColumns: `repeat(${item.cols.length}, 1fr)`,
-                      gap: 48,
-                    }}>
-                      {item.cols.map(col => (
-                        <div key={col.heading}>
-                          <Link
-                            href={col.href}
-                            style={{
-                              display: 'block',
-                              fontSize: 14,
-                              fontWeight: 800,
-                              color: '#111',
-                              textDecoration: 'none',
-                              textTransform: 'uppercase',
-                              letterSpacing: 0.5,
-                              paddingBottom: 12,
-                              marginBottom: 16,
-                              borderBottom: '2px solid #d32f2f',
-                            }}
-                          >
-                            {col.heading}
-                          </Link>
-                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-                            {col.links.map(link => (
-                              <Link
-                                key={link.href}
-                                href={link.href}
-                                style={{
-                                  fontSize: 14,
-                                  color: '#333',
-                                  textDecoration: 'none',
-                                  fontWeight: 600,
-                                  backgroundColor: '#f8f9fa',
-                                  padding: '16px 12px',
-                                  borderRadius: '8px',
-                                  border: '1px solid #eaeaea',
-                                  transition: 'all 0.2s ease',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  textAlign: 'center',
-                                  minHeight: '70px',
-                                  boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
-                                }}
-                                className="mega-card-link"
-                              >
-                                {link.label}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                  <div className="hdr-mega" style={{ position: 'absolute', top: '100%', left: 0, right: 0, width: '100%', background: '#fff', boxShadow: '0 20px 50px rgba(0,0,0,0.15)', borderTop: '3px solid #d32f2f', zIndex: 9999, opacity: 0, visibility: 'hidden', pointerEvents: 'none', transform: 'translateY(8px)', transition: 'opacity 0.2s, transform 0.2s, visibility 0.2s' }}>
+                    <MegaContent item={item} />
                   </div>
                 )}
               </li>
             ))}
 
-            {/* Kurumsal */}
-            <li style={{ position: 'static', marginLeft: 'auto' }} className="nav-item">
+            {/* Kurumsal (sağ) */}
+            <li style={{ position: 'static', marginLeft: 'auto' }} className="hdr-item">
               <Link
-                href="/about"
-                style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '18px 14px', color: '#eee', fontSize: 13, fontWeight: 700, textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'color 0.2s, background 0.2s' }}
-                className="nav-link"
+                href={KURUMSAL.href}
+                style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '17px 12px', color: '#fdd835', fontSize: 12.5, fontWeight: 700, textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap', transition: 'color 0.18s' }}
+                className="hdr-link"
               >
-                Kurumsal
+                {KURUMSAL.label}
+                <ChevronDown size={11} style={{ opacity: 0.5 }} />
               </Link>
+              {mounted && (
+                <div className="hdr-mega" style={{ position: 'absolute', top: '100%', left: 0, right: 0, width: '100%', background: '#fff', boxShadow: '0 20px 50px rgba(0,0,0,0.15)', borderTop: '3px solid #d32f2f', zIndex: 9999, opacity: 0, visibility: 'hidden', pointerEvents: 'none', transform: 'translateY(8px)', transition: 'opacity 0.2s, transform 0.2s, visibility 0.2s' }}>
+                  <MegaContent item={KURUMSAL} />
+                </div>
+              )}
             </li>
           </ul>
         </div>
       </nav>
 
-      {/* ── INLINE CSS (CSS-only hover, mobile) ── */}
       <style>{`
-        .nav-item:hover .mega-panel {
-          opacity: 1 !important;
-          visibility: visible !important;
-          pointer-events: auto !important;
-          transform: translateY(0) !important;
-        }
-        .nav-link:hover {
-          background: #2a2a2a !important;
-          color: #fdd835 !important;
-        }
-        .nav-active {
-          color: #fdd835 !important;
-        }
-        .mega-link:hover {
-          color: #d32f2f !important;
-          padding-left: 6px !important;
-        }
-        .mega-card-link:hover {
-          background-color: #fff !important;
-          border-color: #d32f2f !important;
-          color: #d32f2f !important;
-          box-shadow: 0 4px 12px rgba(211, 47, 47, 0.15) !important;
-          transform: translateY(-2px);
-        }
-        @media (max-width: 1024px) {
-          .nav-mobile-toggle { display: block !important; }
-          .nav-wrapper { display: none; }
-          .nav-wrapper.nav-open { display: block !important; }
-          .nav-list { flex-direction: column !important; }
-          .mega-panel {
-            position: static !important;
-            display: none !important;
-            background: #151515 !important;
-            box-shadow: none !important;
-            border-top: none !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            transform: none !important;
-            padding: 10px 20px !important;
-          }
-          .nav-item:hover .mega-panel { display: block !important; }
-        }
-        @media (max-width: 1024px) {
-          header > div:nth-child(2) > div > div:nth-child(2) { display: none; }
+        .hdr-item:hover .hdr-mega { opacity:1!important; visibility:visible!important; pointer-events:auto!important; transform:translateY(0)!important; }
+        .hdr-link:hover { background:#2a2a2a!important; color:#fdd835!important; }
+        .hdr-active { color:#fdd835!important; }
+        .hdr-box:hover { background:#fff3f3!important; border-color:#d32f2f!important; transform:translateY(-2px); box-shadow:0 6px 18px rgba(211,47,47,0.12)!important; }
+        .hdr-box:hover span { color:#d32f2f!important; }
+        .hdr-link-item:hover,.hdr-link:hover { background:#fff8f8!important; color:#d32f2f!important; }
+        .hdr-link:hover { background:#fff3f3!important; color:#d32f2f!important; }
+        @media(max-width:1024px){
+          .hdr-toggle{ display:block!important; }
+          .hdr-nav{ display:none; }
+          .hdr-nav.hdr-open{ display:block!important; }
+          .hdr-list{ flex-direction:column!important; }
+          .hdr-mega{ position:static!important; display:none!important; }
+          .hdr-item:hover .hdr-mega{ display:block!important; }
+          .hdr-contacts{ display:none!important; }
         }
       `}</style>
-
     </header>
   );
 }

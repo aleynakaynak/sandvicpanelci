@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroSlider from '@/components/HeroSlider';
 import StartCategories from '@/components/StartCategories';
+import HomeQuickShowcase from '@/components/HomeQuickShowcase';
 import BrandCarousel from '@/components/BrandCarousel';
 import { Truck, ShieldCheck, CheckCircle, Star } from 'lucide-react';
 import styles from './page.module.css';
@@ -25,6 +26,9 @@ export default async function Home() {
 
       {/* Category Grid Section */}
       <StartCategories />
+
+      {/* Hızlı Vitrin */}
+      <HomeQuickShowcase />
 
       <div className="container">
 

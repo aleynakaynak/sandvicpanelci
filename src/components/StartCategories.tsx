@@ -1,153 +1,382 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Plus, Minus } from 'lucide-react';
-import styles from './StartCategories.module.css';
+import { LayoutGrid, ChevronDown, ChevronRight, ArrowRight, X, Layers, Building2, Trees, Droplets, Wrench, Package, Briefcase } from 'lucide-react';
 
-const defaultCategories = [
-    { name: 'Osb Levha', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
-    { name: 'Sandviç Panel', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel' },
-    { name: 'Sandviç Panel (Antrasit)', img: '/images/products/sandvic-panel-antrasit.jpg', link: '/sandvic-panel-antrasit' },
-    { name: 'Shingle', img: '/images/products/shingle.jpg', link: '/shingle' },
-    { name: 'Plywood', img: '/images/products/plywood.jpg', link: '/plywood' },
-
-    { name: 'Camyünü', img: '/images/products/cam-yunu.jpg', link: '/camyunu' },
-    { name: 'Boyalı Profil', img: '/images/products/boyali-profil.jpg', link: '/profil-sac' },
-    { name: 'Trapez Sac 0.50mm', img: '/images/products/trapez-sac.jpg', link: '/trapez-sac' },
-    { name: 'Betopan', img: '/images/products/betopan.jpg', link: '/betopan' },
-    { name: 'Taşyünü', img: '/images/products/tas-yunu.jpg', link: '/tasyunu' },
-    { name: 'Xps-Foamboard', img: '/images/products/xps.jpg', link: '/xps' },
-    { name: 'Membran', img: '/images/products/membran.jpg', link: '/membran' },
-    { name: 'Boardex', img: '/images/products/boardex.jpg', link: '/boardex' },
-];
-
-const categoryDataMap: Record<string, { name: string, img: string, link: string }[]> = {
-    '/cati-kaplama': [
-        { name: 'Sandviç Panel', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel' },
-        { name: 'Sandviç Panel (Antrasit)', img: '/images/products/sandvic-panel-antrasit.jpg', link: '/sandvic-panel-antrasit' },
-        { name: 'Osb Levha 11mm', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
-        { name: 'Shingle', img: '/images/products/shingle.jpg', link: '/shingle' },
-        { name: 'Polikarbon Levha Fiyatları', img: '/images/products/polikarbon.jpg', link: '/polyester' },
-        { name: 'Eternit', img: '/images/products/eternit.jpg', link: '/eternit' },
-        { name: 'Onduline', img: '/images/products/onduline.jpg', link: '/onduline' }
+// ─── STATİK MENÜ YAPISI (DB'den bağımsız, garantili) ─────────
+const MENU = [
+  {
+    id: 1, slug: 'sandvic', label: 'Sandviç Panel Kaplama Malzemeleri',
+    href: '/urunler/sandvic-panel-kaplama-malzemeleri', type: 'sandvic',
+    icon: <Layers size={15} />,
+    columns: [
+      {
+        id: 7, label: 'Çatı Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri',
+        links: [
+          { label: 'PUR/PIR Yalıtımlı Çatı Panelleri',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri' },
+          { label: 'Mineral Yün Yalıtımlı Çatı Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri' },
+          { label: 'Ekonomik Çatı Panel',                   href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel' },
+        ],
+      },
+      {
+        id: 8, label: 'Cephe Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri',
+        links: [
+          { label: 'PUR/PIR Yalıtımlı Cephe Panelleri',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri' },
+          { label: 'Mineral Yün Yalıtımlı Cephe Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/mineral-yun-yalitimli-cephe-panelleri' },
+          { label: 'Ekonomik Cephe Panel',                   href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/ekonomik-cephe-panel' },
+        ],
+      },
     ],
-    '/isi-yalitim': [
-        { name: 'Taşyünü', img: '/images/products/tas-yunu.jpg', link: '/tasyunu' },
-        { name: 'Camyünü', img: '/images/products/cam-yunu.jpg', link: '/camyunu' },
-        { name: 'Xps-Foamboard', img: '/images/products/xps.jpg', link: '/xps' },
-        { name: 'Strafor EPS', img: '/images/products/eps.jpg', link: '/strafor' },
+  },
+  {
+    id: 2, slug: 'trapez', label: 'Trapez Saclar',
+    href: '/urunler/trapez-saclar', type: 'list',
+    icon: <Building2 size={15} />,
+    links: [
+      { label: 'Kenet Levhalar',  href: '/urunler/trapez-saclar/kenet-levhalar' },
+      { label: 'Rulo Bobin Sac',  href: '/urunler/trapez-saclar/rulo-bobin-sac' },
+      { label: '27/200 – 1000',   href: '/urunler/trapez-saclar/27-200-1000' },
+      { label: '38/151 – 906',    href: '/urunler/trapez-saclar/38-151-906' },
+      { label: '55/300 – 900',    href: '/urunler/trapez-saclar/55-300-900' },
     ],
-    '/su-yalitim': [
-        { name: 'Membran', img: '/images/products/membran.jpg', link: '/membran' },
-        { name: 'Desenli Membran', img: '/images/products/desenli-membran.jpg', link: '/desenli-membran' },
-        { name: 'Likit Membran', img: '/images/products/likit-membran.jpg', link: '/likit-membran' },
+  },
+  {
+    id: 3, slug: 'osb', label: 'OSB ve Plywood',
+    href: '/urunler/osb-ve-plywood', type: 'list',
+    icon: <Trees size={15} />,
+    links: [
+      { label: 'OSB',     href: '/urunler/osb-ve-plywood/osb' },
+      { label: 'Plywood', href: '/urunler/osb-ve-plywood/plywood' },
     ],
-    '/duvar-cephe': [
-        { name: 'Betopan', img: '/images/products/betopan.jpg', link: '/betopan' },
-        { name: 'Cephe Panel', img: '/images/products/sandvic-panel.jpg', link: '/cephe-panel' },
-        { name: 'Alçıpan', img: '/images/products/alcipan.jpg', link: '/alcipan' },
-        { name: 'Boardex', img: '/images/products/boardex.jpg', link: '/boardex' },
+  },
+  {
+    id: 4, slug: 'yalitim', label: 'Yalıtım Malzemeleri',
+    href: '/urunler/yalitim-malzemeleri', type: 'yalitim',
+    icon: <Droplets size={15} />,
+    columns: [
+      {
+        id: 16, label: 'Isı Yalıtımı', href: '/urunler/yalitim-malzemeleri/isi-yalitimi',
+        accent: '#e65100', accentBg: '#fff3e0',
+        links: [
+          { label: 'Taşyünü', href: '/urunler/yalitim-malzemeleri/isi-yalitimi/tasyunu' },
+          { label: 'XPS',     href: '/urunler/yalitim-malzemeleri/isi-yalitimi/xps' },
+          { label: 'Camyünü', href: '/urunler/yalitim-malzemeleri/isi-yalitimi/camyunu' },
+          { label: 'EPS',     href: '/urunler/yalitim-malzemeleri/isi-yalitimi/eps' },
+        ],
+      },
+      {
+        id: 17, label: 'Su Yalıtımı', href: '/urunler/yalitim-malzemeleri/su-yalitimi',
+        accent: '#1565c0', accentBg: '#e3f2fd',
+        links: [
+          { label: 'Membran',         href: '/urunler/yalitim-malzemeleri/su-yalitimi/membran' },
+          { label: 'Likit Membran',   href: '/urunler/yalitim-malzemeleri/su-yalitimi/likit-membran' },
+          { label: 'Desenli Membran', href: '/urunler/yalitim-malzemeleri/su-yalitimi/desenli-membran' },
+        ],
+      },
     ],
-    '/profil-sac': [
-        { name: 'Trapez Sac 0.50mm', img: '/images/products/trapez-sac.jpg', link: '/trapez-sac' },
-        { name: 'Boyalı Profil', img: '/images/products/boyali-profil.jpg', link: '/profil-sac' },
-        { name: 'Köşebent', img: '/images/products/kosebent.jpg', link: '/kosebent' },
-        { name: 'Kutu Profil', img: '/images/products/kutu-profil.jpg', link: '/kutu-profil' },
-        { name: 'Galvaniz Sac', img: '/images/products/galvaniz-sac.jpg', link: '/galvaniz-sac' },
+  },
+  {
+    id: 5, slug: 'boyali', label: 'Boyalı Profiller ve Galvanizli Saclar',
+    href: '/urunler/boyali-profiller-galvanizli-saclar', type: 'list',
+    icon: <Wrench size={15} />,
+    links: [
+      { label: 'Boyalı Profiller',  href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller' },
+      { label: 'Galvanizli Saclar', href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar' },
     ],
-    '/aksesuar': [
-        { name: 'Çatı Çıkış Kapakları', img: '/images/products/cati-cikis-kapagi.jpg', link: '/cati-cikis' },
-        { name: 'Vidalar', img: '/images/products/vidalar.jpg', link: '/vidalar' },
+  },
+  {
+    id: 6, slug: 'aksesuar', label: 'Aksesuarlar ve Ek Ürünler',
+    href: '/urunler/aksesuarlar-ve-ek-urunler', type: 'list',
+    icon: <Package size={15} />,
+    links: [
+      { label: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar' },
+      { label: 'Çatı Çıkış Kapakları', href: '/urunler/aksesuarlar-ve-ek-urunler/cati-cikis-kapaklari' },
     ],
-    '/ahsap-urunler': [
-        { name: 'Plywood', img: '/images/products/plywood.jpg', link: '/plywood' },
-        { name: 'Kereste', img: '/images/products/kereste.jpg', link: '/kereste' },
+  },
+  {
+    id: 7, slug: 'kurumsal', label: 'Kurumsal & Araçlar',
+    href: '/about', type: 'list',
+    icon: <Briefcase size={15} />,
+    links: [
+      { label: 'Maliyet Hesaplama', href: '/hesaplama' },
+      { label: 'Hakkımızda',        href: '/about' },
+      { label: 'İletişim',          href: '/contact' },
+      { label: 'Blog',              href: '/blog' },
     ],
-    '/polikarbon': [
-        { name: 'Polikarbon Levha', img: '/images/products/polikarbon.jpg', link: '/polikarbon' }
-    ]
-};
+  },
+] as const;
 
-const sideMenuResponse = [
-    { title: 'Aksesuar – Ek Ürünler', link: '/aksesuar' },
-    { title: 'Isı Yalıtım', link: '/isi-yalitim' },
-    { title: 'Su Yalıtım', link: '/su-yalitim' },
-    { title: 'Duvar ve Cephe Kaplama', link: '/duvar-cephe' },
-    { title: 'Ahşap Ürünler', link: '/ahsap-urunler' },
-    { title: 'Profil ve Galvaniz Sac', link: '/profil-sac' },
-    { title: 'Polikarbon Levha Fiyatları', link: '/polikarbon' } /* Assuming this is correct from screenshot */
-];
+// ─── Tip ─────────────────────────────────────────────────────
+type MenuItem = typeof MENU[number];
 
-const StartCategories = () => {
-    const [selectedLink, setSelectedLink] = useState<string | null>(null);
-
-    const displayCategories = selectedLink && categoryDataMap[selectedLink] 
-        ? categoryDataMap[selectedLink] 
-        : defaultCategories;
-
-    return (
-        <section className="section" style={{ backgroundColor: '#fff', padding: '60px 0' }}>
-            <div className="container">
-                <h2 style={{ textAlign: 'center', fontSize: '14px', letterSpacing: '1px', color: '#666', marginBottom: '40px', fontWeight: '700', textTransform: 'uppercase' }}>
-                    SANDVİÇ PANELCİ YAPI MARKET
-                </h2>
-
-                <div className={styles.layoutFlex}>
-
-                    {/* LEFT SIDE DRAWER MENU (Accordion style visuals as per screenshot) */}
-                    <div className={styles.leftSidebar}>
-                        {sideMenuResponse.map((item, i) => (
-                            <div 
-                                key={i} 
-                                onClick={() => setSelectedLink(item.link)}
-                                style={{
-                                    backgroundColor: selectedLink === item.link ? '#505a64' : '#343a40',
-                                    color: '#fff',
-                                    marginBottom: '2px',
-                                    padding: '12px 15px',
-                                    fontSize: '13px',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                    transition: 'background-color 0.2s'
-                                }}
-                            >
-                                <span style={{ color: 'white', textDecoration: 'none', flex: 1 }}>{item.title}</span>
-                                <Plus size={14} color="#fff" />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* RIGHT SIDE GRID */}
-                    <div className={styles.gridContainer}>
-                        {displayCategories.map((cat, idx) => (
-                            <Link key={idx} href={cat.link} style={{ textDecoration: 'none', textAlign: 'center' }}>
-                                {/* Image Container */}
-                                <div style={{
-                                    height: '160px',
-                                    backgroundColor: '#f5f5f5',
-                                    marginBottom: '10px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    overflow: 'hidden',
-                                    borderRadius: '6px',
-                                    transition: 'box-shadow 0.2s, transform 0.2s',
-                                }}>
-                                    <img src={cat.img} alt={cat.name} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                                </div>
-                                {/* Title */}
-                                <h3 style={{ fontSize: '14px', color: '#333', fontWeight: '600', fontFamily: 'inherit', lineHeight: '1.3' }}>{cat.name}</h3>
-                            </Link>
-                        ))}
-                    </div>
+// ─── Sandviç Panel Mega İçerik ───────────────────────────────
+function SandvicContent({ item, close }: { item: MenuItem & { type: 'sandvic' }; close: () => void }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36 }}>
+      {item.columns.map(col => (
+        <div key={col.id}>
+          <Link
+            href={col.href} onClick={close}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              fontSize: 12, fontWeight: 900, color: '#111', textDecoration: 'none',
+              textTransform: 'uppercase', letterSpacing: 0.6,
+              paddingBottom: 12, marginBottom: 14, borderBottom: '2px solid #d32f2f',
+            }}
+          >
+            {col.label}
+            <ArrowRight size={12} color="#d32f2f" />
+          </Link>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10 }}>
+            {col.links.map(lk => (
+              <Link
+                key={lk.href} href={lk.href} onClick={close}
+                className="sc-box"
+                style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'center',
+                  textAlign: 'center', padding: '14px 8px', gap: 10,
+                  borderRadius: 10, border: '1.5px solid #eee', background: '#fafafa',
+                  textDecoration: 'none', transition: 'all 0.2s', cursor: 'pointer',
+                }}
+              >
+                <div style={{
+                  width: 40, height: 40, borderRadius: 8, background: '#fff3f3',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: '0 2px 8px rgba(211,47,47,0.1)',
+                }}>
+                  <Layers size={18} color="#d32f2f" />
                 </div>
-            </div>
-        </section>
-    );
-};
+                <span style={{ fontSize: 10.5, fontWeight: 800, color: '#333', lineHeight: 1.4 }}>
+                  {lk.label}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
-export default StartCategories;
+// ─── Yalıtım Mega İçerik ─────────────────────────────────────
+function YalitimContent({ item, close }: { item: MenuItem & { type: 'yalitim' }; close: () => void }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36 }}>
+      {item.columns.map(col => (
+        <div key={col.id}>
+          <Link
+            href={col.href} onClick={close}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              fontSize: 12, fontWeight: 900, color: '#111', textDecoration: 'none',
+              textTransform: 'uppercase', letterSpacing: 0.6,
+              paddingBottom: 12, marginBottom: 12, borderBottom: `2px solid ${col.accent}`,
+            }}
+          >
+            {col.label}
+            <ArrowRight size={12} color={col.accent} />
+          </Link>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {col.links.map(lk => (
+              <Link
+                key={lk.href} href={lk.href} onClick={close}
+                className="sc-list"
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '9px 12px', borderRadius: 7,
+                  fontSize: 13, fontWeight: 600, color: '#444',
+                  textDecoration: 'none', transition: 'all 0.14s',
+                }}
+              >
+                <ChevronRight size={12} color={col.accent} style={{ flexShrink: 0 }} />
+                {lk.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── Liste Mega İçerik ───────────────────────────────────────
+function ListContent({ item, close }: { item: MenuItem & { type: 'list' }; close: () => void }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {item.links.map(lk => (
+        <Link
+          key={lk.href} href={lk.href} onClick={close}
+          className="sc-list"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 14px', borderRadius: 7,
+            fontSize: 13, fontWeight: 600, color: '#444',
+            textDecoration: 'none', transition: 'all 0.14s',
+          }}
+        >
+          <ChevronRight size={12} color="#d32f2f" style={{ flexShrink: 0 }} />
+          {lk.label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+// ─── İçerik Router ───────────────────────────────────────────
+function PanelContent({ item, close }: { item: MenuItem; close: () => void }) {
+  if (item.type === 'sandvic') return <SandvicContent item={item as any} close={close} />;
+  if (item.type === 'yalitim') return <YalitimContent item={item as any} close={close} />;
+  return <ListContent item={item as any} close={close} />;
+}
+
+// ─── ANA BİLEŞEN ─────────────────────────────────────────────
+export default function StartCategories() {
+  const [open, setOpen]         = useState(false);
+  const [activeId, setActiveId] = useState<number>(MENU[0].id);
+  const wrapRef                 = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onOut(e: MouseEvent) {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('mousedown', onOut);
+    return () => document.removeEventListener('mousedown', onOut);
+  }, []);
+
+  const activeCat = MENU.find(m => m.id === activeId)!;
+
+  return (
+    <section style={{ background: '#fff', padding: '40px 0 0', borderBottom: '1px solid #f0f0f0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
+
+        {/* Başlık */}
+        <div style={{ textAlign: 'center', marginBottom: 28 }}>
+          <p style={{ fontSize: 11, fontWeight: 800, color: '#d32f2f', letterSpacing: 3, textTransform: 'uppercase', margin: '0 0 8px' }}>
+            SANDVİÇ PANELCİ YAPI MARKET
+          </p>
+          <h2 style={{ fontSize: 28, fontWeight: 900, color: '#111', margin: 0 }}>Ürün Kategorileri</h2>
+        </div>
+
+        {/* Buton + Mega Panel */}
+        <div ref={wrapRef} style={{ position: 'relative', display: 'inline-block' }}>
+
+          {/* Tetikleyici */}
+          <button
+            onClick={() => setOpen(o => !o)}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              background: open ? '#b71c1c' : '#d32f2f', color: '#fff',
+              border: 'none', borderRadius: 8, padding: '13px 22px',
+              fontSize: 14, fontWeight: 800, cursor: 'pointer',
+              boxShadow: open ? 'none' : '0 4px 16px rgba(211,47,47,0.3)',
+              transition: 'all 0.18s',
+            }}
+          >
+            <LayoutGrid size={17} />
+            Tüm Ürün Kategorileri
+            <ChevronDown size={14} style={{ transition: 'transform 0.2s', transform: open ? 'rotate(180deg)' : 'none' }} />
+          </button>
+
+          {/* Mega Panel */}
+          {open && (
+            <div style={{
+              position: 'absolute', top: 'calc(100% + 6px)', left: 0,
+              zIndex: 9999,
+              background: '#fff', borderRadius: 12,
+              boxShadow: '0 24px 64px rgba(0,0,0,0.18)',
+              border: '1px solid #e8e8e8',
+              display: 'flex', width: 880, maxWidth: '90vw',
+              overflow: 'hidden',
+            }}>
+
+              {/* Sol Sidebar */}
+              <nav style={{ width: 240, flexShrink: 0, background: '#1a1a1a', padding: '8px 0' }}>
+                {MENU.map(cat => {
+                  const isA = cat.id === activeId;
+                  return (
+                    <button
+                      key={cat.id}
+                      onMouseEnter={() => setActiveId(cat.id)}
+                      onClick={() => setActiveId(cat.id)}
+                      style={{
+                        display: 'flex', alignItems: 'center',
+                        width: '100%', padding: '13px 18px',
+                        background: isA ? '#242424' : 'transparent',
+                        border: 'none', cursor: 'pointer', gap: 10,
+                        borderLeft: isA ? '3px solid #d32f2f' : '3px solid transparent',
+                        borderBottom: '1px solid #222', textAlign: 'left',
+                        transition: 'all 0.14s',
+                      }}
+                    >
+                      <span style={{ color: isA ? '#d32f2f' : '#666', flexShrink: 0 }}>{cat.icon}</span>
+                      <span style={{ fontSize: 12.5, fontWeight: 700, color: isA ? '#fff' : '#aaa', lineHeight: 1.3, flex: 1 }}>
+                        {cat.label}
+                      </span>
+                      <ChevronRight size={11} color={isA ? '#d32f2f' : '#444'} style={{ flexShrink: 0 }} />
+                    </button>
+                  );
+                })}
+              </nav>
+
+              {/* Sağ İçerik */}
+              <div style={{ flex: 1, padding: '26px 28px', overflowY: 'auto', maxHeight: 430 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 22 }}>
+                  <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: '#111' }}>{activeCat.label}</h3>
+                  <Link
+                    href={activeCat.href}
+                    onClick={() => setOpen(false)}
+                    style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 700, color: '#d32f2f', textDecoration: 'none' }}
+                  >
+                    Tümünü Gör <ArrowRight size={12} />
+                  </Link>
+                </div>
+                <PanelContent item={activeCat} close={() => setOpen(false)} />
+              </div>
+
+              {/* Kapatma */}
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  position: 'absolute', top: 10, right: 10,
+                  background: '#f5f5f5', border: 'none', borderRadius: '50%',
+                  width: 26, height: 26, display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', cursor: 'pointer',
+                }}
+              >
+                <X size={13} color="#555" />
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Alt Hızlı Linkler */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 18, paddingBottom: 22 }}>
+          {MENU.slice(0, 6).map(cat => (
+            <Link
+              key={cat.id} href={cat.href}
+              className="sc-pill"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '7px 14px', borderRadius: 20,
+                background: '#f5f5f5', border: '1px solid #eee',
+                fontSize: 12, fontWeight: 700, color: '#444',
+                textDecoration: 'none', transition: 'all 0.14s',
+              }}
+            >
+              {cat.icon}
+              {cat.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        .sc-box:hover { background:#fff3f3!important; border-color:#d32f2f!important; transform:translateY(-2px); box-shadow:0 6px 20px rgba(211,47,47,0.13)!important; }
+        .sc-box:hover span { color:#d32f2f!important; }
+        .sc-list:hover { background:#fff3f3!important; color:#d32f2f!important; padding-left:18px!important; }
+        .sc-pill:hover { background:#fff3f3!important; border-color:#d32f2f!important; color:#d32f2f!important; }
+      `}</style>
+    </section>
+  );
+}
