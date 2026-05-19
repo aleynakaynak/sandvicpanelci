@@ -2,7 +2,6 @@ import React from 'react';
 import HeroSlider from '@/components/HeroSlider';
 import StartCategories from '@/components/StartCategories';
 import HomeQuickShowcase from '@/components/HomeQuickShowcase';
-import BrandCarousel from '@/components/BrandCarousel';
 import { Truck, ShieldCheck, CheckCircle, Star } from 'lucide-react';
 import styles from './page.module.css';
 import * as store from '@/lib/store';
@@ -10,7 +9,6 @@ import Link from 'next/link';
 
 export default async function Home() {
   const blogPosts = await store.getBlogPosts();
-  const references = await store.getReferences();
 
   // If no blog posts, use placeholders
   const displayPosts = blogPosts.length > 0 ? blogPosts : [
@@ -86,9 +84,6 @@ export default async function Home() {
             ))}
           </div>
         </div>
-
-        {/* References Section */}
-        <BrandCarousel references={references} />
 
       </div>
 

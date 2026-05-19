@@ -34,52 +34,52 @@ const LEFT_GROUPS: LeftGroup[] = [
 // Sağ vitrin kartları — 12 ürün (3×4 grid)
 const PRODUCTS: Record<string, ProductItem[]> = {
   cati: [
-    { name: 'Sandviç Panel',        href: '/urunler/sandvic-panel-kaplama-malzemeleri',                       image: 'https://placehold.co/280x200/d32f2f/ffffff?text=Sandvi%C3%A7+Panel',  bg: '#fff3f3' },
-    { name: 'PUR/PIR Çatı Paneli',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri', image: 'https://placehold.co/280x200/c62828/ffffff?text=PUR%2FPIR',           bg: '#fce4ec' },
-    { name: 'Mineral Yün Çatı',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri', image: 'https://placehold.co/280x200/b71c1c/ffffff?text=Mineral+Y%C3%BCn',    bg: '#fff3f3' },
-    { name: 'Ekonomik Çatı Panel',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel', image: 'https://placehold.co/280x200/e53935/ffffff?text=Ekonomik+%C3%87at%C4%B1',      bg: '#fce4ec' },
+    { name: 'Sandviç Panel',        href: '/urunler/sandvic-panel-kaplama-malzemeleri',                       image: '/images/products/pur-pir-cati.png',  bg: '#fff3f3' },
+    { name: 'PUR/PIR Çatı Paneli',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri', image: '/images/products/pur-pir-cati.png',           bg: '#fce4ec' },
+    { name: 'Mineral Yün Çatı',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri', image: '/images/products/mineral-cati.png',    bg: '#fff3f3' },
+    { name: 'Ekonomik Çatı Panel',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel', image: '/images/products/ekonomik-cati.png',      bg: '#fce4ec' },
   ],
   aksesuar: [
-    { name: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar',              image: 'https://placehold.co/280x200/37474f/ffffff?text=Vidalar',        bg: '#eceff1' },
-    { name: 'Çatı Çıkış Kapağı',   href: '/urunler/aksesuarlar-ve-ek-urunler/cati-cikis-kapaklari', image: 'https://placehold.co/280x200/455a64/ffffff?text=%C3%87at%C4%B1+Kapa%C4%9F%C4%B1', bg: '#eceff1' },
-    { name: 'Kenet Levha',          href: '/urunler/trapez-saclar/kenet-levhalar',                   image: 'https://placehold.co/280x200/546e7a/ffffff?text=Kenet+Levha',    bg: '#eceff1' },
-    { name: 'Rulo Bobin Sac',       href: '/urunler/trapez-saclar/rulo-bobin-sac',                   image: 'https://placehold.co/280x200/607d8b/ffffff?text=Rulo+Bobin',     bg: '#eceff1' },
+    { name: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar',              image: '/images/products/vidalar.jpg',        bg: '#eceff1' },
+    { name: 'Çatı Çıkış Kapağı',   href: '/urunler/aksesuarlar-ve-ek-urunler/cati-cikis-kapaklari', image: '/images/products/cati-cikis-kapagi.jpg', bg: '#eceff1' },
+    { name: 'Kenet Levha',          href: '/urunler/trapez-saclar/kenet-levhalar',                   image: '/images/products/kenet-levha.gif',    bg: '#eceff1' },
+    { name: 'Rulo Bobin Sac',       href: '/urunler/trapez-saclar/rulo-bobin-sac',                   image: '/images/products/rulo-bobin-sac.webp',     bg: '#eceff1' },
   ],
   isi: [
-    { name: 'Taşyünü',              href: '/urunler/yalitim-malzemeleri/isi-yalitimi/tasyunu',       image: 'https://placehold.co/280x200/e65100/ffffff?text=Ta%C5%9By%C3%BCn%C3%BC', bg: '#fff3e0' },
-    { name: 'XPS Foamboard',        href: '/urunler/yalitim-malzemeleri/isi-yalitimi/xps',           image: 'https://placehold.co/280x200/1565c0/ffffff?text=XPS',            bg: '#e3f2fd' },
-    { name: 'Camyünü',              href: '/urunler/yalitim-malzemeleri/isi-yalitimi/camyunu',       image: 'https://placehold.co/280x200/f57f17/ffffff?text=Camy%C3%BCn%C3%BC', bg: '#fffde7' },
-    { name: 'EPS Strafor',          href: '/urunler/yalitim-malzemeleri/isi-yalitimi/eps',           image: 'https://placehold.co/280x200/757575/ffffff?text=EPS+Strafor',   bg: '#fafafa' },
+    { name: 'Taşyünü',              href: '/urunler/yalitim-malzemeleri/isi-yalitimi/tasyunu',       image: '/images/products/tas-yunu.jpg', bg: '#fff3e0' },
+    { name: 'XPS Foamboard',        href: '/urunler/yalitim-malzemeleri/isi-yalitimi/xps',           image: '/images/products/xps.jpg',            bg: '#e3f2fd' },
+    { name: 'Camyünü',              href: '/urunler/yalitim-malzemeleri/isi-yalitimi/camyunu',       image: '/images/products/cam-yunu.jpg', bg: '#fffde7' },
+    { name: 'EPS Strafor',          href: '/urunler/yalitim-malzemeleri/isi-yalitimi/eps',           image: '/images/products/eps.jpg',   bg: '#fafafa' },
   ],
   su: [
-    { name: 'Membran',              href: '/urunler/yalitim-malzemeleri/su-yalitimi/membran',        image: 'https://placehold.co/280x200/1565c0/ffffff?text=Membran',        bg: '#e3f2fd' },
-    { name: 'Likit Membran',        href: '/urunler/yalitim-malzemeleri/su-yalitimi/likit-membran',  image: 'https://placehold.co/280x200/0277bd/ffffff?text=Likit+Membran', bg: '#e1f5fe' },
-    { name: 'Desenli Membran',      href: '/urunler/yalitim-malzemeleri/su-yalitimi/desenli-membran',image: 'https://placehold.co/280x200/01579b/ffffff?text=Desenli+Membran',bg: '#e1f5fe' },
-    { name: 'Bitümlü Membran',      href: '/urunler/yalitim-malzemeleri/su-yalitimi',                image: 'https://placehold.co/280x200/212121/ffffff?text=Bit%C3%BCml%C3%BC',    bg: '#f5f5f5' },
+    { name: 'Membran',              href: '/urunler/yalitim-malzemeleri/su-yalitimi/membran',        image: '/images/products/membran.jpg',        bg: '#e3f2fd' },
+    { name: 'Likit Membran',        href: '/urunler/yalitim-malzemeleri/su-yalitimi/likit-membran',  image: '/images/products/likit-membran.webp', bg: '#e1f5fe' },
+    { name: 'Desenli Membran',      href: '/urunler/yalitim-malzemeleri/su-yalitimi/desenli-membran',image: '/images/products/desenli-membran.jpg',bg: '#e1f5fe' },
+    { name: 'Bitümlü Membran',      href: '/urunler/yalitim-malzemeleri/su-yalitimi',                image: '/images/products/membran.jpg',    bg: '#f5f5f5' },
   ],
   cephe: [
-    { name: 'PUR/PIR Cephe Paneli', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri', image: 'https://placehold.co/280x200/6a1b9a/ffffff?text=Cephe+Panel',   bg: '#f3e5f5' },
-    { name: 'Mineral Yün Cephe',    href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/mineral-yun-yalitimli-cephe-panelleri', image: 'https://placehold.co/280x200/7b1fa2/ffffff?text=Mineral+Cephe', bg: '#f3e5f5' },
-    { name: 'Boyalı Profil',        href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller', image: 'https://placehold.co/280x200/2e7d32/ffffff?text=Boyali+Profil', bg: '#e8f5e9' },
-    { name: 'Galvanizli Sac',       href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar', image: 'https://placehold.co/280x200/37474f/ffffff?text=Galvanizli+Sac',bg: '#eceff1' },
+    { name: 'PUR/PIR Cephe Paneli', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri', image: '/images/products/pur-cephe-paneli.jpg',   bg: '#f3e5f5' },
+    { name: 'Mineral Yün Cephe',    href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/mineral-yun-yalitimli-cephe-panelleri', image: '/images/products/mineral-cephe.jpg', bg: '#f3e5f5' },
+    { name: 'Boyalı Profil',        href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller', image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },
+    { name: 'Galvanizli Sac',       href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar', image: '/images/products/galvaniz-rulo-sac.webp',bg: '#eceff1' },
   ],
   ahsap: [
-    { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',     image: 'https://placehold.co/280x200/5d4037/ffffff?text=OSB+Levha',   bg: '#efebe9' },
-    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood', image: 'https://placehold.co/280x200/6d4c41/ffffff?text=Plywood',     bg: '#efebe9' },
-    { name: 'Shingle',              href: '/urunler/osb-ve-plywood',         image: 'https://placehold.co/280x200/4e342e/ffffff?text=Shingle',     bg: '#efebe9' },
-    { name: 'Boardex',              href: '/urunler/osb-ve-plywood',         image: 'https://placehold.co/280x200/795548/ffffff?text=Boardex',     bg: '#efebe9' },
+    { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',     image: '/images/products/osb-levha.jpg',   bg: '#efebe9' },
+    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood', image: '/images/products/plywood.webp',     bg: '#efebe9' },
+    { name: 'Shingle',              href: '/urunler/osb-ve-plywood',         image: '/images/products/cati-cikis-shingle.jpg',     bg: '#efebe9' },
+    { name: 'Boardex',              href: '/urunler/osb-ve-plywood',         image: '/images/products/boardex.jpg',     bg: '#efebe9' },
   ],
   profil: [
-    { name: 'Boyalı Profiller',     href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller',    image: 'https://placehold.co/280x200/2e7d32/ffffff?text=Boyali+Profil', bg: '#e8f5e9' },
-    { name: 'Galvanizli Saclar',    href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar',   image: 'https://placehold.co/280x200/1b5e20/ffffff?text=Galvanizli',   bg: '#e8f5e9' },
-    { name: 'Betopan',              href: '/urunler/osb-ve-plywood',         image: 'https://placehold.co/280x200/546e7a/ffffff?text=Betopan',     bg: '#eceff1' },
-    { name: 'Trapez Sac',           href: '/urunler/trapez-saclar',          image: 'https://placehold.co/280x200/37474f/ffffff?text=Trapez+Sac',  bg: '#eceff1' },
+    { name: 'Boyalı Profiller',     href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller',    image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },
+    { name: 'Galvanizli Saclar',    href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar',   image: '/images/products/galvaniz-rulo-sac.webp',   bg: '#e8f5e9' },
+    { name: 'Betopan',              href: '/urunler/osb-ve-plywood',         image: '/images/products/betopan.jpg',     bg: '#eceff1' },
+    { name: 'Trapez Sac',           href: '/urunler/trapez-saclar',          image: '/images/products/trapez-sac.jpg',  bg: '#eceff1' },
   ],
   polikarbon: [
-    { name: '27/200 – 1000',        href: '/urunler/trapez-saclar/27-200-1000',   image: 'https://placehold.co/280x200/00838f/ffffff?text=27%2F200',     bg: '#e0f7fa' },
-    { name: '38/151 – 906',         href: '/urunler/trapez-saclar/38-151-906',    image: 'https://placehold.co/280x200/00695c/ffffff?text=38%2F151',     bg: '#e0f2f1' },
-    { name: '55/300 – 900',         href: '/urunler/trapez-saclar/55-300-900',    image: 'https://placehold.co/280x200/006064/ffffff?text=55%2F300',     bg: '#e0f7fa' },
-    { name: 'Kenet Levha',          href: '/urunler/trapez-saclar/kenet-levhalar',image: 'https://placehold.co/280x200/004d40/ffffff?text=Kenet',        bg: '#e0f2f1' },
+    { name: '27/200 – 1000',        href: '/urunler/trapez-saclar/27-200-1000',   image: '/images/products/27-200.webp',     bg: '#e0f7fa' },
+    { name: '38/151 – 906',         href: '/urunler/trapez-saclar/38-151-906',    image: '/images/products/38-151-trapez.webp',     bg: '#e0f2f1' },
+    { name: '55/300 – 900',         href: '/urunler/trapez-saclar/55-300-900',    image: '/images/products/55-300-trapez.webp',     bg: '#e0f7fa' },
+    { name: 'Kenet Levha',          href: '/urunler/trapez-saclar/kenet-levhalar',image: '/images/products/kenet-levha.gif',        bg: '#e0f2f1' },
   ],
 };
 
@@ -103,7 +103,7 @@ export default function HomeQuickShowcase() {
               fontSize: 11, fontWeight: 800, color: '#d32f2f',
               letterSpacing: 3, textTransform: 'uppercase', margin: '0 0 6px',
             }}>
-              YAPIM MARKET VİTRİNİ
+              SANDVİÇ PANELCİ
             </p>
             <h2 style={{ fontSize: 26, fontWeight: 900, color: '#111', margin: 0, lineHeight: 1.2 }}>
               Popüler Ürün Grupları

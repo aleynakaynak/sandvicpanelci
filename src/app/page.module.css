@@ -65,3 +65,18 @@
   color: #666;
   text-align: center;
 }
+
+@media (max-width: 900px) {
+  .feature_grid {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog_grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

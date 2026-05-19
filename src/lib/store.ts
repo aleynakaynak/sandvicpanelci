@@ -257,16 +257,35 @@ function fallbackBlogPosts(): BlogPost[] {
             slug: 'trapez-sac-ve-kullanim-alanlari',
             title: 'Trapez Sac Nedir ve Nerelerde Kullanılır?',
             excerpt: 'Endüstriyel yapılardan prefabrik yapılara kadar geniş bir kullanım alanına sahip olan trapez saclar hakkında bilmeniz gereken her şey.',
-            content: '<p>Trapez sac, endüstriyel yapılardan prefabrik yapılara kadar geniş bir kullanım alanına sahiptir.</p>',
+            content: `<p><strong>Trapez sac</strong>, inşaat sektöründe hem çatı hem de cephe kaplamalarında en çok tercih edilen, mukavemeti yüksek ve ekonomik yapı malzemelerinden biridir. Genellikle galvanizli sac veya boyalı galvaniz sac bobinlerin soğuk haddelenerek (roll-forming) şekillendirilmesiyle üretilir.</p>
+<h3>Trapez Sacın Avantajları Nelerdir?</h3>
+<ul>
+  <li><strong>Hafiflik:</strong> Taşıyıcı sisteme ek yük bindirmez, nakliyesi ve montajı son derece kolaydır.</li>
+  <li><strong>Korozyon Dayanımı:</strong> Galvaniz kaplama ve polyester boya katmanları sayesinde paslanmaya karşı yüksek direnç gösterir.</li>
+  <li><strong>Uzun Ömürlüdür:</strong> Atmosferik şartlara, rüzgara ve kar yüküne karşı yıllarca yapısını korur.</li>
+  <li><strong>Sızdırmazlık:</strong> Doğru eğim ve montaj aksesuarlarıyla birlikte mükemmel su yalıtımı sağlar.</li>
+</ul>
+<h3>Kullanım Alanları</h3>
+<p>Trapez saclar; sanayi yapılarından tarım hangarlarına, prefabrik binalardan şantiye çevre çitlerine kadar çok geniş bir alanda kullanılır. Özellikle endüstriyel çatılar, otopark gölgelikleri ve depo duvarlarında pratik bir kaplama çözümüdür.</p>
+<h3>Önemli Teknik Detaylar (Formlar ve Kalınlıklar)</h3>
+<p>Piyasada en yaygın kullanılan trapez sac formları <strong>27/200</strong>, <strong>38/151</strong> ve <strong>55/300</strong> olarak adlandırılır. Buradaki ilk rakam hatve yüksekliğini (mm), ikinci rakam ise hatveler arası mesafeyi ifade eder. Sac kalınlığı genellikle 0.30 mm ile 1.00 mm arasında değişir. Yüksek taşıma kapasitesi gereken açıklıklarda daha kalın sac ve daha yüksek hatveli (örn. 55/300) trapezler tercih edilmelidir.</p>`,
             date: new Date().toISOString(),
-            imageUrl: '/images/products/sandvic-panel.jpg'
+            imageUrl: '/images/products/trapez-sac.jpg'
         },
         {
             id: '2',
             slug: 'sandvic-panel-avantajlari',
             title: 'Sandviç Panel Kullanımının Avantajları',
             excerpt: 'Isı ve ses yalıtımında üstün performans sağlayan sandviç panellerin projenize katacağı değerleri inceleyelim.',
-            content: '<p>Sandviç paneller mükemmel ısı ve ses yalıtımı sağlar.</p>',
+            content: `<p><strong>Sandviç panel</strong>, iki metal levha (genellikle boyalı galvaniz sac veya alüminyum) arasında yer alan yoğun yalıtım dolgusuyla üretilen kompozit bir yapı malzemesidir. Modern endüstriyel binaların, depoların ve soğuk hava depolarının vazgeçilmez kaplama elemanıdır.</p>
+<h3>1. Üstün Isı Yalıtımı</h3>
+<p>Sandviç panellerin en büyük avantajı, ısı köprüleri oluşturmadan kesintisiz yalıtım sunmasıdır. Dolgu malzemesi olarak kullanılan PUR/PIR veya EPS, binaların kışın sıcak, yazın soğuk kalmasını sağlayarak ısıtma ve soğutma giderlerini ciddi oranda düşürür.</p>
+<h3>2. Yangın Güvenliği</h3>
+<p>Özellikle <strong>Taşyünü (Mineral Yün)</strong> dolgulu sandviç paneller, A1 sınıfı yanmazlık özelliğine sahiptir. Yangının yayılmasını önleyerek binayı ve içerisindekileri korur, acil durumlarda tahliye süresi kazandırır.</p>
+<h3>3. Hızlı ve Pratik Montaj</h3>
+<p>Fabrika ortamında projenize özel ölçülerde üretilen paneller, şantiyede hazır olarak gelir. Birbirine geçmeli klik sistemleri (gizli vidalı veya standart) sayesinde çok kısa sürede geniş alanlar kaplanabilir. Bu da işçilik ve zamandan büyük tasarruf sağlar.</p>
+<h3>4. Hafiflik ve Yüksek Taşıma Kapasitesi</h3>
+<p>Sandviç yapısı gereği hem son derece hafif hem de bükülmeye karşı son derece dayanıklıdır. Ağır beton veya tuğla duvarlara kıyasla taşıyıcı çelik konstrüksiyon maliyetlerini minimize eder.</p>`,
             date: new Date(Date.now() - 86400000).toISOString(),
             imageUrl: '/images/products/sandvic-panel.jpg'
         },
@@ -275,7 +294,18 @@ function fallbackBlogPosts(): BlogPost[] {
             slug: 'isi-yalitiminda-dikkat-edilmesi-gerekenler',
             title: 'Çatı ve Isı Yalıtımında Püf Noktalar',
             excerpt: 'Enerji tasarrufu sağlamak ve bina ömrünü uzatmak için doğru yalıtım malzemesi seçimi nasıl yapılmalı?',
-            content: '<p>Yalıtım, binanın kalbidir. Doğru yalıtım malzemesi enerji tasarrufu sağlar.</p>',
+            content: `<p>Binalarda harcanan enerjinin yaklaşık %30'a yakını çatı ve duvar yalıtımı yetersizliğinden dolayı kaybolmaktadır. Doğru ısı yalıtımı, hem konforlu bir yaşam alanı sunar hem de enerji faturalarını kalıcı olarak düşürür. İşte çatı ve ısı yalıtımında dikkat etmeniz gereken püf noktalar:</p>
+<h3>Doğru Malzeme Seçimi</h3>
+<p>Yalıtım yapılacak alanın ihtiyacına göre malzeme seçimi kritik önem taşır:</p>
+<ul>
+  <li><strong>Taşyünü:</strong> Yangın dayanımı ve ses yalıtımı öncelikli olan çatılar ve bölme duvarlar için idealdir.</li>
+  <li><strong>XPS:</strong> Suya ve neme karşı yüksek direnç gösteren, yüksek basınç dayanımı olan zemin ve teras çatılarda tercih edilir.</li>
+  <li><strong>Camyünü:</strong> Asma tavanlar, şilte biçiminde çatı şiltesi uygulamaları için ekonomik ve etkilidir.</li>
+</ul>
+<h3>Isı Köprülerine Dikkat Edin</h3>
+<p>Yalıtım levhalarının birleşim yerlerinde boşluk kalması veya montaj vidalarının yalıtımı kesintiye uğratması "ısı köprüleri" oluşturur. Isı köprüleri, yoğuşmaya ve dolayısıyla küf/nem oluşumuna zemin hazırlar. Levhaların birbirine tam yanaşacak şekilde, boşluksuz döşenmesi gerekir.</p>
+<h3>Buhar Dengeleyici ve Su Yalıtımı Uyumu</h3>
+<p>Çatı yalıtımında sadece ısıyı değil, nemi ve suyu da kontrol etmelisiniz. Yalıtım malzemesinin altına buhar kesici örtü, üzerine ise nefes alan su yalıtım membranı serilmelidir. Bu sayede bina içindeki nem dışarı atılırken dışarıdan su girmesi engellenir ve yalıtım malzemesinin ömrü uzar.</p>`,
             date: new Date(Date.now() - 172800000).toISOString(),
             imageUrl: '/images/products/tas-yunu.jpg'
         }

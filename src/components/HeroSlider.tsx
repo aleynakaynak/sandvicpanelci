@@ -52,7 +52,10 @@ const HeroSlider = () => {
                 .hero-nav-arrow:hover { background: rgba(0,0,0,0.75); }
                 .hero-left { left: 20px; }
                 .hero-right { right: 20px; }
-                @media (max-width: 768px) { .hero-nav-arrow { display: none; } }
+                @media (max-width: 768px) { 
+                    .hero-nav-arrow { display: none; } 
+                    .hero-dots { display: none !important; }
+                }
                 @keyframes heroFadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
                 .hero-text-active { animation: heroFadeInUp 0.8s ease-out; }
                 .hero-dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 20; }

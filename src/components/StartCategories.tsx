@@ -113,7 +113,7 @@ type MenuItem = typeof MENU[number];
 // ─── Sandviç Panel Mega İçerik ───────────────────────────────
 function SandvicContent({ item, close }: { item: MenuItem & { type: 'sandvic' }; close: () => void }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36 }}>
+    <div className="sc-grid-2col">
       {item.columns.map(col => (
         <div key={col.id}>
           <Link
@@ -128,7 +128,7 @@ function SandvicContent({ item, close }: { item: MenuItem & { type: 'sandvic' };
             {col.label}
             <ArrowRight size={12} color="#d32f2f" />
           </Link>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10 }}>
+          <div className="sc-grid-3col">
             {col.links.map(lk => (
               <Link
                 key={lk.href} href={lk.href} onClick={close}
@@ -162,7 +162,7 @@ function SandvicContent({ item, close }: { item: MenuItem & { type: 'sandvic' };
 // ─── Yalıtım Mega İçerik ─────────────────────────────────────
 function YalitimContent({ item, close }: { item: MenuItem & { type: 'yalitim' }; close: () => void }) {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36 }}>
+    <div className="sc-grid-2col">
       {item.columns.map(col => (
         <div key={col.id}>
           <Link
@@ -280,18 +280,10 @@ export default function StartCategories() {
 
           {/* Mega Panel */}
           {open && (
-            <div style={{
-              position: 'absolute', top: 'calc(100% + 6px)', left: 0,
-              zIndex: 9999,
-              background: '#fff', borderRadius: 12,
-              boxShadow: '0 24px 64px rgba(0,0,0,0.18)',
-              border: '1px solid #e8e8e8',
-              display: 'flex', width: 880, maxWidth: '90vw',
-              overflow: 'hidden',
-            }}>
+            <div className="sc-mega-panel">
 
               {/* Sol Sidebar */}
-              <nav style={{ width: 240, flexShrink: 0, background: '#1a1a1a', padding: '8px 0' }}>
+              <nav className="sc-sidebar">
                 {MENU.map(cat => {
                   const isA = cat.id === activeId;
                   return (
@@ -320,7 +312,7 @@ export default function StartCategories() {
               </nav>
 
               {/* Sağ İçerik */}
-              <div style={{ flex: 1, padding: '26px 28px', overflowY: 'auto', maxHeight: 430 }}>
+              <div className="sc-content">
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 22 }}>
                   <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: '#111' }}>{activeCat.label}</h3>
                   <Link
@@ -376,6 +368,69 @@ export default function StartCategories() {
         .sc-box:hover span { color:#d32f2f!important; }
         .sc-list:hover { background:#fff3f3!important; color:#d32f2f!important; padding-left:18px!important; }
         .sc-pill:hover { background:#fff3f3!important; border-color:#d32f2f!important; color:#d32f2f!important; }
+        
+        .sc-mega-panel {
+          position: absolute;
+          top: calc(100% + 6px);
+          left: 0;
+          z-index: 9999;
+          background: #fff;
+          border-radius: 12px;
+          box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+          border: 1px solid #e8e8e8;
+          display: flex;
+          width: 880px;
+          max-width: 90vw;
+          overflow: hidden;
+        }
+        .sc-sidebar {
+          width: 240px;
+          flex-shrink: 0;
+          background: #1a1a1a;
+          padding: 8px 0;
+        }
+        .sc-content {
+          flex: 1;
+          padding: 26px 28px;
+          overflow-y: auto;
+          max-height: 430px;
+        }
+        .sc-grid-2col {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 36px;
+        }
+        .sc-grid-3col {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+          .sc-mega-panel {
+            flex-direction: column !important;
+            width: 300px !important;
+            max-width: 95vw !important;
+          }
+          .sc-sidebar {
+            width: 100% !important;
+            max-height: 180px !important;
+            overflow-y: auto !important;
+          }
+          .sc-content {
+            padding: 16px 20px !important;
+            max-height: 300px !important;
+          }
+          .sc-grid-2col {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .sc-grid-3col {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
       `}</style>
     </section>
   );

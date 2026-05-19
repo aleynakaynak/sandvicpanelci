@@ -6,7 +6,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsapp from '@/components/FloatingWhatsapp';
 import { getCategories, getSettings } from '@/lib/store';
-
 const roboto = Roboto({
   weight: ['400', '500', '700'],
   subsets: ['latin'],
@@ -71,7 +70,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={roboto.className}>
-        <Header categories={categories} />
+        <Header />
         <main>
           {children}
         </main>
