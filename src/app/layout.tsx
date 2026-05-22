@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
 };
 
-const AW_ID = 'AW-18092736793';
+const AW_ID = 'AW-816780642';
 
 export default async function RootLayout({
   children,
