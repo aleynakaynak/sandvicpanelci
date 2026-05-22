@@ -14,7 +14,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     description: 'Endüstriyel yapılar için yüksek performanslı sandviç panel çözümleri.',
     image: '/images/products/sandvic-panel.jpg',
     children: [
-      { slug: 'cati-panelleri', name: 'Çatı Panelleri', description: 'Her türlü çatı için yalıtımlı panel sistemleri.', image: '/images/products/pur-pir-cati.png', children: [] },
+      { slug: 'cati-panelleri', name: 'Çatı Panelleri', description: 'Her türlü çatı için yalıtımlı panel sistemleri.', image: '/images/products/3hadvepir.png', children: [] },
       { slug: 'cephe-panelleri', name: 'Cephe Panelleri', description: 'Modern cephe kaplama ve yalıtım panelleri.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
     ],
   },
@@ -22,9 +22,9 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     slug: 'cati-panelleri',
     name: 'Çatı Panelleri',
     description: 'Yüksek yalıtım değeri ve uzun ömürlü çatı paneli çözümleri.',
-    image: '/images/products/pur-pir-cati.png',
+    image: '/images/products/3hadvepir.png',
     children: [
-      { slug: 'pur-pir-yalitimli-cati-panelleri', name: 'PUR/PIR Yalıtımlı Çatı Panelleri', description: 'En yüksek ısı yalıtım performansı.', image: '/images/products/pur-pir-cati.png', children: [] },
+      { slug: 'pur-pir-yalitimli-cati-panelleri', name: 'PUR/PIR Yalıtımlı Çatı Panelleri', description: 'En yüksek ısı yalıtım performansı.', image: '/images/products/3hadvepir.png', children: [] },
       { slug: 'mineral-yun-yalitimli-cati-panelleri', name: 'Mineral Yün Yalıtımlı Çatı Panelleri', description: 'A1 yangın sınıfı mineral yün dolgulu panel.', image: '/images/products/mineral-cati.png', children: [] },
       { slug: 'ekonomik-cati-panel', name: 'Ekonomik Çatı Panel', description: 'Bütçe dostu, kaliteli çatı paneli seçeneği.', image: '/images/products/ekonomik-cati.png', children: [] },
     ],

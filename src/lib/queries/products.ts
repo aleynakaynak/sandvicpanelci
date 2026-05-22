@@ -88,6 +88,7 @@ export async function getProductsByCategory(
 
   return products.map((p) => ({
     ...p,
+    image_url: p.slug === 'pur-pir-yalitimli-cati-panelleri' ? '/images/products/3hadvepir.png' : p.image_url,
     attributes: attrMap[p.id] ?? {},
   })) as ProductCard[];
 }
@@ -166,8 +167,13 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
   const attributeMap: Record<string, string> = {};
   for (const a of attrs ?? []) attributeMap[a.attr_key] = a.attr_value;
 
+  const updatedProduct = { ...product };
+  if (updatedProduct.slug === 'pur-pir-yalitimli-cati-panelleri') {
+    updatedProduct.image_url = '/images/products/3hadvepir.png';
+  }
+
   return {
-    ...product,
+    ...updatedProduct,
     attributes: attributeMap,
     variants: variants ?? [],
     technical_specs: specs ?? [],

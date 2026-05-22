@@ -34,8 +34,8 @@ const LEFT_GROUPS: LeftGroup[] = [
 // Sağ vitrin kartları — 12 ürün (3×4 grid)
 const PRODUCTS: Record<string, ProductItem[]> = {
   cati: [
-    { name: 'Sandviç Panel',        href: '/urunler/sandvic-panel-kaplama-malzemeleri',                       image: '/images/products/pur-pir-cati.png',  bg: '#fff3f3' },
-    { name: 'PUR/PIR Çatı Paneli',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri', image: '/images/products/pur-pir-cati.png',           bg: '#fce4ec' },
+    { name: 'Sandviç Panel',        href: '/urunler/sandvic-panel-kaplama-malzemeleri',                       image: '/images/products/3hadvepir.png',  bg: '#fff3f3' },
+    { name: 'PUR/PIR Çatı Paneli',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri', image: '/images/products/3hadvepir.png',           bg: '#fce4ec' },
     { name: 'Mineral Yün Çatı',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri', image: '/images/products/mineral-cati.png',    bg: '#fff3f3' },
     { name: 'Ekonomik Çatı Panel',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel', image: '/images/products/ekonomik-cati.png',      bg: '#fce4ec' },
   ],

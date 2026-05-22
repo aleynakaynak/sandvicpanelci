@@ -42,7 +42,7 @@ export async function getProducts(): Promise<Product[]> {
         price: p.price || 'Fiyat Sorunuz', 
         categorySlug: p.category_slug || '',
         description: p.short_description || '',
-        imageUrl: p.image_url || '',
+        imageUrl: p.slug === 'pur-pir-yalitimli-cati-panelleri' ? '/images/products/3hadvepir.png' : (p.image_url || ''),
         active: p.is_active,
     }));
 }
@@ -63,7 +63,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
         categorySlug: data.category_slug || '',
         description: data.short_description || '',
         longDescription: data.description || '',
-        imageUrl: data.image_url || '',
+        imageUrl: data.slug === 'pur-pir-yalitimli-cati-panelleri' ? '/images/products/3hadvepir.png' : (data.image_url || ''),
         active: data.is_active,
     };
 }
@@ -146,7 +146,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
         price: p.price || 'Fiyat Sorunuz',
         categorySlug: p.category_slug || '',
         description: p.short_description || '',
-        imageUrl: p.image_url || '',
+        imageUrl: p.slug === 'pur-pir-yalitimli-cati-panelleri' ? '/images/products/3hadvepir.png' : (p.image_url || ''),
         active: p.is_active,
     }));
 }
