@@ -8,6 +8,7 @@ import { getProductDetail } from '@/lib/queries/products';
 import QuoteRequestForm from '@/components/QuoteRequestForm';
 import UValueCalculator from '@/components/UValueCalculator';
 import ProductDetailPanel from '@/components/ProductDetailPanel';
+import { formatProductPrice } from '@/lib/utils/price';
 
 // ─── Types ───────────────────────────────────────────────────
 interface PageProps {
@@ -250,12 +251,15 @@ export default async function UrunlerPage(props: PageProps) {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }} className="prod-top-grid">
             
             {/* Görsel */}
-            <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #eee', background: '#f5f5f5', height: 420 }}>
+            <div 
+              className="prod-img-container"
+              style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #eee', background: '#f5f5f5', height: 420 }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src={product.image_url ?? ''} 
                 alt={product.name}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '16px' }}
               />
             </div>
 
@@ -280,19 +284,32 @@ export default async function UrunlerPage(props: PageProps) {
               </div>
 
               {/* Fiyat Gösterimi (Opsiyonel) */}
-              <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid #eee' }}>
-                <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
-                  BAŞLAYAN FİYATLARLA
-                </p>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                  <span style={{ fontSize: 36, fontWeight: 900, color: '#111' }}>
-                    {(product.base_price ?? 0).toLocaleString('tr-TR')} ₺
-                  </span>
-                  <span style={{ fontSize: 16, fontWeight: 700, color: '#777' }}>
-                    / {product.price_unit}
-                  </span>
-                </div>
-              </div>
+              {(() => {
+                const priceInfo = formatProductPrice(product);
+                return (
+                  <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid #eee' }}>
+                    <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+                      BAŞLAYAN FİYATLARLA
+                    </p>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                      {priceInfo.hasPrice ? (
+                        <>
+                          <span style={{ fontSize: 36, fontWeight: 900, color: '#111' }}>
+                            {priceInfo.priceText}
+                          </span>
+                          <span style={{ fontSize: 16, fontWeight: 700, color: '#777' }}>
+                            {priceInfo.unitText}
+                          </span>
+                        </>
+                      ) : (
+                        <span style={{ fontSize: 18, fontWeight: 700, color: '#888' }}>
+                          {priceInfo.priceText}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Hızlı CTA */}
               <div style={{ display: 'flex', gap: 16, marginTop: 'auto' }}>
@@ -348,6 +365,11 @@ export default async function UrunlerPage(props: PageProps) {
       <style>{`
         @media (max-width: 900px) { 
           .prod-top-grid, .prod-btm-grid { grid-template-columns: 1fr !important; } 
+        }
+        @media (max-width: 768px) {
+          .prod-img-container {
+            height: 280px !important;
+          }
         }
       `}</style>
     </main>

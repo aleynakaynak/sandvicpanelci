@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Package2, Tag, ChevronRight } from 'lucide-react';
 import type { ProductCard, ActiveFilters } from '@/lib/types/product.types';
+import { formatProductPrice } from '@/lib/utils/price';
 
 interface Props {
   products: ProductCard[];
@@ -84,7 +85,7 @@ export default function ProductGrid({ products, slugChain, totalCount, activeFil
                     <img
                       src={product.image_url}
                       alt={product.name}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '8px' }}
                       loading="lazy"
                     />
                   ) : (
@@ -141,18 +142,20 @@ export default function ProductGrid({ products, slugChain, totalCount, activeFil
                     justifyContent: 'space-between', marginTop: 'auto', paddingTop: 10,
                     borderTop: '1px solid #f5f5f5',
                   }}>
-                    {product.base_price ? (
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
-                        <Tag size={11} color="#d32f2f" />
-                        <span style={{ fontSize: 15, fontWeight: 900, color: '#d32f2f' }}>
-                          {product.base_price.toLocaleString('tr-TR')} ₺
-                        </span>
-                        <span style={{ fontSize: 10, color: '#aaa' }}>/ {product.price_unit}</span>
-                      </div>
-                    ) : (
-                      <span style={{ fontSize: 12, color: '#aaa', fontWeight: 600 }}>Fiyat için teklif alın</span>
-                    )}
-
+                    {(() => {
+                      const priceInfo = formatProductPrice(product);
+                      return priceInfo.hasPrice ? (
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                          <Tag size={11} color="#d32f2f" />
+                          <span style={{ fontSize: 15, fontWeight: 900, color: '#d32f2f' }}>
+                            {priceInfo.priceText}
+                          </span>
+                          <span style={{ fontSize: 10, color: '#aaa' }}>{priceInfo.unitText}</span>
+                        </div>
+                      ) : (
+                        <span style={{ fontSize: 12, color: '#aaa', fontWeight: 600 }}>{priceInfo.priceText}</span>
+                      );
+                    })()}
                     <span style={{
                       display: 'flex', alignItems: 'center', gap: 3,
                       fontSize: 11, fontWeight: 800, color: '#d32f2f',

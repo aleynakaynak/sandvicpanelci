@@ -244,6 +244,17 @@ export default function StartCategories() {
     return () => document.removeEventListener('mousedown', onOut);
   }, []);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
   const activeCat = MENU.find(m => m.id === activeId)!;
 
   return (
@@ -280,65 +291,84 @@ export default function StartCategories() {
 
           {/* Mega Panel */}
           {open && (
-            <div className="sc-mega-panel">
-
-              {/* Sol Sidebar */}
-              <nav className="sc-sidebar">
-                {MENU.map(cat => {
-                  const isA = cat.id === activeId;
-                  return (
-                    <button
-                      key={cat.id}
-                      onMouseEnter={() => setActiveId(cat.id)}
-                      onClick={() => setActiveId(cat.id)}
-                      style={{
-                        display: 'flex', alignItems: 'center',
-                        width: '100%', padding: '13px 18px',
-                        background: isA ? '#242424' : 'transparent',
-                        border: 'none', cursor: 'pointer', gap: 10,
-                        borderLeft: isA ? '3px solid #d32f2f' : '3px solid transparent',
-                        borderBottom: '1px solid #222', textAlign: 'left',
-                        transition: 'all 0.14s',
-                      }}
-                    >
-                      <span style={{ color: isA ? '#d32f2f' : '#666', flexShrink: 0 }}>{cat.icon}</span>
-                      <span style={{ fontSize: 12.5, fontWeight: 700, color: isA ? '#fff' : '#aaa', lineHeight: 1.3, flex: 1 }}>
-                        {cat.label}
-                      </span>
-                      <ChevronRight size={11} color={isA ? '#d32f2f' : '#444'} style={{ flexShrink: 0 }} />
-                    </button>
-                  );
-                })}
-              </nav>
-
-              {/* Sağ İçerik */}
-              <div className="sc-content">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 22 }}>
-                  <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: '#111' }}>{activeCat.label}</h3>
-                  <Link
-                    href={activeCat.href}
-                    onClick={() => setOpen(false)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 700, color: '#d32f2f', textDecoration: 'none' }}
-                  >
-                    Tümünü Gör <ArrowRight size={12} />
-                  </Link>
-                </div>
-                <PanelContent item={activeCat} close={() => setOpen(false)} />
-              </div>
-
-              {/* Kapatma */}
-              <button
+            <>
+              {/* Backdrop overlay */}
+              <div
+                className="sc-backdrop"
                 onClick={() => setOpen(false)}
                 style={{
-                  position: 'absolute', top: 10, right: 10,
-                  background: '#f5f5f5', border: 'none', borderRadius: '50%',
-                  width: 26, height: 26, display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', cursor: 'pointer',
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: '100vw',
+                  height: '100vh',
+                  background: 'rgba(0,0,0,0.5)',
+                  zIndex: 9998,
+                  display: 'none',
                 }}
-              >
-                <X size={13} color="#555" />
-              </button>
-            </div>
+              />
+              <div className="sc-mega-panel">
+
+                {/* Sol Sidebar */}
+                <nav className="sc-sidebar">
+                  {MENU.map(cat => {
+                    const isA = cat.id === activeId;
+                    return (
+                      <button
+                        key={cat.id}
+                        onMouseEnter={() => setActiveId(cat.id)}
+                        onClick={() => setActiveId(cat.id)}
+                        style={{
+                          display: 'flex', alignItems: 'center',
+                          width: '100%', padding: '13px 18px',
+                          background: isA ? '#242424' : 'transparent',
+                          border: 'none', cursor: 'pointer', gap: 10,
+                          borderLeft: isA ? '3px solid #d32f2f' : '3px solid transparent',
+                          borderBottom: '1px solid #222', textAlign: 'left',
+                          transition: 'all 0.14s',
+                        }}
+                      >
+                        <span style={{ color: isA ? '#d32f2f' : '#666', flexShrink: 0 }}>{cat.icon}</span>
+                        <span style={{ fontSize: 12.5, fontWeight: 700, color: isA ? '#fff' : '#aaa', lineHeight: 1.3, flex: 1 }}>
+                          {cat.label}
+                        </span>
+                        <ChevronRight size={11} color={isA ? '#d32f2f' : '#444'} style={{ flexShrink: 0 }} />
+                      </button>
+                    );
+                  })}
+                </nav>
+
+                {/* Sağ İçerik */}
+                <div className="sc-content">
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 22 }}>
+                    <h3 style={{ margin: 0, fontSize: 15, fontWeight: 900, color: '#111' }}>{activeCat.label}</h3>
+                    <Link
+                      href={activeCat.href}
+                      onClick={() => setOpen(false)}
+                      style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 700, color: '#d32f2f', textDecoration: 'none' }}
+                    >
+                      Tümünü Gör <ArrowRight size={12} />
+                    </Link>
+                  </div>
+                  <PanelContent item={activeCat} close={() => setOpen(false)} />
+                </div>
+
+                {/* Kapatma */}
+                <button
+                  onClick={() => setOpen(false)}
+                  className="sc-close-btn"
+                  style={{
+                    position: 'absolute', top: 10, right: 10,
+                    background: '#f5f5f5', border: 'none', borderRadius: '50%',
+                    width: 26, height: 26, display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', cursor: 'pointer',
+                    zIndex: 10,
+                  }}
+                >
+                  <X size={13} color="#555" className="sc-close-icon" />
+                </button>
+              </div>
+            </>
           )}
         </div>
 
@@ -407,23 +437,48 @@ export default function StartCategories() {
         }
 
         @media (max-width: 768px) {
+          .sc-backdrop {
+            display: block !important;
+          }
           .sc-mega-panel {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: calc(100vw - 24px) !important;
+            max-width: 420px !important;
+            max-height: 80vh !important;
             flex-direction: column !important;
-            width: 300px !important;
-            max-width: 95vw !important;
+            border-radius: 12px !important;
+            z-index: 9999 !important;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.4) !important;
           }
           .sc-sidebar {
             width: 100% !important;
-            max-height: 180px !important;
+            max-height: 160px !important;
             overflow-y: auto !important;
+            border-bottom: 2px solid #222;
           }
           .sc-content {
-            padding: 16px 20px !important;
-            max-height: 300px !important;
+            padding: 20px 18px !important;
+            max-height: calc(80vh - 160px - 20px) !important;
+            overflow-y: auto !important;
+            background: #fff !important;
           }
           .sc-grid-2col {
             grid-template-columns: 1fr !important;
             gap: 20px !important;
+          }
+          .sc-close-btn {
+            background: rgba(255, 255, 255, 0.2) !important;
+            top: 10px !important;
+            right: 10px !important;
+          }
+          .sc-close-btn:hover {
+            background: rgba(255, 255, 255, 0.35) !important;
+          }
+          .sc-close-icon {
+            color: #fff !important;
           }
         }
         @media (max-width: 480px) {

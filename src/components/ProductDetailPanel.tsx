@@ -16,6 +16,7 @@ import {
 import QuoteRequestForm from '@/components/QuoteRequestForm';
 import UValueCalculator from '@/components/UValueCalculator';
 import type { ProductDetail, ProductVariant, ProductTechnicalSpec } from '@/lib/types/product.types';
+import { formatProductPrice } from '@/lib/utils/price';
 
 interface Props {
   product: ProductDetail;
@@ -325,20 +326,25 @@ export default function ProductDetailPanel({ product }: Props) {
             )}
 
             {/* Fiyat */}
-            <div style={{ display:'flex', alignItems:'baseline', gap:8, marginBottom:8 }}>
-              {displayPrice !== null ? (
-                <>
-                  <span style={{ fontSize:28, fontWeight:900, color:'#d32f2f' }}>
-                    {displayPrice.toLocaleString('tr-TR')} ₺
-                  </span>
-                  <span style={{ fontSize:13, color:'#aaa' }}>/ {product.price_unit}</span>
-                </>
-              ) : (
-                <span style={{ fontSize:16, fontWeight:700, color:'#888' }}>
-                  Fiyat için teklif alın →
-                </span>
-              )}
-            </div>
+            {(() => {
+              const priceInfo = formatProductPrice(product, displayPrice);
+              return (
+                <div style={{ display:'flex', alignItems:'baseline', gap:8, marginBottom:8 }}>
+                  {priceInfo.hasPrice ? (
+                    <>
+                      <span style={{ fontSize:28, fontWeight:900, color:'#d32f2f' }}>
+                        {priceInfo.priceText}
+                      </span>
+                      <span style={{ fontSize:13, color:'#aaa' }}>{priceInfo.unitText}</span>
+                    </>
+                  ) : (
+                    <span style={{ fontSize:16, fontWeight:700, color:'#888' }}>
+                      {priceInfo.priceText} →
+                    </span>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Stok */}
             <span style={{
