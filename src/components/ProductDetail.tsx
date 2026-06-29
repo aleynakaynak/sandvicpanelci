@@ -93,7 +93,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                         <Link
                             href="/contact"
                             className={styles.contact_btn}
-                            onClick={trackQuoteRequest}
+                            onClick={() => trackQuoteRequest({ product: product.title })}
                             id="product-teklif-al-btn"
                         >
                             TEKLİF AL
@@ -102,7 +102,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                             href={`https://wa.me/905319308500?text=Sipariş vermek istiyorum: ${product.title}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={trackWhatsAppClick}
+                            onClick={() => trackWhatsAppClick({ source: 'product_detail_page', product: product.title })}
                             className={styles.whatsapp_btn}
                             id="product-whatsapp-btn"
                         >

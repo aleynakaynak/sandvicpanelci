@@ -26,7 +26,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: 'pur-pir-yalitimli-cati-panelleri', name: 'PUR/PIR Yalıtımlı Çatı Panelleri', description: 'En yüksek ısı yalıtım performansı.', image: '/images/products/3hadvepir.png', children: [] },
       { slug: 'mineral-yun-yalitimli-cati-panelleri', name: 'Mineral Yün Yalıtımlı Çatı Panelleri', description: 'A1 yangın sınıfı mineral yün dolgulu panel.', image: '/images/products/mineral-cati.png', children: [] },
-      { slug: 'ekonomik-cati-panel', name: 'Ekonomik Çatı Panel', description: 'Bütçe dostu, kaliteli çatı paneli seçeneği.', image: '/images/products/ekonomik-cati.png', children: [] },
+      { slug: 'ekonomik-cati-panel', name: 'Ekonomik Çatı Panel', description: 'Bütçe dostu, kaliteli çatı paneli seçeneği.', image: '/images/products/eko-panel.jpg', children: [] },
     ],
   },
   'cephe-panelleri': {
@@ -37,7 +37,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: 'pur-pir-yalitimli-cephe-panelleri', name: 'PUR/PIR Yalıtımlı Cephe Panelleri', description: 'Yüksek performanslı PUR/PIR cephe paneli.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
       { slug: 'mineral-yun-yalitimli-cephe-panelleri', name: 'Mineral Yün Yalıtımlı Cephe Panelleri', description: 'Yangına dayanıklı mineral yün cephe paneli.', image: '/images/products/mineral-cephe.jpg', children: [] },
-      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/ekonomik-cephe.png', children: [] },
+      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/eko-panel.jpg', children: [] },
     ],
   },
   'trapez-saclar': {

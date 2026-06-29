@@ -10,7 +10,7 @@ const FloatingWhatsapp = () => {
             href="https://wa.me/905319308500"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={trackWhatsAppClick}
+            onClick={() => trackWhatsAppClick({ source: 'floating_button' })}
             style={{
                 position: 'fixed',
                 bottom: '20px',
@@ -37,3 +37,4 @@ const FloatingWhatsapp = () => {
 };
 
 export default FloatingWhatsapp;
+

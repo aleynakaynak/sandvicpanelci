@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FormEvent, useState } from 'react';
-import { trackWhatsAppClick, trackFormSubmit } from '@/lib/gtag';
+import { trackWhatsAppClick, trackPhoneClick, trackFormSubmit } from '@/lib/gtag';
 
 interface ContactFormProps {
     phone1: string;
@@ -16,10 +16,11 @@ export default function ContactClient({ phone1, whatsapp, email, address1, mapSr
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        trackFormSubmit();
+        trackFormSubmit({ form_type: 'contact_page_form' });
         // Form submission logic (e.g. email service) can be wired here
         setSubmitted(true);
     };
+
 
     return (
         <div style={{ backgroundColor: '#fff', minHeight: '100vh', paddingBottom: '50px' }}>
@@ -67,7 +68,7 @@ export default function ContactClient({ phone1, whatsapp, email, address1, mapSr
                                     style={{ textDecoration: 'none', color: 'inherit' }}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    onClick={trackWhatsAppClick}
+                                    onClick={() => trackWhatsAppClick({ source: 'contact_page_info' })}
                                 >
                                     {whatsapp}
                                 </a>
@@ -113,6 +114,7 @@ export default function ContactClient({ phone1, whatsapp, email, address1, mapSr
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="contact-action-btn whatsapp-action"
+                                    onClick={() => trackWhatsAppClick({ source: 'contact_page_button' })}
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -139,6 +141,7 @@ export default function ContactClient({ phone1, whatsapp, email, address1, mapSr
                                 <a
                                     href={`tel:${phone1.replace(/\s/g, '')}`}
                                     className="contact-action-btn phone-action"
+                                    onClick={() => trackPhoneClick({ source: 'contact_page_button' })}
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',

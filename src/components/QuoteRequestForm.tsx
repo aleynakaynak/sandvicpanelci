@@ -1,6 +1,7 @@
 'use client';
 
 import { Phone, MessageCircle, Info } from 'lucide-react';
+import { trackWhatsAppClick, trackPhoneClick } from '@/lib/gtag';
 import type { ProductDetail, ProductVariant } from '@/lib/types/product.types';
 
 interface Props {
@@ -76,6 +77,7 @@ export default function QuoteRequestForm({ product, selectedVariant }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               className="quote-btn whatsapp-btn"
+              onClick={() => trackWhatsAppClick({ source: 'product_detail_form', product: product.name })}
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
                 width: '100%', padding: '14px',
@@ -97,6 +99,7 @@ export default function QuoteRequestForm({ product, selectedVariant }: Props) {
             <a
               href="tel:+905319308500"
               className="quote-btn phone-btn"
+              onClick={() => trackPhoneClick({ source: 'product_detail_form' })}
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
                 width: '100%', padding: '14px',

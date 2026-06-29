@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, FormEvent } from 'react';
-import { trackQuoteRequest } from '@/lib/gtag';
+import { trackFormSubmit } from '@/lib/gtag';
 
 const HeroQuoteForm = () => {
     const [submitted, setSubmitted] = useState(false);
@@ -18,8 +18,11 @@ const HeroQuoteForm = () => {
             urun:    (form.elements.namedItem('urun') as HTMLSelectElement)?.value,
         };
 
-        // Google Ads conversion event
-        trackQuoteRequest();
+        // Google Ads + GA4 dönüşüm eventi — form_type ve ürün bilgisiyle
+        trackFormSubmit({
+            form_type: 'hero_quote_form',
+            product: data.urun || 'Belirtilmedi',
+        });
 
         // WhatsApp'a yönlendir (opsiyonel: backend entegrasyonu yapılabilir)
         const msg = `Yeni Metraj Teklif Talebi!%0AAd: ${data.ad}%0ATelefon: ${data.telefon}%0AÜrün: ${data.urun}%0AMetraj: ${data.metraj} m²`;

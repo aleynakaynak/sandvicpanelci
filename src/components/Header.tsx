@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Phone, MapPin, ChevronDown, ChevronRight, ArrowRight, Layers, Building2, Trees, Droplets, Wrench, Package, Briefcase } from 'lucide-react';
+import { trackPhoneClick } from '@/lib/gtag';
 
 // ─── STATİK MENÜ VERİSİ ──────────────────────────────────────
 const NAV = [
@@ -208,7 +209,7 @@ export default function Header() {
               </div>
               <div>
                 <div style={{ fontSize: 11, color: '#999', fontWeight: 600 }}>Uzman Desteği</div>
-                <a href="tel:+905319308500" style={{ fontSize: 16, fontWeight: 800, color: '#222', textDecoration: 'none' }}>0531 930 85 00</a>
+                <a href="tel:+905319308500" onClick={() => trackPhoneClick({ source: 'header_desktop' })} style={{ fontSize: 16, fontWeight: 800, color: '#222', textDecoration: 'none' }}>0531 930 85 00</a>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -226,6 +227,7 @@ export default function Header() {
           <div className="hdr-mobile-controls" style={{ display: 'none', alignItems: 'center', gap: 12 }}>
             <a 
               href="tel:+905319308500" 
+              onClick={() => trackPhoneClick({ source: 'header_mobile_icon' })}
               style={{ width: 40, height: 40, borderRadius: '50%', background: '#d32f2f', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}
               aria-label="Uzman Desteği Ara"
             >
@@ -385,7 +387,7 @@ export default function Header() {
 
           {/* Quick Contact & Map info at the bottom of mobile drawer */}
           <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 12, borderTop: '1px solid #2a2a2a', paddingTop: 20 }}>
-            <a href="tel:+905319308500" style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#d32f2f', color: '#fff', padding: '12px 16px', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: 14, justifyContent: 'center' }}>
+            <a href="tel:+905319308500" onClick={() => trackPhoneClick({ source: 'header_mobile_drawer' })} style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#d32f2f', color: '#fff', padding: '12px 16px', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: 14, justifyContent: 'center' }}>
               <Phone size={16} /> Uzman Desteği: 0531 930 85 00
             </a>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#aaa', fontSize: 13, justifyContent: 'center' }}>
