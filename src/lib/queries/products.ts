@@ -93,7 +93,7 @@ export async function getProductsByCategory(
       : p.slug === 'ekonomik-cati-panel'
         ? '/images/products/eko-panel.jpg'
         : p.slug === 'ekonomik-cephe-panel'
-          ? '/images/products/pur-cephe-paneli.jpg'
+          ? '/images/products/ekonomik-cephe-panel.jpg'
           : p.slug === 'plywood'
             ? '/images/products/plywood-film-kapli.jpg'
             : p.image_url,
@@ -263,7 +263,7 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
   } else if (updatedProduct.slug === 'ekonomik-cati-panel') {
     updatedProduct.image_url = '/images/products/eko-panel.jpg';
   } else if (updatedProduct.slug === 'ekonomik-cephe-panel') {
-    updatedProduct.image_url = '/images/products/pur-cephe-paneli.jpg';
+    updatedProduct.image_url = '/images/products/ekonomik-cephe-panel.jpg';
   } else if (updatedProduct.slug === 'plywood') {
     updatedProduct.image_url = '/images/products/plywood-film-kapli.jpg';
   }

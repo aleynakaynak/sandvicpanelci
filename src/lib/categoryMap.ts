@@ -37,7 +37,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: 'pur-pir-yalitimli-cephe-panelleri', name: 'PUR/PIR Yalıtımlı Cephe Panelleri', description: 'Yüksek performanslı PUR/PIR cephe paneli.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
       { slug: 'mineral-yun-yalitimli-cephe-panelleri', name: 'Mineral Yün Yalıtımlı Cephe Panelleri', description: 'Yangına dayanıklı mineral yün cephe paneli.', image: '/images/products/mineral-cephe.jpg', children: [] },
-      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
+      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/ekonomik-cephe-panel.jpg', children: [] },
     ],
   },
   'trapez-saclar': {
