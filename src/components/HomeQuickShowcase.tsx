@@ -58,10 +58,10 @@ const PRODUCTS: Record<string, ProductItem[]> = {
     { name: 'Bitümlü Membran',      href: '/urunler/yalitim-malzemeleri/su-yalitimi',                image: '/images/products/membran.jpg',    bg: '#f5f5f5' },
   ],
   cephe: [
-    { name: 'PUR/PIR Cephe Paneli', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri', image: '/images/products/pur-cephe-paneli.jpg',   bg: '#f3e5f5' },
-    { name: 'Mineral Yün Cephe',    href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/mineral-yun-yalitimli-cephe-panelleri', image: '/images/products/mineral-cephe.jpg', bg: '#f3e5f5' },
-    { name: 'Ekonomik Cephe Panel', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/ekonomik-cephe-panel', image: '/images/products/ekonomik-cephe-panel.jpg', bg: '#f3e5f5' },
-    { name: 'Boyalı Profil',        href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller', image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },
+    { name: 'PUR/PIR Cephe Paneli', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri', image: '/images/products/cephe-panel.jpg',   bg: '#f3e5f5' },
+    { name: 'Taşyünü Cephe Paneli', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/mineral-yun-yalitimli-cephe-panelleri', image: '/images/products/cephe-panel.jpg',  bg: '#e8eaf6' },
+    { name: 'Soğuk Depo Paneli',    href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri', image: '/images/products/cephe-panel.jpg', bg: '#e1f5fe' },
+    { name: 'Ekonomik Cephe Panel', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/ekonomik-cephe-panel', image: '/images/products/cephe-panel.jpg', bg: '#eceff1' },
   ],
   ahsap: [
     { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',                             image: '/images/products/osb-levha.jpg', bg: '#f5f5f5' },
