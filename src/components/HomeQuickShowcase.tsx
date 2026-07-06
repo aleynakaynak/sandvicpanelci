@@ -79,7 +79,7 @@ const PRODUCTS: Record<string, ProductItem[]> = {
     { name: '27/200 Trapez Sac',  href: '/urunler/trapez-saclar/27-200-1000',    image: '/images/products/27-200.webp',         bg: '#e0f7fa' },
     { name: '38/151 Trapez Sac',  href: '/urunler/trapez-saclar/38-151-906',     image: '/images/products/38-151-trapez.webp',  bg: '#e0f2f1' },
     { name: '55/300 Trapez Sac',  href: '/urunler/trapez-saclar/55-300-900',     image: '/images/products/55-300-trapez.webp',  bg: '#e0f7fa' },
-    { name: 'Kenet Levha',        href: '/urunler/trapez-saclar/kenet-levhalar', image: '/images/products/kenet-levha-panel.jpg', bg: '#e0f2f1' },
+    { name: 'Trapez Sac',         href: '/urunler/trapez-saclar/kenet-levhalar', image: '/images/products/kenet-levha-panel.jpg', bg: '#e0f2f1' },
   ],
 };
 

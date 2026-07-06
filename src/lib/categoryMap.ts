@@ -50,7 +50,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
       { slug: '38-151-906', name: '38/151 Trapez Sac', description: 'Yüksek taşıma kapasiteli, 38mm yükseklik profil.', image: '/images/products/38-151-trapez.webp', children: [] },
       { slug: '55-300-900', name: '55/300 Trapez Sac', description: 'Ağır yük taşıyıcı, 55mm yükseklik trapez sac.', image: '/images/products/55-300-trapez.webp', children: [] },
       { slug: 'rulo-bobin-sac', name: 'Rulo Bobin Sac', description: 'İstenilen ölçüde kesim imkânı sunan bobin sac.', image: '/images/products/rulo-bobin-sac.webp', children: [] },
-      { slug: 'kenet-levhalar', name: 'Kenet Levhalar', description: 'Esnek kenet sistemiyle hızlı montaj.', image: '/images/products/kenet-levha-panel.jpg', children: [] },
+      { slug: 'kenet-levhalar', name: 'Trapez Sac', description: 'Çatı ve cephe için estetik trapez sac uygulaması.', image: '/images/products/kenet-levha-panel.jpg', children: [] },
     ],
   },
   'osb-ve-plywood': {

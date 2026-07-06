@@ -38,7 +38,7 @@ const MENU = [
       { label: '38/151 Trapez Sac',  href: '/urunler/trapez-saclar/38-151-906' },
       { label: '55/300 Trapez Sac',  href: '/urunler/trapez-saclar/55-300-900' },
       { label: 'Rulo Bobin Sac',     href: '/urunler/trapez-saclar/rulo-bobin-sac' },
-      { label: 'Kenet Levhalar',     href: '/urunler/trapez-saclar/kenet-levhalar' },
+      { label: 'Trapez Sac',         href: '/urunler/trapez-saclar/kenet-levhalar' },
     ],
   },
   {
