@@ -232,7 +232,7 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
         is_featured: false,
         seo_title: null,
         seo_desc: null,
-        gallery_urls: [],
+        gallery_urls: ['/images/36-65-435-1536x864.webp'],
         category: { id: -1, parent_id: null, name: 'Kenet Sistemleri', slug: 'kenet-sistemleri', image_url: null, description: null, is_active: true, display_order: 1, created_at: '', updated_at: '' } as any,
         sort_order: 3,
         created_at: new Date().toISOString(),
