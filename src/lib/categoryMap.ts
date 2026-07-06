@@ -26,7 +26,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: 'pur-pir-yalitimli-cati-panelleri', name: 'PUR/PIR Yalıtımlı Çatı Panelleri', description: 'En yüksek ısı yalıtım performansı.', image: '/images/products/3hadvepir.png', children: [] },
       { slug: 'mineral-yun-yalitimli-cati-panelleri', name: 'Mineral Yün Yalıtımlı Çatı Panelleri', description: 'A1 yangın sınıfı mineral yün dolgulu panel.', image: '/images/products/mineral-cati.png', children: [] },
-      { slug: 'ekonomik-cati-panel', name: 'Ekonomik Çatı Panel', description: 'Bütçe dostu, kaliteli çatı paneli seçeneği.', image: '/images/products/ekonomik-cephe-panel.jpg', children: [] },
+      { slug: 'ekonomik-cati-panel', name: 'Ekonomik Çatı Paneli (7 Hadveli)', description: 'Bütçe dostu, 7 hadveli standart izolasyonlu hafif çatı kaplama çözümü.', image: '/images/products/ekonomik-cephe-panel.jpg', children: [] },
     ],
   },
   'cephe-panelleri': {

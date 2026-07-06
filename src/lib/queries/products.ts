@@ -262,6 +262,17 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
     updatedProduct.image_url = '/images/products/3hadvepir.png';
   } else if (updatedProduct.slug === 'ekonomik-cati-panel') {
     updatedProduct.image_url = '/images/products/ekonomik-cephe-panel.jpg';
+    // Başlıkta yanlış hadve sayısı varsa düzelt (DB'den gelen 3 Hadveli → 7 Hadveli)
+    if (updatedProduct.name) {
+      updatedProduct.name = updatedProduct.name
+        .replace(/3\s*[Hh]adveli/g, '7 Hadveli')
+        .replace(/3\s*[Hh]adve/g, '7 Hadve');
+    }
+    if ((updatedProduct as any).title) {
+      (updatedProduct as any).title = ((updatedProduct as any).title as string)
+        .replace(/3\s*[Hh]adveli/g, '7 Hadveli')
+        .replace(/3\s*[Hh]adve/g, '7 Hadve');
+    }
   } else if (updatedProduct.slug === 'ekonomik-cephe-panel') {
     updatedProduct.image_url = '/images/products/cephe-panel.jpg';
   } else if (updatedProduct.slug === 'plywood') {
