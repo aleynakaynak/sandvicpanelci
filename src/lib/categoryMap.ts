@@ -15,7 +15,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     image: '/images/products/sandvic-panel.jpg',
     children: [
       { slug: 'cati-panelleri', name: 'Çatı Panelleri', description: 'Her türlü çatı için yalıtımlı panel sistemleri.', image: '/images/products/3hadvepir.png', children: [] },
-      { slug: 'cephe-panelleri', name: 'Cephe Panelleri', description: 'Modern cephe kaplama ve yalıtım panelleri.', image: '/images/products/ekonomik-cephe-panel.jpg', children: [] },
+      { slug: 'cephe-panelleri', name: 'Cephe Panelleri', description: 'Modern cephe kaplama ve yalıtım panelleri.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
     ],
   },
   'cati-panelleri': {
