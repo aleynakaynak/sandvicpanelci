@@ -90,9 +90,13 @@ export async function getProductsByCategory(
     ...p,
     image_url: p.slug === 'pur-pir-yalitimli-cati-panelleri'
       ? '/images/products/3hadvepir.png'
-      : (p.slug === 'ekonomik-cati-panel' || p.slug === 'ekonomik-cephe-panel')
+      : p.slug === 'ekonomik-cati-panel'
         ? '/images/products/eko-panel.jpg'
-        : p.image_url,
+        : p.slug === 'ekonomik-cephe-panel'
+          ? '/images/products/ekonomik-cephe-panel.jpg'
+          : p.slug === 'plywood'
+            ? '/images/products/plywood-film-kapli.jpg'
+            : p.image_url,
     attributes: attrMap[p.id] ?? {},
   })) as ProductCard[];
 }
@@ -174,8 +178,12 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
   const updatedProduct = { ...product };
   if (updatedProduct.slug === 'pur-pir-yalitimli-cati-panelleri') {
     updatedProduct.image_url = '/images/products/3hadvepir.png';
-  } else if (updatedProduct.slug === 'ekonomik-cati-panel' || updatedProduct.slug === 'ekonomik-cephe-panel') {
+  } else if (updatedProduct.slug === 'ekonomik-cati-panel') {
     updatedProduct.image_url = '/images/products/eko-panel.jpg';
+  } else if (updatedProduct.slug === 'ekonomik-cephe-panel') {
+    updatedProduct.image_url = '/images/products/ekonomik-cephe-panel.jpg';
+  } else if (updatedProduct.slug === 'plywood') {
+    updatedProduct.image_url = '/images/products/plywood-film-kapli.jpg';
   }
 
   return {

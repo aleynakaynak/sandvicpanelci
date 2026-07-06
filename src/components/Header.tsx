@@ -34,11 +34,11 @@ const NAV = [
     id: 2, label: 'Trapez Saclar', href: '/urunler/trapez-saclar', type: 'list',
     icon: <Building2 size={14} />,
     links: [
-      { label: 'Kenet Levhalar',  href: '/urunler/trapez-saclar/kenet-levhalar' },
-      { label: 'Rulo Bobin Sac',  href: '/urunler/trapez-saclar/rulo-bobin-sac' },
-      { label: '27/200 – 1000',   href: '/urunler/trapez-saclar/27-200-1000' },
-      { label: '38/151 – 906',    href: '/urunler/trapez-saclar/38-151-906' },
-      { label: '55/300 – 900',    href: '/urunler/trapez-saclar/55-300-900' },
+      { label: '27/200 Trapez Sac',  href: '/urunler/trapez-saclar/27-200-1000' },
+      { label: '38/151 Trapez Sac',  href: '/urunler/trapez-saclar/38-151-906' },
+      { label: '55/300 Trapez Sac',  href: '/urunler/trapez-saclar/55-300-900' },
+      { label: 'Rulo Bobin Sac',     href: '/urunler/trapez-saclar/rulo-bobin-sac' },
+      { label: 'Kenet Levhalar',     href: '/urunler/trapez-saclar/kenet-levhalar' },
     ],
   },
   {

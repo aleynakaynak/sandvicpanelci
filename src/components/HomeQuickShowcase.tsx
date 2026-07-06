@@ -60,8 +60,8 @@ const PRODUCTS: Record<string, ProductItem[]> = {
   cephe: [
     { name: 'PUR/PIR Cephe Paneli', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri', image: '/images/products/pur-cephe-paneli.jpg',   bg: '#f3e5f5' },
     { name: 'Mineral Yün Cephe',    href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/mineral-yun-yalitimli-cephe-panelleri', image: '/images/products/mineral-cephe.jpg', bg: '#f3e5f5' },
+    { name: 'Ekonomik Cephe Panel', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/ekonomik-cephe-panel', image: '/images/products/ekonomik-cephe-panel.jpg', bg: '#f3e5f5' },
     { name: 'Boyalı Profil',        href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller', image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },
-    { name: 'Galvanizli Sac',       href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar', image: '/images/products/galvaniz-rulo-sac.webp',bg: '#eceff1' },
   ],
   ahsap: [
     { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',     image: '/images/products/osb-levha.jpg',   bg: '#efebe9' },
@@ -76,10 +76,10 @@ const PRODUCTS: Record<string, ProductItem[]> = {
     { name: 'Trapez Sac',           href: '/urunler/trapez-saclar',          image: '/images/products/trapez-sac.jpg',  bg: '#eceff1' },
   ],
   polikarbon: [
-    { name: '27/200 – 1000',        href: '/urunler/trapez-saclar/27-200-1000',   image: '/images/products/27-200.webp',     bg: '#e0f7fa' },
-    { name: '38/151 – 906',         href: '/urunler/trapez-saclar/38-151-906',    image: '/images/products/38-151-trapez.webp',     bg: '#e0f2f1' },
-    { name: '55/300 – 900',         href: '/urunler/trapez-saclar/55-300-900',    image: '/images/products/55-300-trapez.webp',     bg: '#e0f7fa' },
-    { name: 'Kenet Levha',          href: '/urunler/trapez-saclar/kenet-levhalar',image: '/images/products/kenet-levha.gif',        bg: '#e0f2f1' },
+    { name: '27/200 Trapez Sac',  href: '/urunler/trapez-saclar/27-200-1000',    image: '/images/products/27-200.webp',         bg: '#e0f7fa' },
+    { name: '38/151 Trapez Sac',  href: '/urunler/trapez-saclar/38-151-906',     image: '/images/products/38-151-trapez.webp',  bg: '#e0f2f1' },
+    { name: '55/300 Trapez Sac',  href: '/urunler/trapez-saclar/55-300-900',     image: '/images/products/55-300-trapez.webp',  bg: '#e0f7fa' },
+    { name: 'Kenet Levha',        href: '/urunler/trapez-saclar/kenet-levhalar', image: '/images/products/kenet-levha-panel.jpg', bg: '#e0f2f1' },
   ],
 };
 

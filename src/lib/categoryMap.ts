@@ -15,7 +15,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     image: '/images/products/sandvic-panel.jpg',
     children: [
       { slug: 'cati-panelleri', name: 'Çatı Panelleri', description: 'Her türlü çatı için yalıtımlı panel sistemleri.', image: '/images/products/3hadvepir.png', children: [] },
-      { slug: 'cephe-panelleri', name: 'Cephe Panelleri', description: 'Modern cephe kaplama ve yalıtım panelleri.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
+      { slug: 'cephe-panelleri', name: 'Cephe Panelleri', description: 'Modern cephe kaplama ve yalıtım panelleri.', image: '/images/products/ekonomik-cephe-panel.jpg', children: [] },
     ],
   },
   'cati-panelleri': {
@@ -37,7 +37,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: 'pur-pir-yalitimli-cephe-panelleri', name: 'PUR/PIR Yalıtımlı Cephe Panelleri', description: 'Yüksek performanslı PUR/PIR cephe paneli.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
       { slug: 'mineral-yun-yalitimli-cephe-panelleri', name: 'Mineral Yün Yalıtımlı Cephe Panelleri', description: 'Yangına dayanıklı mineral yün cephe paneli.', image: '/images/products/mineral-cephe.jpg', children: [] },
-      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/eko-panel.jpg', children: [] },
+      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/ekonomik-cephe-panel.jpg', children: [] },
     ],
   },
   'trapez-saclar': {
@@ -46,11 +46,11 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     description: 'Her ölçüde çatı ve cephe trapez sac profilleri.',
     image: '/images/products/trapez-sac.jpg',
     children: [
-      { slug: 'kenet-levhalar', name: 'Kenet Levhalar', description: 'Esnek kenet sistemiyle hızlı montaj.', image: '/images/products/kenet-levha.gif', children: [] },
-      { slug: 'rulo-bobin-sac', name: 'Rulo Bobin Sac', description: 'İstenilen ölçüde kesim imkânı.', image: '/images/products/rulo-bobin-sac.webp', children: [] },
-      { slug: '27-200-1000', name: '27/200 – 1000', description: 'Standart çatı trapeziği.', image: '/images/products/27-200.webp', children: [] },
-      { slug: '38-151-906', name: '38/151 – 906', description: 'Yüksek taşıma kapasiteli profil.', image: '/images/products/38-151-trapez.webp', children: [] },
-      { slug: '55-300-900', name: '55/300 – 900', description: 'Ağır yük taşıyıcı trapez sac.', image: '/images/products/55-300-trapez.webp', children: [] },
+      { slug: '27-200-1000', name: '27/200 Trapez Sac', description: 'Standart çatı trapeziği, 27mm yükseklik, 200mm aks aralığı.', image: '/images/products/27-200.webp', children: [] },
+      { slug: '38-151-906', name: '38/151 Trapez Sac', description: 'Yüksek taşıma kapasiteli, 38mm yükseklik profil.', image: '/images/products/38-151-trapez.webp', children: [] },
+      { slug: '55-300-900', name: '55/300 Trapez Sac', description: 'Ağır yük taşıyıcı, 55mm yükseklik trapez sac.', image: '/images/products/55-300-trapez.webp', children: [] },
+      { slug: 'rulo-bobin-sac', name: 'Rulo Bobin Sac', description: 'İstenilen ölçüde kesim imkânı sunan bobin sac.', image: '/images/products/rulo-bobin-sac.webp', children: [] },
+      { slug: 'kenet-levhalar', name: 'Kenet Levhalar', description: 'Esnek kenet sistemiyle hızlı montaj.', image: '/images/products/kenet-levha-panel.jpg', children: [] },
     ],
   },
   'osb-ve-plywood': {
@@ -60,7 +60,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     image: '/images/products/osb-levha.jpg',
     children: [
       { slug: 'osb', name: 'OSB Levha', description: 'Yapısal ve çatı uygulamaları için OSB levha.', image: '/images/products/osb-levha.jpg', children: [] },
-      { slug: 'plywood', name: 'Plywood / Kontrplak', description: 'Beton kalıp ve genel amaçlı kontrplak.', image: '/images/products/plywood.webp', children: [] },
+      { slug: 'plywood', name: 'Plywood / Kontrplak', description: 'Beton kalıp ve genel amaçlı film kaplı kontrplak.', image: '/images/products/plywood-film-kapli.jpg', children: [] },
     ],
   },
   'yalitim-malzemeleri': {
