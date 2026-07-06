@@ -42,7 +42,7 @@ const PRODUCTS: Record<string, ProductItem[]> = {
   aksesuar: [
     { name: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar',              image: '/images/products/vidalar.jpg',        bg: '#eceff1' },
     { name: 'Çatı Çıkış Kapağı',    href: '/urunler/aksesuarlar-ve-ek-urunler/cati-cikis-kapaklari', image: '/images/products/cati-cikis-kapagi.jpg', bg: '#eceff1' },
-    { name: 'Kenet Levha',          href: '/urunler/kenet-sistemleri',                               image: '/images/1-duz-kenet-fotograf-1-1536x864.webp', bg: '#eceff1' },
+    { name: 'Galvanizli Sac',       href: '/urunler/boyali-profiller-galvanizli-saclar/galvanizli-saclar', image: '/images/products/galvaniz-sac.jpg', bg: '#eceff1' },
     { name: 'Rulo Bobin Sac',       href: '/urunler/trapez-saclar/rulo-bobin-sac',                   image: '/images/products/rulo-bobin-sac.webp',     bg: '#eceff1' },
   ],
   isi: [
@@ -64,10 +64,8 @@ const PRODUCTS: Record<string, ProductItem[]> = {
     { name: 'Boyalı Profil',        href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller', image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },
   ],
   ahsap: [
-    { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',     image: '/images/products/osb-levha.jpg',   bg: '#efebe9' },
-    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood', image: '/images/products/plywood.webp',     bg: '#efebe9' },
-    { name: 'Shingle',              href: '/urunler/osb-ve-plywood',         image: '/images/products/cati-cikis-shingle.jpg',     bg: '#efebe9' },
-    { name: 'Boardex',              href: '/urunler/osb-ve-plywood',         image: '/images/products/boardex.jpg',     bg: '#efebe9' },
+    { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',                             image: '/images/products/osb-levha.jpg', bg: '#f5f5f5' },
+    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood',                         image: '/images/products/plywood-film-kapli.jpg',   bg: '#efebe9' },
   ],
   profil: [
     { name: 'Boyalı Profiller',     href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller',    image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },
