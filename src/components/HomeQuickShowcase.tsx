@@ -37,7 +37,7 @@ const PRODUCTS: Record<string, ProductItem[]> = {
     { name: 'Sandviç Panel',        href: '/urunler/sandvic-panel-kaplama-malzemeleri',                       image: '/images/products/3hadvepir.png',  bg: '#fff3f3' },
     { name: 'PUR/PIR Çatı Paneli',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri', image: '/images/products/3hadvepir.png',           bg: '#fce4ec' },
     { name: 'Mineral Yün Çatı',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri', image: '/images/products/mineral-cati.png',    bg: '#fff3f3' },
-    { name: 'Ekonomik Çatı Panel',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel', image: '/images/products/eko-panel.jpg',      bg: '#fce4ec' },
+    { name: 'Ekonomik Çatı Panel',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel', image: '/images/products/ekonomik-cephe-panel.jpg',      bg: '#fce4ec' },
   ],
   aksesuar: [
     { name: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar',              image: '/images/products/vidalar.jpg',        bg: '#eceff1' },
