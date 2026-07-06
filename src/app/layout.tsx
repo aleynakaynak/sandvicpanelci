@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import Script from 'next/script';
+import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -30,9 +31,6 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1,
 };
-
-// ─── Tracking ID'leri ───────────────────────────────────────────────────────
-const GADS_ID = 'AW-18092736793';
 
 // Microsoft Clarity — clarity.microsoft.com üzerinden proje oluşturup ID'yi buraya ekleyin
 // Örnek: const CLARITY_ID = 'abc123def4';
@@ -93,33 +91,6 @@ export default async function RootLayout({
           }}
         />
 
-        {/* ── Google Ads gtag.js yükleyici ── */}
-        <Script
-          id="gads-gtag-js"
-          src={`https://www.googletagmanager.com/gtag/js?id=${GADS_ID}`}
-          strategy="afterInteractive"
-        />
-
-        {/* ── Google Ads başlatıcı ── */}
-        <Script
-          id="gads-gtag-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              // Google Ads hesabı
-              gtag('config', '${GADS_ID}', {
-                send_page_view: true,
-                allow_enhanced_conversions: true,
-                cookie_flags: 'SameSite=None;Secure'
-              });
-            `,
-          }}
-        />
-
         {/* ── Microsoft Clarity (ID girildiğinde otomatik aktif) ── */}
         {CLARITY_ID && (
           <Script
@@ -138,6 +109,7 @@ export default async function RootLayout({
         )}
       </head>
       <body className={roboto.className}>
+        {process.env.NEXT_PUBLIC_GTM_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />}
         <Header />
         <main>
           {children}

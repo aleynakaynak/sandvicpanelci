@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, ZoomIn, Phone } from 'lucide-react';
 import Image from 'next/image';
 import Script from 'next/script';
 import styles from './ProductDetail.module.css';
-import { trackWhatsAppClick, trackQuoteRequest } from '@/lib/gtag';
+import { trackWhatsAppClick, trackQuoteRequest, trackProductDetailView } from '@/lib/gtag';
 import { Product } from '@/lib/types';
 
 interface ProductDetailProps {
@@ -15,6 +15,10 @@ interface ProductDetailProps {
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     const [activeTab, setActiveTab] = useState('desc');
+
+    useEffect(() => {
+        trackProductDetailView({ product_name: product.title, category: product.categorySlug });
+    }, [product]);
 
     const productSchema = {
         '@context': 'https://schema.org',
