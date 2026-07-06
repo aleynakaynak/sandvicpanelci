@@ -25,6 +25,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 // ─── Tracking ID'leri ───────────────────────────────────────────────────────
 const GADS_ID = 'AW-18092736793';
 

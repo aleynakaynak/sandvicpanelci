@@ -132,8 +132,8 @@ export default function HomeQuickShowcase() {
         }}
           className="hqs-panel"
         >
-          {/* ── Sol: Dikey Menü ─────────────────────────── */}
-          <nav style={{ background: '#1e1e1e', borderRight: '1px solid #2a2a2a' }}>
+          {/* ── Sol: Menü ─────────────────────────── */}
+          <nav className="hqs-nav">
             {LEFT_GROUPS.map(group => {
               const isActive = group.id === active;
               return (
@@ -141,28 +141,15 @@ export default function HomeQuickShowcase() {
                   key={group.id}
                   onMouseEnter={() => setActive(group.id)}
                   onClick={() => setActive(group.id)}
-                  style={{
-                    display: 'flex', alignItems: 'center',
-                    width: '100%', padding: '14px 18px',
-                    background: isActive ? '#2a2a2a' : 'transparent',
-                    border: 'none',
-                    borderLeft: isActive ? `3px solid ${group.color}` : '3px solid transparent',
-                    cursor: 'pointer',
-                    gap: 10, textAlign: 'left',
-                    transition: 'all 0.14s',
-                    borderBottom: '1px solid #262626',
-                  }}
+                  className={`hqs-btn ${isActive ? 'active' : ''}`}
+                  style={{ '--btn-color': group.color } as React.CSSProperties}
                 >
-                  <span style={{
-                    fontSize: 12.5, fontWeight: 700, lineHeight: 1.35,
-                    color: isActive ? '#fff' : '#999',
-                    flex: 1,
-                  }}>
+                  <span className="hqs-btn-text">
                     {group.label}
                   </span>
                   {isActive
-                    ? <ChevronRight size={14} color={group.color} style={{ flexShrink: 0 }} />
-                    : <Plus size={14} color="#555" style={{ flexShrink: 0 }} />
+                    ? <ChevronRight size={14} color={group.color} className="hqs-btn-icon" />
+                    : <Plus size={14} color="#555" className="hqs-btn-icon" />
                   }
                 </button>
               );
@@ -259,15 +246,78 @@ export default function HomeQuickShowcase() {
       </div>
 
       <style>{`
+        .hqs-nav {
+          background: #1e1e1e;
+          border-right: 1px solid #2a2a2a;
+          display: flex;
+          flex-direction: column;
+        }
+        .hqs-btn {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          padding: 14px 18px;
+          background: transparent;
+          border: none;
+          border-left: 3px solid transparent;
+          border-bottom: 1px solid #262626;
+          cursor: pointer;
+          gap: 10px;
+          text-align: left;
+          transition: all 0.14s;
+        }
+        .hqs-btn.active {
+          background: #2a2a2a;
+          border-left: 3px solid var(--btn-color);
+        }
+        .hqs-btn-text {
+          font-size: 12.5px;
+          font-weight: 700;
+          line-height: 1.35;
+          color: #999;
+          flex: 1;
+        }
+        .hqs-btn.active .hqs-btn-text {
+          color: #fff;
+        }
+        .hqs-btn-icon {
+          flex-shrink: 0;
+        }
+        
         .hqs-card:hover {
           transform: translateY(-5px) !important;
           box-shadow: 0 12px 36px rgba(0,0,0,0.13) !important;
           border-color: #d32f2f !important;
         }
+        
         @media (max-width: 900px) {
           .hqs-panel { grid-template-columns: 1fr !important; }
           .hqs-grid  { grid-template-columns: repeat(2, 1fr) !important; }
+          
+          .hqs-nav {
+            flex-direction: row;
+            overflow-x: auto;
+            border-right: none;
+            border-bottom: 1px solid #2a2a2a;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+          }
+          .hqs-nav::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+          }
+          .hqs-btn {
+            width: auto;
+            flex-shrink: 0;
+            border-left: none;
+            border-bottom: 3px solid transparent;
+            padding: 12px 16px;
+          }
+          .hqs-btn.active {
+            border-left: none;
+            border-bottom: 3px solid var(--btn-color);
+          }
         }
+        
         @media (max-width: 480px) {
           .hqs-grid  { grid-template-columns: repeat(2, 1fr) !important; }
         }

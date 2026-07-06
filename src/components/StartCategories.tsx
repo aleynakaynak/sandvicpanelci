@@ -445,7 +445,7 @@ export default function StartCategories() {
             top: 50% !important;
             left: 50% !important;
             transform: translate(-50%, -50%) !important;
-            width: calc(100vw - 24px) !important;
+            width: calc(100% - 24px) !important;
             max-width: 420px !important;
             max-height: 80vh !important;
             flex-direction: column !important;

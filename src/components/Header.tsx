@@ -287,7 +287,7 @@ export default function Header() {
 
       {/* MOBILE NAV DRAWER */}
       {mobileOpen && (
-        <div className="hdr-mobile-drawer" style={{ display: 'none', background: '#1c1c1c', borderTop: '1px solid #333', padding: '16px 20px 32px', position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 9999, flexDirection: 'column', gap: 16, maxHeight: '80vh', overflowY: 'auto', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
+        <div className="hdr-mobile-drawer" style={{ background: '#1c1c1c', borderTop: '1px solid #333', padding: '16px 20px 32px', position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 9999, display: 'flex', flexDirection: 'column', gap: 16, maxHeight: '80vh', overflowY: 'auto', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
           <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
             {NAV.map(item => {
               const isSubOpen = activeSub === item.id;
