@@ -47,11 +47,11 @@ export default async function Home() {
           <div className={styles.feature_grid}>
             <div className={styles.feature_item}>
               <CheckCircle size={32} color="#666" />
-              <span className={styles.feature_text}>ORJİNAL <br /> ÜRÜN GARANTİSİ</span>
+              <span className={styles.feature_text}>ORİJİNAL <br /> ÜRÜN GARANTİSİ</span>
             </div>
             <div className={styles.feature_item}>
               <Truck size={32} color="#666" />
-              <span className={styles.feature_text}>TÜRKİYE'NİN HERYERİNE <br /> KARGO</span>
+              <span className={styles.feature_text}>TÜRKİYE’NİN HER YERİNE <br /> KARGO</span>
             </div>
             <div className={styles.feature_item}>
               <ShieldCheck size={32} color="#666" />

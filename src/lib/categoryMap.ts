@@ -37,7 +37,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: 'pur-pir-yalitimli-cephe-panelleri', name: 'PUR/PIR Yalıtımlı Cephe Panelleri', description: 'Yüksek performanslı PUR/PIR cephe paneli.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
       { slug: 'mineral-yun-yalitimli-cephe-panelleri', name: 'Mineral Yün Yalıtımlı Cephe Panelleri', description: 'Yangına dayanıklı mineral yün cephe paneli.', image: '/images/products/mineral-cephe.jpg', children: [] },
-      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/ekonomik-cephe-panel.jpg', children: [] },
+      { slug: 'ekonomik-cephe-panel', name: 'Ekonomik Cephe Panel', description: 'Uygun fiyatlı cephe kaplama çözümü.', image: '/images/products/pur-cephe-paneli.jpg', children: [] },
     ],
   },
   'trapez-saclar': {
@@ -48,9 +48,9 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: '27-200-1000', name: '27/200 Trapez Sac', description: 'Standart çatı trapeziği, 27mm yükseklik, 200mm aks aralığı.', image: '/images/products/27-200.webp', children: [] },
       { slug: '38-151-906', name: '38/151 Trapez Sac', description: 'Yüksek taşıma kapasiteli, 38mm yükseklik profil.', image: '/images/products/38-151-trapez.webp', children: [] },
-      { slug: '55-300-900', name: '55/300 Trapez Sac', description: 'Ağır yük taşıyıcı, 55mm yükseklik trapez sac.', image: '/images/products/55-300-trapez.webp', children: [] },
+      { slug: '55-300-900', name: '55/300 Döşeme Trapezi', description: 'Ağır yük taşıyıcı, 55mm yükseklik trapez sac.', image: '/images/products/55-300-trapez.webp', children: [] },
       { slug: 'rulo-bobin-sac', name: 'Rulo Bobin Sac', description: 'İstenilen ölçüde kesim imkânı sunan bobin sac.', image: '/images/products/rulo-bobin-sac.webp', children: [] },
-      { slug: 'kenet-levhalar', name: 'Trapez Sac', description: 'Çatı ve cephe için estetik trapez sac uygulaması.', image: '/images/products/kenet-levha-panel.jpg', children: [] },
+      { slug: 'kenet-levhalar', name: 'Kenet Çatı Levhası', description: 'Çatı için estetik ve sızdırmaz kenet tava uygulaması.', image: '/images/products/kenet-levha.gif', children: [] },
     ],
   },
   'osb-ve-plywood': {

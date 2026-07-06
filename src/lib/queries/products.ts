@@ -93,7 +93,7 @@ export async function getProductsByCategory(
       : p.slug === 'ekonomik-cati-panel'
         ? '/images/products/eko-panel.jpg'
         : p.slug === 'ekonomik-cephe-panel'
-          ? '/images/products/ekonomik-cephe-panel.jpg'
+          ? '/images/products/pur-cephe-paneli.jpg'
           : p.slug === 'plywood'
             ? '/images/products/plywood-film-kapli.jpg'
             : p.image_url,
@@ -181,9 +181,24 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
   } else if (updatedProduct.slug === 'ekonomik-cati-panel') {
     updatedProduct.image_url = '/images/products/eko-panel.jpg';
   } else if (updatedProduct.slug === 'ekonomik-cephe-panel') {
-    updatedProduct.image_url = '/images/products/ekonomik-cephe-panel.jpg';
+    updatedProduct.image_url = '/images/products/pur-cephe-paneli.jpg';
   } else if (updatedProduct.slug === 'plywood') {
     updatedProduct.image_url = '/images/products/plywood-film-kapli.jpg';
+  }
+
+  // Veritabanından gelen yanlış şablon başlıklarını düzeltme
+  if (updatedProduct.long_desc) {
+    if (updatedProduct.slug === 'ekonomik-cephe-panel') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Mahyalar ve Biten Elemanları/gi, 'Ekonomik Cephe Paneli Özellikleri');
+    } else if (updatedProduct.slug === 'plywood') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Trapez Sac Yüzey ve Renk Seçenekleri/gi, 'Film Kaplı Plywood Özellikleri');
+    } else if (updatedProduct.slug === 'osb') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Döşeme ve Taşıyıcı Trapez Saclar/gi, 'OSB Teknik Özellikleri');
+    } else if (updatedProduct.slug === 'rulo-bobin-sac') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Soğuk Oda ve Dondurucu Panelleri/gi, 'Rulo Bobin Sac Özellikleri');
+    } else if (updatedProduct.slug === 'kenet-levhalar') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Akustik Paneller/gi, 'Kenet Sistem Detayları');
+    }
   }
 
   return {

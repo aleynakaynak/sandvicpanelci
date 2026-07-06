@@ -68,7 +68,7 @@ export default function CategoryShowcaseCard({ name, description, image, href }:
         </div>
       </article>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .cat-card-wrap:hover article {
           border-color: #d32f2f !important;
           box-shadow: 0 12px 36px rgba(211,47,47,0.14) !important;
@@ -77,7 +77,7 @@ export default function CategoryShowcaseCard({ name, description, image, href }:
         .cat-card-wrap:hover .cat-card-img {
           transform: scale(1.05);
         }
-      `}</style>
+      `}} />
     </Link>
   );
 }
