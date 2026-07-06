@@ -167,34 +167,54 @@ export default async function UrunlerPage(props: PageProps) {
             </>
           )}
 
-          {/* ── Yaprak düğüm: alt kategori yok ── */}
+          {/* ── Yaprak düğüm: DB'de ürün yok ama kategoride tanımlı ── */}
           {!hasChildren && (
-            <div style={{
-              background: '#fff', borderRadius: 12, padding: '40px',
-              textAlign: 'center', border: '1px solid #eee',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-            }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>🏗️</div>
-              <h2 style={{ margin: '0 0 12px', fontSize: 22, fontWeight: 900, color: '#111' }}>
-                {cat.name}
-              </h2>
-              <p style={{ margin: '0 0 24px', fontSize: 15, color: '#777', lineHeight: 1.7, maxWidth: 500, marginInline: 'auto' }}>
-                {cat.description} Bu ürün grubu için fiyat teklifi ve detaylı bilgi almak için bizimle iletişime geçin.
-              </p>
-              <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-                <a href="tel:+905319308500" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#d32f2f', color: '#fff', textDecoration: 'none', padding: '12px 24px', borderRadius: 8, fontSize: 14, fontWeight: 800 }}>
-                  <Phone size={15} /> 0531 930 85 00
-                </a>
-                <a href="https://wa.me/905319308500" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#25d366', color: '#fff', textDecoration: 'none', padding: '12px 24px', borderRadius: 8, fontSize: 14, fontWeight: 800 }}>
-                  <MessageCircle size={15} /> WhatsApp
-                </a>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }} className="prod-top-grid">
+              {/* Görsel */}
+              <div style={{
+                borderRadius: 16, overflow: 'hidden', border: '1px solid #eee',
+                background: '#f5f5f5', height: 420,
+              }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '16px' }}
+                />
+              </div>
+
+              {/* Bilgiler */}
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 20 }}>
+                <h1 style={{ margin: 0, fontSize: 32, fontWeight: 900, color: '#111', lineHeight: 1.2 }}>
+                  {cat.name}
+                </h1>
+                <p style={{ margin: 0, fontSize: 16, color: '#555', lineHeight: 1.7 }}>
+                  {cat.description} Fiyat teklifi ve detaylı bilgi almak için bizimle iletişime geçin.
+                </p>
+                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                  <a
+                    href="tel:+905319308500"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#d32f2f', color: '#fff', textDecoration: 'none', padding: '13px 24px', borderRadius: 8, fontSize: 15, fontWeight: 800 }}
+                  >
+                    <Phone size={16} /> 0531 930 85 00
+                  </a>
+                  <a
+                    href="https://wa.me/905319308500"
+                    target="_blank" rel="noopener noreferrer"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#25d366', color: '#fff', textDecoration: 'none', padding: '13px 24px', borderRadius: 8, fontSize: 15, fontWeight: 800 }}
+                  >
+                    <MessageCircle size={16} /> WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
           )}
+
         </div>
         <style>{`
           @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2,1fr) !important; } }
           @media (max-width: 540px) { .cat-grid { grid-template-columns: 1fr !important; } }
+          @media (max-width: 768px) { .prod-top-grid { grid-template-columns: 1fr !important; gap: 24px !important; } }
         `}</style>
       </main>
     );
