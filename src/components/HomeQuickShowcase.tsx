@@ -41,8 +41,8 @@ const PRODUCTS: Record<string, ProductItem[]> = {
   ],
   aksesuar: [
     { name: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar',              image: '/images/products/vidalar.jpg',        bg: '#eceff1' },
-    { name: 'Çatı Çıkış Kapağı',   href: '/urunler/aksesuarlar-ve-ek-urunler/cati-cikis-kapaklari', image: '/images/products/cati-cikis-kapagi.jpg', bg: '#eceff1' },
-    { name: 'Kenet Levha',          href: '/urunler/trapez-saclar/kenet-levhalar',                   image: '/images/products/kenet-levha.gif',    bg: '#eceff1' },
+    { name: 'Çatı Çıkış Kapağı',    href: '/urunler/aksesuarlar-ve-ek-urunler/cati-cikis-kapaklari', image: '/images/products/cati-cikis-kapagi.jpg', bg: '#eceff1' },
+    { name: 'Kenet Levha',          href: '/urunler/kenet-sistemleri',                               image: '/images/1-duz-kenet-fotograf-1-1536x864.webp', bg: '#eceff1' },
     { name: 'Rulo Bobin Sac',       href: '/urunler/trapez-saclar/rulo-bobin-sac',                   image: '/images/products/rulo-bobin-sac.webp',     bg: '#eceff1' },
   ],
   isi: [
@@ -79,7 +79,7 @@ const PRODUCTS: Record<string, ProductItem[]> = {
     { name: '27/200 Trapez Sac',  href: '/urunler/trapez-saclar/27-200-1000',    image: '/images/products/27-200.webp',         bg: '#e0f7fa' },
     { name: '38/151 Trapez Sac',  href: '/urunler/trapez-saclar/38-151-906',     image: '/images/products/38-151-trapez.webp',  bg: '#e0f2f1' },
     { name: '55/300 Trapez Sac',  href: '/urunler/trapez-saclar/55-300-900',     image: '/images/products/55-300-trapez.webp',  bg: '#e0f7fa' },
-    { name: 'Trapez Sac',         href: '/urunler/trapez-saclar/kenet-levhalar', image: '/images/products/kenet-levha-panel.jpg', bg: '#e0f2f1' },
+    { name: 'Kenet Levha',        href: '/urunler/kenet-sistemleri',             image: '/images/1-duz-kenet-fotograf-1-1536x864.webp', bg: '#e0f2f1' },
   ],
 };
 

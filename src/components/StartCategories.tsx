@@ -38,7 +38,16 @@ const MENU = [
       { label: '38/151 Trapez Sac',  href: '/urunler/trapez-saclar/38-151-906' },
       { label: '55/300 Trapez Sac',  href: '/urunler/trapez-saclar/55-300-900' },
       { label: 'Rulo Bobin Sac',     href: '/urunler/trapez-saclar/rulo-bobin-sac' },
-      { label: 'Trapez Sac',         href: '/urunler/trapez-saclar/kenet-levhalar' },
+    ],
+  },
+  {
+    id: 8, slug: 'kenet', label: 'Kenet Sistemleri',
+    href: '/urunler/kenet-sistemleri', type: 'list',
+    icon: <Building2 size={15} />,
+    links: [
+      { label: 'Düz Kenet Levha',  href: '/urunler/kenet-sistemleri/duz-kenet-levha' },
+      { label: 'Kilit Geçme Sistem Panel',  href: '/urunler/kenet-sistemleri/kilit-gecme-sistem-panel' },
+      { label: 'Yüksek Kulak Kenet Levha',  href: '/urunler/kenet-sistemleri/yuksek-kulak-kenet-levha' },
     ],
   },
   {

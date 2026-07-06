@@ -38,8 +38,16 @@ const NAV = [
       { label: '38/151 Trapez Sac',  href: '/urunler/trapez-saclar/38-151-906' },
       { label: '55/300 Trapez Sac',  href: '/urunler/trapez-saclar/55-300-900' },
       { label: 'Rulo Bobin Sac',     href: '/urunler/trapez-saclar/rulo-bobin-sac' },
-      { label: 'Trapez Sac',         href: '/urunler/trapez-saclar/kenet-levhalar' },
     ],
+  },
+  { 
+    id: 8, label: 'Kenet Sistemleri', href: '/urunler/kenet-sistemleri', type: 'list',
+    icon: <Building2 size={14} />,
+    links: [
+      { label: 'Düz Kenet Levha',  href: '/urunler/kenet-sistemleri/duz-kenet-levha' },
+      { label: 'Kilit Geçme Sistem Panel',  href: '/urunler/kenet-sistemleri/kilit-gecme-sistem-panel' },
+      { label: 'Yüksek Kulak Kenet Levha',  href: '/urunler/kenet-sistemleri/yuksek-kulak-kenet-levha' },
+    ]
   },
   {
     id: 3, label: 'OSB ve Plywood', href: '/urunler/osb-ve-plywood', type: 'list',
@@ -145,7 +153,7 @@ export default function Header() {
     }
 
     if (item.type === 'yalitim') {
-      const it = item as typeof NAV[3];
+      const it = item as typeof NAV[4];
       return (
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
           {it.columns.map(col => (
@@ -328,7 +336,7 @@ export default function Header() {
                         </div>
                       ))}
 
-                      {item.type === 'yalitim' && (item as typeof NAV[3]).columns.map(col => (
+                      {item.type === 'yalitim' && (item as typeof NAV[4]).columns.map(col => (
                         <div key={col.id} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                           <Link href={col.href} onClick={() => setMobileOpen(false)} style={{ fontSize: 12, fontWeight: 900, color: col.accent, textTransform: 'uppercase', letterSpacing: 0.5, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}>
                             {col.label} <ArrowRight size={10} />

@@ -164,7 +164,89 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
     .eq('is_active', true)
     .single();
 
-  if (!product) return null;
+  if (!product) {
+    if (slug === 'duz-kenet-levha') {
+      return {
+        id: -1,
+        name: 'Düz Kenet Levha',
+        slug: 'duz-kenet-levha',
+        short_desc: 'Düz yüzeyli çatı ve cephe uygulamalarında kullanılan kenet levha çözümüdür.',
+        long_desc: 'Düz yüzeyli çatı ve cephe uygulamalarında kullanılan kenet levha çözümüdür.',
+        image_url: '/images/1-duz-kenet-fotograf-1-1536x864.webp',
+        base_price: 0,
+        price_unit: '₺ / m²',
+        category_id: -1,
+        is_active: true,
+        is_featured: false,
+        seo_title: null,
+        seo_desc: null,
+        gallery_urls: [],
+        category: { id: -1, parent_id: null, name: 'Kenet Sistemleri', slug: 'kenet-sistemleri', image_url: null, description: null, is_active: true, display_order: 1, created_at: '', updated_at: '' } as any,
+        sort_order: 1,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        attributes: {},
+        variants: [
+          { id: -11, product_id: -1, sku: null, variant_label: '25 / 325', thickness_mm: null, metal_top_mm: null, metal_bot_mm: null, ral_color: null, width_mm: null, price_delta: 0, stock_status: 'available', sort_order: 1, is_active: true },
+          { id: -12, product_id: -1, sku: null, variant_label: '25 / 425', thickness_mm: null, metal_top_mm: null, metal_bot_mm: null, ral_color: null, width_mm: null, price_delta: 0, stock_status: 'available', sort_order: 2, is_active: true },
+          { id: -13, product_id: -1, sku: null, variant_label: '25 / 525', thickness_mm: null, metal_top_mm: null, metal_bot_mm: null, ral_color: null, width_mm: null, price_delta: 0, stock_status: 'available', sort_order: 3, is_active: true },
+        ],
+        technical_specs: []
+      };
+    } else if (slug === 'kilit-gecme-sistem-panel') {
+      return {
+        id: -2,
+        name: 'Kilit Geçme Sistem Panel',
+        slug: 'kilit-gecme-sistem-panel',
+        short_desc: 'Kilit geçme bağlantı yapısıyla hızlı montaj sağlayan panel sistemidir.',
+        long_desc: 'Kilit geçme bağlantı yapısıyla hızlı montaj sağlayan panel sistemidir.',
+        image_url: '/images/30Kilit-gecme-sistem-1536x864.webp',
+        base_price: 0,
+        price_unit: '₺ / m²',
+        category_id: -1,
+        is_active: true,
+        is_featured: false,
+        seo_title: null,
+        seo_desc: null,
+        gallery_urls: [],
+        category: { id: -1, parent_id: null, name: 'Kenet Sistemleri', slug: 'kenet-sistemleri', image_url: null, description: null, is_active: true, display_order: 1, created_at: '', updated_at: '' } as any,
+        sort_order: 2,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        attributes: {},
+        variants: [],
+        technical_specs: []
+      };
+    } else if (slug === 'yuksek-kulak-kenet-levha') {
+      return {
+        id: -3,
+        name: 'Yüksek Kulak Kenet Levha',
+        slug: 'yuksek-kulak-kenet-levha',
+        short_desc: 'Geniş açıklıklı çatı kaplamalarında kullanılan, yüksek kulak formuna sahip kenet levha sistemidir.',
+        long_desc: 'Geniş açıklıklı çatı kaplamalarında kullanılan, yüksek kulak formuna sahip kenet levha sistemidir.',
+        image_url: '/images/35-50-475-1536x864.webp',
+        base_price: 0,
+        price_unit: '₺ / m²',
+        category_id: -1,
+        is_active: true,
+        is_featured: false,
+        seo_title: null,
+        seo_desc: null,
+        gallery_urls: [],
+        category: { id: -1, parent_id: null, name: 'Kenet Sistemleri', slug: 'kenet-sistemleri', image_url: null, description: null, is_active: true, display_order: 1, created_at: '', updated_at: '' } as any,
+        sort_order: 3,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        attributes: {},
+        variants: [
+          { id: -31, product_id: -3, sku: null, variant_label: '50 / 475', thickness_mm: null, metal_top_mm: null, metal_bot_mm: null, ral_color: null, width_mm: null, price_delta: 0, stock_status: 'available', sort_order: 1, is_active: true },
+          { id: -32, product_id: -3, sku: null, variant_label: '65 / 435', thickness_mm: null, metal_top_mm: null, metal_bot_mm: null, ral_color: null, width_mm: null, price_delta: 0, stock_status: 'available', sort_order: 2, is_active: true },
+        ],
+        technical_specs: []
+      };
+    }
+    return null;
+  }
 
   const [{ data: attrs }, { data: variants }, { data: specs }] = await Promise.all([
     supabase.from('product_attributes').select('*').eq('product_id', product.id),

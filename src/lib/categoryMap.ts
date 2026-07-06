@@ -50,7 +50,17 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
       { slug: '38-151-906', name: '38/151 Trapez Sac', description: 'Yüksek taşıma kapasiteli, 38mm yükseklik profil.', image: '/images/products/38-151-trapez.webp', children: [] },
       { slug: '55-300-900', name: '55/300 Döşeme Trapezi', description: 'Ağır yük taşıyıcı, 55mm yükseklik trapez sac.', image: '/images/products/55-300-trapez.webp', children: [] },
       { slug: 'rulo-bobin-sac', name: 'Rulo Bobin Sac', description: 'İstenilen ölçüde kesim imkânı sunan bobin sac.', image: '/images/products/rulo-bobin-sac.webp', children: [] },
-      { slug: 'kenet-levhalar', name: 'Kenet Çatı Levhası', description: 'Çatı için estetik ve sızdırmaz kenet tava uygulaması.', image: '/images/products/kenet-levha.gif', children: [] },
+    ],
+  },
+  'kenet-sistemleri': {
+    slug: 'kenet-sistemleri',
+    name: 'Kenet Sistemleri',
+    description: 'Estetik ve sızdırmaz kenet çatı ve cephe kaplama çözümleri.',
+    image: '/images/1-duz-kenet-fotograf-1-1536x864.webp',
+    children: [
+      { slug: 'duz-kenet-levha', name: 'Düz Kenet Levha', description: 'Düz yüzeyli çatı ve cephe uygulamalarında kullanılan kenet levha çözümüdür.', image: '/images/1-duz-kenet-fotograf-1-1536x864.webp', children: [] },
+      { slug: 'kilit-gecme-sistem-panel', name: 'Kilit Geçme Sistem Panel', description: 'Kilit geçme bağlantı yapısıyla hızlı montaj sağlayan panel sistemidir.', image: '/images/30Kilit-gecme-sistem-1536x864.webp', children: [] },
+      { slug: 'yuksek-kulak-kenet-levha', name: 'Yüksek Kulak Kenet Levha', description: 'Geniş açıklıklı çatı kaplamalarında kullanılan, yüksek kulak formuna sahip kenet levha sistemidir.', image: '/images/35-50-475-1536x864.webp', children: [] },
     ],
   },
   'osb-ve-plywood': {

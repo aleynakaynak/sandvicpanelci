@@ -220,7 +220,8 @@ export async function getCategories(): Promise<Category[]> {
             { id: '4', title: 'Yalıtım Malzemeleri', slug: 'yalitim-malzemeleri', order: 4 },
             { id: '5', title: 'OSB ve Plywood', slug: 'osb-plywood', order: 5 },
             { id: '6', title: 'Boyalı Profiller ve Galvanizli Saclar', slug: 'profil-sac', order: 6 },
-            { id: '7', title: 'Aksesuarlar ve Ek Ürünler', slug: 'aksesuar', order: 7 }
+            { id: '7', title: 'Aksesuarlar ve Ek Ürünler', slug: 'aksesuar', order: 7 },
+            { id: '8', title: 'Kenet Sistemleri', slug: 'kenet-sistemleri', order: 8 }
         ];
     }
 
