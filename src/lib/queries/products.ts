@@ -91,7 +91,7 @@ export async function getProductsByCategory(
     image_url: p.slug === 'pur-pir-yalitimli-cati-panelleri'
       ? '/images/products/3hadvepir.png'
       : p.slug === 'ekonomik-cati-panel'
-        ? '/images/products/ekonomik-cephe-panel.jpg'
+        ? '/images/products/ekonomik-cati-gallery.png'
         : p.slug === 'ekonomik-cephe-panel'
           ? '/images/products/ekonomik-cephe-gallery.jpg'
           : p.slug === 'plywood'
@@ -261,7 +261,7 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
   if (updatedProduct.slug === 'pur-pir-yalitimli-cati-panelleri') {
     updatedProduct.image_url = '/images/products/3hadvepir.png';
   } else if (updatedProduct.slug === 'ekonomik-cati-panel') {
-    updatedProduct.image_url = '/images/products/ekonomik-cephe-panel.jpg';
+    updatedProduct.image_url = '/images/products/ekonomik-cati-gallery.png';
     // Başlıkta yanlış hadve sayısı varsa düzelt (DB'den gelen 3 Hadveli → 7 Hadveli)
     if (updatedProduct.name) {
       updatedProduct.name = updatedProduct.name
