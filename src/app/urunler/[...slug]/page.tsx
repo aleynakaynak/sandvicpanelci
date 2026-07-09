@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Home, ChevronRight, Phone, MessageCircle } from 'lucide-react';
+import { Home, ChevronRight, Phone, MessageCircle, CheckCircle2, Ruler, FileText } from 'lucide-react';
 import { CATEGORY_MAP, buildHref } from '@/lib/categoryMap';
 import CategoryShowcaseCard from './CategoryShowcaseCard';
 import { getProductDetail } from '@/lib/queries/products';

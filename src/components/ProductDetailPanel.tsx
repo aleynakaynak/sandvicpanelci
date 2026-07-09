@@ -15,6 +15,7 @@ import {
   ZoomIn, CheckCircle, Layers, Palette,
 } from 'lucide-react';
 import UValueCalculator from '@/components/UValueCalculator';
+import QuoteRequestForm from '@/components/QuoteRequestForm';
 import type { ProductDetail, ProductVariant, ProductTechnicalSpec } from '@/lib/types/product.types';
 import { formatProductPrice } from '@/lib/utils/price';
 
@@ -31,23 +32,18 @@ function AttributeTable({ attributes }: { attributes: Record<string, string> }) 
   const ATTR_LABELS: Record<string, string> = {
     thickness:       'Kalınlık',
     thickness_mm:    'Kalınlık',
-    thickness:       'Kalınlık',
     wave_form:       'Hadve Yapısı',
     fire_class:      'Yangın Sınıfı',
     metal_thickness: 'Sac Kalınlığı',
     metal_thick:     'Sac Kalınlığı',
     color:           'Renk',
     ral_color:       'Renk',
-    metal_thick:     'Sac Kalınlığı',
-    metal_thickness: 'Sac Kalınlığı',
-    wave_form:       'Form',
     insulation:      'Yalıtım',
     insulation_type: 'Yalıtım Tipi',
     density:         'Yoğunluk',
     width:           'Genişlik',
     width_mm:        'Faydalı En',
     length:          'Uzunluk',
-    fire_class:      'Yangın Sınıfı',
     surface_type:    'Yüzey Tipi',
     profile_form:    'Profil Formu',
     surface_coat:    'Yüzey Kaplama',
