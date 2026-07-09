@@ -390,7 +390,7 @@ export default function ProductDetailPanel({ product }: Props) {
               {product.category?.name}
             </p>
             <h1 style={{ margin:'0 0 12px', fontSize:22, fontWeight:900, color:'#111', lineHeight:1.25 }}>
-              {product.name}
+              {product.slug === 'ekonomik-cati-panel' ? product.name.replace('7 Hadveli', '3 Hadveli') : product.name}
             </h1>
 
             {product.short_desc && (
@@ -476,6 +476,16 @@ export default function ProductDetailPanel({ product }: Props) {
               />
             </div>
           )}
+
+          {/* Alt kısım teknik detaylar / resim vb. */}
+          <div style={{ marginTop: 20 }}>
+            <Image 
+              src={product.slug === 'ekonomik-cati-panel' ? '/images/products/3hadve.png' : (product.image_url ?? '/placeholder.png')} 
+              alt="Teknik Detay" 
+              width={800} height={400} 
+              style={{ width:'100%', height:'auto', borderRadius:8 }} 
+            />
+          </div>
 
           {/* Teklif formu */}
           <QuoteRequestForm
