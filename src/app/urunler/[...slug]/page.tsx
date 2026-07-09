@@ -32,8 +32,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   // Kategori değilse ürün mü diye DB'den bak
   const product = await getProductDetail(lastSlug);
   if (product) {
+    let titleName = product.name;
+    if (product.slug === 'ekonomik-cati-panel') {
+      titleName = 'Ekonomik Çatı Paneli';
+    }
     return {
-      title: `${product.name} | Sandviç Panelci Yapı Market`,
+      title: `${titleName} | Sandviç Panelci Yapı Market`,
       description: product.short_desc,
     };
   }
@@ -54,6 +58,11 @@ export default async function UrunlerPage(props: PageProps) {
   if (!cat) {
     // 2. Kategori değilse, veritabanından ürün mü diye bak
     product = await getProductDetail(lastSlug);
+
+    // Hardcode override for Ekonomik Çatı Paneli to remove the '7 Hadveli' text
+    if (product && product.slug === 'ekonomik-cati-panel') {
+      product.name = 'Ekonomik Çatı Paneli';
+    }
 
     // 3. Veritabanında da yoksa (ürün henüz eklenmemişse), menüde tanımlı bir alt kırılım (yaprak) mı diye bak
     if (!product) {

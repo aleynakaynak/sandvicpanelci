@@ -390,7 +390,7 @@ export default function ProductDetailPanel({ product }: Props) {
               {product.category?.name}
             </p>
             <h1 style={{ margin:'0 0 12px', fontSize:22, fontWeight:900, color:'#111', lineHeight:1.25 }}>
-              {product.slug === 'ekonomik-cati-panel' ? product.name.replace('7 Hadveli', '3 Hadveli') : product.name}
+              {product.name}
             </h1>
 
             {product.short_desc && (
