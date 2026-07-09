@@ -216,10 +216,22 @@ function VariantSelector({
 
 // ── Ana bileşen ────────────────────────────────────────────────
 export default function ProductDetailPanel({ product }: Props) {
+  const isPanel = product.name.toLowerCase().includes('panel');
+
   // Başlangıçta ilk varyantı seç
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(
-    product.variants[0] ?? null
-  );
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(() => {
+    if (isPanel) {
+      return { 
+        id: 40, 
+        thickness_mm: 40, 
+        ral_color: 'Farklı renk seçeneklerinde üretim', 
+        variant_label: '40mm - Farklı renk seçenekleri', 
+        stock_status: 'available',
+        product_id: product.id 
+      } as ProductVariant;
+    }
+    return product.variants[0] ?? null;
+  });
 
   // Seçili varyanta karşılık gelen teknik spec
   const selectedSpec: ProductTechnicalSpec | undefined = product.technical_specs.find(
@@ -227,17 +239,36 @@ export default function ProductDetailPanel({ product }: Props) {
   ) ?? product.technical_specs[0];
 
   // Kalınlığa göre unique varyantlar (kalınlık butonu)
-  const thicknessVariants = product.variants.filter(
-    (v, i, arr) => arr.findIndex(x => x.thickness_mm === v.thickness_mm) === i
-  );
+  const thicknessVariants = isPanel
+    ? [40, 50, 60, 80, 100, 120].map(t => ({ 
+        id: t, 
+        thickness_mm: t, 
+        ral_color: 'Farklı renk seçeneklerinde üretim',
+        variant_label: `${t}mm - Farklı renk seçenekleri`,
+        stock_status: 'available',
+      } as ProductVariant))
+    : product.variants.filter(
+        (v, i, arr) => arr.findIndex(x => x.thickness_mm === v.thickness_mm) === i && v.thickness_mm !== 0
+      );
 
   // Renge göre unique varyantlar
-  const colorVariants = product.variants.filter(
-    (v, i, arr) => arr.findIndex(x => x.ral_color === v.ral_color) === i && !!v.ral_color
-  );
+  const colorVariants = isPanel
+    ? [{ 
+        id: 9999, 
+        ral_color: 'Farklı renk seçeneklerinde üretim', 
+        variant_label: 'Farklı renk seçeneklerinde üretim',
+        stock_status: 'available'
+      } as ProductVariant]
+    : product.variants.filter(
+        (v, i, arr) => arr.findIndex(x => x.ral_color === v.ral_color) === i && !!v.ral_color
+      );
 
   // Kalınlık seçilince en yakın varyantı bul
   function selectByThickness(v: ProductVariant) {
+    if (isPanel) {
+      setSelectedVariant(v);
+      return;
+    }
     const match = product.variants.find(
       x => x.thickness_mm === v.thickness_mm &&
            (selectedVariant?.ral_color ? x.ral_color === selectedVariant.ral_color : true)
@@ -247,6 +278,10 @@ export default function ProductDetailPanel({ product }: Props) {
 
   // Renk seçilince en yakın varyantı bul
   function selectByColor(v: ProductVariant) {
+    if (isPanel) {
+      setSelectedVariant(v);
+      return;
+    }
     const match = product.variants.find(
       x => x.ral_color === v.ral_color &&
            (selectedVariant?.thickness_mm ? x.thickness_mm === selectedVariant.thickness_mm : true)
@@ -294,7 +329,11 @@ export default function ProductDetailPanel({ product }: Props) {
           )}
 
           {/* Attribute tablosu */}
-          <AttributeTable attributes={product.attributes} />
+          <AttributeTable attributes={
+            isPanel 
+              ? { ...product.attributes, thickness_mm: '40mm, 50mm, 60mm, 80mm, 100mm, 120mm', ral_color: 'Farklı renk seçeneklerinde üretim' }
+              : product.attributes
+          } />
 
           {/* U-Değeri hesaplayıcı (sol altta — geniş ekranda) */}
           {product.technical_specs.length > 0 && (
