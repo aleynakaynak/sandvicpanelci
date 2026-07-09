@@ -233,10 +233,6 @@ export default function ProductDetailPanel({ product }: Props) {
     return product.variants[0] ?? null;
   });
 
-  // Seçili varyanta karşılık gelen teknik spec
-  const selectedSpec: ProductTechnicalSpec | undefined = product.technical_specs.find(
-    s => s.thickness_mm === selectedVariant?.thickness_mm
-  ) ?? product.technical_specs[0];
 
   // Kalınlığa göre unique varyantlar (kalınlık butonu)
   const thicknessVariants = isPanel
@@ -275,6 +271,24 @@ export default function ProductDetailPanel({ product }: Props) {
     ) ?? v;
     setSelectedVariant(match);
   }
+
+  // U-Değeri için override specs
+  const panelThicknesses = [40, 50, 60, 80, 100, 120];
+  const computedSpecs = isPanel
+    ? panelThicknesses.map((t, idx) => {
+        const existing = product.technical_specs.find(s => s.thickness_mm === t) ?? product.technical_specs[0];
+        return {
+          ...existing,
+          id: existing?.id ? parseInt(`${existing.id}${t}`) : idx + 1000,
+          thickness_mm: t,
+        } as ProductTechnicalSpec;
+      })
+    : product.technical_specs;
+
+  // Seçili varyanta karşılık gelen teknik spec
+  const selectedSpec: ProductTechnicalSpec | undefined = computedSpecs.find(
+    s => s.thickness_mm === selectedVariant?.thickness_mm
+  ) ?? computedSpecs[0];
 
   // Renk seçilince en yakın varyantı bul
   function selectByColor(v: ProductVariant) {
@@ -331,15 +345,19 @@ export default function ProductDetailPanel({ product }: Props) {
           {/* Attribute tablosu */}
           <AttributeTable attributes={
             isPanel 
-              ? { ...product.attributes, thickness_mm: '40mm, 50mm, 60mm, 80mm, 100mm, 120mm', ral_color: 'Farklı renk seçeneklerinde üretim' }
+              ? { 
+                  'thickness_mm': '40 mm, 50 mm, 60 mm, 80 mm, 100 mm, 120 mm',
+                  'ral_color': 'Farklı renk seçeneklerinde üretim',
+                  'metal_thickness': '0.50 + 0.40 mm'
+                }
               : product.attributes
           } />
 
           {/* U-Değeri hesaplayıcı (sol altta — geniş ekranda) */}
-          {product.technical_specs.length > 0 && (
+          {computedSpecs.length > 0 && (
             <div className="pdp-uvalue-left">
               <UValueCalculator
-                specs={product.technical_specs}
+                specs={computedSpecs}
                 productName={product.name}
               />
             </div>
@@ -433,10 +451,10 @@ export default function ProductDetailPanel({ product }: Props) {
           )}
 
           {/* U-Değeri (sağ sütunda — küçük ekranda görünür, büyükte gizlenir) */}
-          {product.technical_specs.length > 0 && (
+          {computedSpecs.length > 0 && (
             <div className="pdp-uvalue-right">
               <UValueCalculator
-                specs={selectedSpec ? [selectedSpec, ...product.technical_specs.filter(s => s.id !== selectedSpec.id)] : product.technical_specs}
+                specs={selectedSpec ? [selectedSpec, ...computedSpecs.filter(s => s.id !== selectedSpec.id)] : computedSpecs}
                 productName={product.name}
               />
             </div>
