@@ -17,7 +17,7 @@ const NAV = [
         links: [
           { label: 'PUR/PIR Yalıtımlı Çatı Panelleri',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri' },
           { label: 'Mineral Yün Yalıtımlı Çatı Panelleri', href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri' },
-          { label: 'Ekonomik Çatı Paneli (7 Hadveli)',               href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel' },
+          { label: 'Ekonomik Çatı Paneli',               href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel' },
         ],
       },
       {
