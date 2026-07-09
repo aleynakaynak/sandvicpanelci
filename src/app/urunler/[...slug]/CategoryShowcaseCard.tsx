@@ -33,7 +33,7 @@ export default function CategoryShowcaseCard({ name, description, image, href }:
             src={image}
             alt={name}
             loading="lazy"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain', transition: 'transform 0.4s ease' }}
             className="cat-card-img"
           />
           {/* Overlay gradient */}
