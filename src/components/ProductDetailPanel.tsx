@@ -23,92 +23,6 @@ interface Props {
   product: ProductDetail;
 }
 
-// ── Galeri alt bileşeni ────────────────────────────────────────
-function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const all = images.length > 0 ? images : [];
-  const current = all[activeIdx];
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {/* Ana görsel */}
-      <div style={{
-        position: 'relative', width: '100%', aspectRatio: '4/3',
-        background: '#f5f5f5', borderRadius: 12,
-        border: '1px solid #eee', overflow: 'hidden',
-      }}>
-        {current ? (
-          <Image src={current} alt={alt} fill style={{ objectFit: 'cover' }} sizes="(max-width:768px)100vw,50vw" />
-        ) : (
-          <div style={{ width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center' }}>
-            <Package2 size={64} color="#ddd" />
-          </div>
-        )}
-
-        {/* Galeri okları */}
-        {all.length > 1 && (
-          <>
-            <button
-              onClick={() => setActiveIdx(i => (i - 1 + all.length) % all.length)}
-              style={arrowStyle('left')}
-              aria-label="Önceki görsel"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={() => setActiveIdx(i => (i + 1) % all.length)}
-              style={arrowStyle('right')}
-              aria-label="Sonraki görsel"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </>
-        )}
-
-        {/* Zoom icon */}
-        <div style={{
-          position:'absolute',top:10,right:10,
-          background:'rgba(0,0,0,0.4)',borderRadius:6,
-          padding:'4px 6px',display:'flex',
-        }}>
-          <ZoomIn size={14} color="#fff" />
-        </div>
-
-        {/* Sayaç */}
-        {all.length > 1 && (
-          <div style={{
-            position:'absolute',bottom:10,right:10,
-            background:'rgba(0,0,0,0.5)',color:'#fff',
-            fontSize:11,fontWeight:700,borderRadius:99,
-            padding:'2px 10px',
-          }}>
-            {activeIdx+1} / {all.length}
-          </div>
-        )}
-      </div>
-
-      {/* Küçük resimler */}
-      {all.length > 1 && (
-        <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
-          {all.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIdx(i)}
-              style={{
-                width:64, height:64, borderRadius:8, overflow:'hidden',
-                border: `2px solid ${i===activeIdx?'#d32f2f':'#eee'}`,
-                background:'#f5f5f5', padding:0, cursor:'pointer',
-                flexShrink:0, transition:'border-color 0.15s',
-              }}
-            >
-              <Image src={img} alt={`${alt} ${i+1}`} width={64} height={64} style={{ objectFit:'cover', display:'block' }} />
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ── Teknik özellikler tablosu ──────────────────────────────────
 function AttributeTable({ attributes }: { attributes: Record<string, string> }) {
@@ -328,11 +242,6 @@ export default function ProductDetailPanel({ product }: Props) {
         {/* ════ SOL SÜTUN ════ */}
         <div style={{ display:'flex', flexDirection:'column', gap:24 }}>
 
-          {/* Galeri */}
-          <ProductGallery
-            images={product.gallery_urls?.length ? product.gallery_urls : (product.image_url ? [product.image_url] : [])}
-            alt={product.name}
-          />
 
           {/* Uzun açıklama */}
           {product.long_desc && (
@@ -516,15 +425,3 @@ export default function ProductDetailPanel({ product }: Props) {
   );
 }
 
-// ── Yardımcı stiller ───────────────────────────────────────────
-function arrowStyle(side: 'left' | 'right'): React.CSSProperties {
-  return {
-    position: 'absolute', top: '50%', transform: 'translateY(-50%)',
-    [side]: 10,
-    background: 'rgba(0,0,0,0.45)', color: '#fff',
-    border: 'none', borderRadius: 6,
-    width: 32, height: 32,
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    cursor: 'pointer', transition: 'background 0.15s', zIndex: 1,
-  };
-}

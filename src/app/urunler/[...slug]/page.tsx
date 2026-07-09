@@ -8,6 +8,7 @@ import { getProductDetail } from '@/lib/queries/products';
 import QuoteRequestForm from '@/components/QuoteRequestForm';
 import UValueCalculator from '@/components/UValueCalculator';
 import ProductDetailPanel from '@/components/ProductDetailPanel';
+import ProductGallery from '@/components/ProductGallery';
 import { formatProductPrice } from '@/lib/utils/price';
 
 // ─── Types ───────────────────────────────────────────────────
@@ -291,13 +292,11 @@ export default async function UrunlerPage(props: PageProps) {
             {/* Görsel */}
             <div 
               className="prod-img-container"
-              style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #eee', background: '#f5f5f5', height: 420 }}
+              style={{ borderRadius: 16, border: 'none', background: 'transparent', height: 'auto', minHeight: 420 }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src={product.image_url ?? ''} 
+              <ProductGallery
+                images={product.gallery_urls?.length ? product.gallery_urls : (product.image_url ? [product.image_url] : [])}
                 alt={product.name}
-                style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '16px' }}
               />
             </div>
 
