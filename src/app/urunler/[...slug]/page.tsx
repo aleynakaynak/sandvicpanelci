@@ -64,6 +64,15 @@ export default async function UrunlerPage(props: PageProps) {
       product.name = 'Ekonomik Çatı Paneli';
     }
 
+    // Hardcode override for Plywood images
+    if (product && product.slug === 'plywood') {
+      product.image_url = '/images/products/setboard-plywood.jpg';
+      product.gallery_urls = [
+        '/images/products/setboard-plywood.jpg',
+        '/images/products/Hardwood-Plywood.webp'
+      ];
+    }
+
     // 3. Veritabanında da yoksa (ürün henüz eklenmemişse), menüde tanımlı bir alt kırılım (yaprak) mı diye bak
     if (!product) {
       for (const key in CATEGORY_MAP) {
