@@ -49,7 +49,7 @@ export async function getProducts(): Promise<Product[]> {
                 : p.slug === 'ekonomik-cephe-panel'
                     ? '/images/products/ekonomik-cephe-gallery.jpg'
                     : p.slug === 'plywood'
-                        ? '/images/products/plywood-film-kapli.jpg'
+                        ? '/images/products/setboard-plywood.jpg'
                         : (p.image_url || ''),
         active: p.is_active,
     }));
@@ -78,7 +78,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
                 : data.slug === 'ekonomik-cephe-panel'
                     ? '/images/products/ekonomik-cephe-gallery.jpg'
                     : data.slug === 'plywood'
-                        ? '/images/products/plywood-film-kapli.jpg'
+                        ? '/images/products/setboard-plywood.jpg'
                         : (data.image_url || ''),
         active: data.is_active,
     };
@@ -169,7 +169,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
                 : p.slug === 'ekonomik-cephe-panel'
                     ? '/images/products/ekonomik-cephe-gallery.jpg'
                     : p.slug === 'plywood'
-                        ? '/images/products/plywood-film-kapli.jpg'
+                        ? '/images/products/setboard-plywood.jpg'
                         : (p.image_url || ''),
         active: p.is_active,
     }));

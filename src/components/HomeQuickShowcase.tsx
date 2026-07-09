@@ -64,7 +64,7 @@ const PRODUCTS: Record<string, ProductItem[]> = {
   ],
   ahsap: [
     { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',                             image: '/images/products/osb-levha.jpg', bg: '#f5f5f5' },
-    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood',                         image: '/images/products/plywood-film-kapli.jpg',   bg: '#efebe9' },
+    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood',                         image: '/images/products/setboard-plywood.jpg',   bg: '#efebe9' },
   ],
   profil: [
     { name: 'Boyalı Profiller',     href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller',    image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },

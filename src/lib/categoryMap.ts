@@ -70,7 +70,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     image: '/images/products/osb-levha.jpg',
     children: [
       { slug: 'osb', name: 'OSB Levha', description: 'Yapısal ve çatı uygulamaları için OSB levha.', image: '/images/products/osb-levha.jpg', children: [] },
-      { slug: 'plywood', name: 'Plywood / Kontrplak', description: 'Beton kalıp ve genel amaçlı film kaplı kontrplak.', image: '/images/products/plywood-film-kapli.jpg', children: [] },
+      { slug: 'plywood', name: 'Plywood / Kontrplak', description: 'Beton kalıp ve genel amaçlı film kaplı kontrplak.', image: '/images/products/setboard-plywood.jpg', children: [] },
     ],
   },
   'yalitim-malzemeleri': {
