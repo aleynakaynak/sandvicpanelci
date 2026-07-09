@@ -8,6 +8,7 @@
  */
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import {
   ChevronLeft, ChevronRight, Package2,
@@ -117,9 +118,12 @@ function AttributeTable({ attributes }: { attributes: Record<string, string> }) 
   const ATTR_LABELS: Record<string, string> = {
     insulation_type: 'Yalıtım Tipi',
     thickness_mm:    'Kalınlık',
+    thickness:       'Kalınlık',
     wave_form:       'Hadve Yapısı',
     fire_class:      'Yangın Sınıfı',
-    metal_thickness: 'Metal Kalınlığı',
+    metal_thickness: 'Sac Kalınlığı',
+    metal_thick:     'Sac Kalınlığı',
+    color:           'Renk',
     ral_color:       'Renk',
     surface_type:    'Yüzey Tipi',
     profile_form:    'Profil Formu',
@@ -216,7 +220,8 @@ function VariantSelector({
 
 // ── Ana bileşen ────────────────────────────────────────────────
 export default function ProductDetailPanel({ product }: Props) {
-  const isPanel = product.name.toLowerCase().includes('panel');
+  const pathname = usePathname();
+  const isPanel = pathname?.includes('/urunler/sandvic-panel-kaplama-malzemeleri') ?? false;
 
   // Başlangıçta ilk varyantı seç
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(() => {
@@ -343,15 +348,27 @@ export default function ProductDetailPanel({ product }: Props) {
           )}
 
           {/* Attribute tablosu */}
-          <AttributeTable attributes={
-            isPanel 
-              ? { 
-                  'thickness_mm': '40 mm, 50 mm, 60 mm, 80 mm, 100 mm, 120 mm',
-                  'ral_color': 'Farklı renk seçeneklerinde üretim',
-                  'metal_thickness': '0.50 + 0.40 mm'
-                }
-              : product.attributes
-          } />
+          <AttributeTable attributes={(() => {
+            if (!isPanel) return product.attributes;
+            
+            const newAttrs = { ...product.attributes };
+            
+            // Eski anahtarları kaldır
+            delete newAttrs['thickness'];
+            delete newAttrs['color'];
+            delete newAttrs['metal_thick'];
+            delete newAttrs['thickness_mm'];
+            delete newAttrs['ral_color'];
+            delete newAttrs['metal_thickness'];
+            
+            // Sadece bu 3'ünü ve diğer özelliklerini koruyarak geri döndür
+            return {
+              ...newAttrs,
+              'thickness_mm': '40 mm, 50 mm, 60 mm, 80 mm, 100 mm, 120 mm',
+              'ral_color': 'Farklı renk seçeneklerinde üretim',
+              'metal_thickness': '0.50 + 0.40 mm'
+            };
+          })()} />
 
           {/* U-Değeri hesaplayıcı (sol altta — geniş ekranda) */}
           {computedSpecs.length > 0 && (
