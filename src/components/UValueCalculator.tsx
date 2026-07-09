@@ -32,12 +32,15 @@ function uBarFill(u: number): number {
 }
 
 export default function UValueCalculator({ specs, productName }: Props) {
-  const [selected, setSelected] = useState<ProductTechnicalSpec>(specs[0]);
+  // Boş, null, undefined veya 0 gelen kalınlık değerleri seçenek olarak gösterilmez
+  const validSpecs = (specs ?? []).filter(s => !!s.thickness_mm);
+  const [selected, setSelected] = useState<ProductTechnicalSpec | undefined>(validSpecs[0]);
 
-  if (!specs || specs.length === 0) return null;
+  if (validSpecs.length === 0) return null;
 
-  const uInfo = selected.u_value ? uValueLabel(selected.u_value) : null;
-  const fireInfo = selected.fire_class ? FIRE_CLASS_INFO[selected.fire_class] : null;
+  const current = selected && validSpecs.some(s => s.id === selected.id) ? selected : validSpecs[0];
+  const uInfo = current.u_value ? uValueLabel(current.u_value) : null;
+  const fireInfo = current.fire_class ? FIRE_CLASS_INFO[current.fire_class] : null;
 
   return (
     <div style={{
@@ -66,16 +69,16 @@ export default function UValueCalculator({ specs, productName }: Props) {
             Panel Kalınlığı Seçin
           </label>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {specs.map((spec) => (
+            {validSpecs.map((spec) => (
               <button
-                key={spec.thickness_mm}
+                key={spec.id}
                 onClick={() => setSelected(spec)}
                 style={{
                   padding: '7px 16px',
-                  border: `2px solid ${selected.id === spec.id ? '#d32f2f' : '#e0e0e0'}`,
+                  border: `2px solid ${current.id === spec.id ? '#d32f2f' : '#e0e0e0'}`,
                   borderRadius: 6,
-                  background: selected.id === spec.id ? '#fff3f3' : '#fff',
-                  color: selected.id === spec.id ? '#d32f2f' : '#444',
+                  background: current.id === spec.id ? '#fff3f3' : '#fff',
+                  color: current.id === spec.id ? '#d32f2f' : '#444',
                   fontSize: 13, fontWeight: 800, cursor: 'pointer',
                   transition: 'all 0.15s',
                 }}
@@ -87,7 +90,7 @@ export default function UValueCalculator({ specs, productName }: Props) {
         </div>
 
         {/* U-Değeri */}
-        {selected.u_value && (
+        {current.u_value && (
           <div style={{
             background: '#f9f9f9', borderRadius: 10,
             padding: '16px 18px',
@@ -109,7 +112,7 @@ export default function UValueCalculator({ specs, productName }: Props) {
 
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 14 }}>
               <span style={{ fontSize: 36, fontWeight: 900, color: '#111', lineHeight: 1 }}>
-                {selected.u_value.toFixed(3)}
+                {current.u_value.toFixed(3)}
               </span>
               <span style={{ fontSize: 14, color: '#888', fontWeight: 600 }}>W/m²K</span>
             </div>
@@ -125,7 +128,7 @@ export default function UValueCalculator({ specs, productName }: Props) {
               }}>
                 <div style={{
                   height: '100%', borderRadius: 99,
-                  width: `${uBarFill(selected.u_value)}%`,
+                  width: `${uBarFill(current.u_value)}%`,
                   background: `linear-gradient(to right, #15803d, #d97706)`,
                   transition: 'width 0.4s ease',
                 }} />
@@ -133,17 +136,17 @@ export default function UValueCalculator({ specs, productName }: Props) {
             </div>
 
             {/* Lambda */}
-            {selected.lambda_value && (
+            {current.lambda_value && (
               <p style={{ fontSize: 12, color: '#888', margin: '10px 0 0', fontWeight: 500 }}>
-                λ (Lambda) = <strong style={{ color: '#444' }}>{selected.lambda_value} W/(m·K)</strong>
-                &nbsp;·&nbsp; Kalınlık = <strong style={{ color: '#444' }}>{selected.thickness_mm} mm</strong>
+                λ (Lambda) = <strong style={{ color: '#444' }}>{current.lambda_value} W/(m·K)</strong>
+                &nbsp;·&nbsp; Kalınlık = <strong style={{ color: '#444' }}>{current.thickness_mm} mm</strong>
               </p>
             )}
           </div>
         )}
 
         {/* Yangın Sınıfı */}
-        {selected.fire_class && (
+        {current.fire_class && (
           <div style={{
             border: `2px solid ${fireInfo?.color ?? '#e0e0e0'}`,
             borderRadius: 10, padding: '14px 18px',
@@ -158,7 +161,7 @@ export default function UValueCalculator({ specs, productName }: Props) {
               margin: 0, fontSize: 18, fontWeight: 900,
               color: fireInfo?.color ?? '#333',
             }}>
-              {fireInfo?.label ?? selected.fire_class}
+              {fireInfo?.label ?? current.fire_class}
             </p>
             {fireInfo?.desc && (
               <p style={{ margin: '8px 0 0', fontSize: 12, color: '#777', lineHeight: 1.5 }}>
@@ -170,14 +173,14 @@ export default function UValueCalculator({ specs, productName }: Props) {
 
         {/* Ek teknik bilgiler */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          {selected.density_kg_m3 && (
-            <SpecCard label="Yoğunluk" value={`${selected.density_kg_m3} kg/m³`} />
+          {current.density_kg_m3 && (
+            <SpecCard label="Yoğunluk" value={`${current.density_kg_m3} kg/m³`} />
           )}
-          {selected.compressive_kpa && (
-            <SpecCard label="Basma Mukavemeti" value={`${selected.compressive_kpa} kPa`} />
+          {current.compressive_kpa && (
+            <SpecCard label="Basma Mukavemeti" value={`${current.compressive_kpa} kPa`} />
           )}
-          {selected.sound_reduction_db && (
-            <SpecCard label="Ses Azaltma (Rw)" value={`${selected.sound_reduction_db} dB`} />
+          {current.sound_reduction_db && (
+            <SpecCard label="Ses Azaltma (Rw)" value={`${current.sound_reduction_db} dB`} />
           )}
         </div>
 

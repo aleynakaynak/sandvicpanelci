@@ -13,7 +13,6 @@ import {
   ChevronLeft, ChevronRight, Package2,
   ZoomIn, CheckCircle, Layers, Palette,
 } from 'lucide-react';
-import QuoteRequestForm from '@/components/QuoteRequestForm';
 import UValueCalculator from '@/components/UValueCalculator';
 import type { ProductDetail, ProductVariant, ProductTechnicalSpec } from '@/lib/types/product.types';
 import { formatProductPrice } from '@/lib/utils/price';
@@ -115,20 +114,26 @@ function AttributeTable({ attributes }: { attributes: Record<string, string> }) 
   if (entries.length === 0) return null;
 
   const ATTR_LABELS: Record<string, string> = {
-    insulation_type: 'Yalıtım Tipi',
+    thickness:       'Kalınlık',
     thickness_mm:    'Kalınlık',
-    wave_form:       'Hadve Yapısı',
-    fire_class:      'Yangın Sınıfı',
-    metal_thickness: 'Metal Kalınlığı',
+    color:           'Renk',
     ral_color:       'Renk',
+    metal_thick:     'Sac Kalınlığı',
+    metal_thickness: 'Sac Kalınlığı',
+    wave_form:       'Form',
+    insulation:      'Yalıtım',
+    insulation_type: 'Yalıtım Tipi',
+    density:         'Yoğunluk',
+    width:           'Genişlik',
+    width_mm:        'Faydalı En',
+    length:          'Uzunluk',
+    fire_class:      'Yangın Sınıfı',
     surface_type:    'Yüzey Tipi',
     profile_form:    'Profil Formu',
     surface_coat:    'Yüzey Kaplama',
-    width_mm:        'Faydalı En',
     osb_class:       'OSB Sınıfı',
     sheet_size:      'Levha Ölçüsü',
     material_type:   'Malzeme Türü',
-    density:         'Yoğunluk',
     lambda_class:    'Lambda Değeri',
     membrane_type:   'Membran Tipi',
     surface_finish:  'Yüzey Kaplaması',
@@ -226,9 +231,9 @@ export default function ProductDetailPanel({ product }: Props) {
     s => s.thickness_mm === selectedVariant?.thickness_mm
   ) ?? product.technical_specs[0];
 
-  // Kalınlığa göre unique varyantlar (kalınlık butonu)
+  // Kalınlığa göre unique varyantlar (kalınlık butonu) — 0/null/undefined kalınlık değerleri gösterilmez
   const thicknessVariants = product.variants.filter(
-    (v, i, arr) => arr.findIndex(x => x.thickness_mm === v.thickness_mm) === i
+    (v, i, arr) => !!v.thickness_mm && arr.findIndex(x => x.thickness_mm === v.thickness_mm) === i
   );
 
   // Renge göre unique varyantlar
@@ -279,19 +284,6 @@ export default function ProductDetailPanel({ product }: Props) {
             images={product.gallery_urls?.length ? product.gallery_urls : (product.image_url ? [product.image_url] : [])}
             alt={product.name}
           />
-
-          {/* Uzun açıklama */}
-          {product.long_desc && (
-            <div style={{ background:'#fff', border:'1px solid #f0f0f0', borderRadius:10, padding:'20px 24px' }}>
-              <h3 style={{ margin:'0 0 12px', fontSize:14, fontWeight:800, color:'#111', textTransform:'uppercase', letterSpacing:0.5 }}>
-                Ürün Hakkında
-              </h3>
-              <div
-                style={{ fontSize:13, color:'#555', lineHeight:1.75 }}
-                dangerouslySetInnerHTML={{ __html: product.long_desc }}
-              />
-            </div>
-          )}
 
           {/* Attribute tablosu */}
           <AttributeTable attributes={product.attributes} />
@@ -402,12 +394,6 @@ export default function ProductDetailPanel({ product }: Props) {
               />
             </div>
           )}
-
-          {/* Teklif formu */}
-          <QuoteRequestForm
-            product={product}
-            selectedVariant={selectedVariant}
-          />
         </div>
       </div>
 

@@ -1,5 +1,32 @@
 import { Product, Category, BlogPost, SiteSettings, MenuItem, Reference } from './types';
 import { createClient } from './supabase/server';
+import { formatProductPrice } from './utils/price';
+
+// --- DB ROW -> APP MODEL MAPPING ---
+// Gerçek `products` tablosu kolonları (name, short_desc, image_url, category_id, base_price, price_unit)
+// ile bu dosyanın kullandığı `Product` tipi (title, description, imageUrl, categorySlug, price) arasındaki
+// köprü. DB'ye yazma yapmaz, sadece okuma sonuçlarını güvenli şekilde eşler.
+function mapDbProductToProduct(p: any, categorySlugById: Map<number, string>): Product {
+    return {
+        id: p.id.toString(),
+        title: p.name,
+        slug: p.slug,
+        price: formatProductPrice({ slug: p.slug, base_price: p.base_price, price_unit: p.price_unit }).fullFormatted,
+        categorySlug: categorySlugById.get(p.category_id) ?? '',
+        description: p.short_desc || '',
+        longDescription: p.long_desc || '',
+        imageUrl: p.slug === 'pur-pir-yalitimli-cati-panelleri'
+            ? '/images/products/3hadvepir.png'
+            : p.slug === 'ekonomik-cati-panel'
+                ? '/images/products/ekonomik-cati-gallery.png'
+                : p.slug === 'ekonomik-cephe-panel'
+                    ? '/images/products/ekonomik-cephe-gallery.jpg'
+                    : p.slug === 'plywood'
+                        ? '/images/products/plywood-film-kapli.jpg'
+                        : (p.image_url || ''),
+        active: p.is_active,
+    };
+}
 
 // --- DEFAULTS FOR FALLBACK ---
 const defaultHeaderMenu: MenuItem[] = [
@@ -29,30 +56,18 @@ const defaultSettings: SiteSettings = {
 
 export async function getProducts(): Promise<Product[]> {
     const supabase = await createClient();
-    const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+    const [{ data, error }, { data: cats }] = await Promise.all([
+        supabase.from('products').select('*').order('created_at', { ascending: false }),
+        supabase.from('categories').select('id, slug'),
+    ]);
 
     if (error || !data || data.length === 0) {
         return fallbackProducts;
     }
 
-    return data.map((p: any) => ({
-        id: p.id.toString(),
-        title: p.title,
-        slug: p.slug,
-        price: p.price || 'Fiyat Sorunuz', 
-        categorySlug: p.category_slug || '',
-        description: p.short_description || '',
-        imageUrl: p.slug === 'pur-pir-yalitimli-cati-panelleri' 
-            ? '/images/products/3hadvepir.png' 
-            : p.slug === 'ekonomik-cati-panel'
-                ? '/images/products/ekonomik-cati-gallery.png'
-                : p.slug === 'ekonomik-cephe-panel'
-                    ? '/images/products/ekonomik-cephe-gallery.jpg'
-                    : p.slug === 'plywood'
-                        ? '/images/products/plywood-film-kapli.jpg'
-                        : (p.image_url || ''),
-        active: p.is_active,
-    }));
+    const categorySlugById = new Map<number, string>((cats ?? []).map((c: any) => [c.id, c.slug]));
+
+    return data.map((p: any) => mapDbProductToProduct(p, categorySlugById));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -63,52 +78,29 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
         return fallbackProducts.find(p => p.slug === slug) || null;
     }
 
-    return {
-        id: data.id.toString(),
-        title: data.title,
-        slug: data.slug,
-        price: data.price || 'Fiyat Sorunuz',
-        categorySlug: data.category_slug || '',
-        description: data.short_description || '',
-        longDescription: data.description || '',
-        imageUrl: data.slug === 'pur-pir-yalitimli-cati-panelleri' 
-            ? '/images/products/3hadvepir.png' 
-            : data.slug === 'ekonomik-cati-panel'
-                ? '/images/products/ekonomik-cati-gallery.png'
-                : data.slug === 'ekonomik-cephe-panel'
-                    ? '/images/products/ekonomik-cephe-gallery.jpg'
-                    : data.slug === 'plywood'
-                        ? '/images/products/plywood-film-kapli.jpg'
-                        : (data.image_url || ''),
-        active: data.is_active,
-    };
+    const { data: cat } = await supabase.from('categories').select('id, slug').eq('id', data.category_id).single();
+    const categorySlugById = new Map<number, string>(cat ? [[cat.id, cat.slug]] : []);
+
+    return mapDbProductToProduct(data, categorySlugById);
 }
 
 export async function saveProduct(product: Product) {
     // Implementation for saving product
     const supabase = await createClient();
+    const { data: cat } = await supabase.from('categories').select('id').eq('slug', product.categorySlug).single();
+    const payload = {
+        name: product.title,
+        slug: product.slug,
+        short_desc: product.description,
+        long_desc: product.longDescription,
+        category_id: cat?.id ?? null,
+        image_url: product.imageUrl,
+        is_active: product.active,
+    };
     if (product.id && product.id.trim() !== '') {
-        await supabase.from('products').update({
-            title: product.title,
-            slug: product.slug,
-            price: product.price,
-            category_slug: product.categorySlug,
-            short_description: product.description,
-            description: product.longDescription,
-            image_url: product.imageUrl,
-            is_active: product.active
-        }).eq('id', product.id);
+        await supabase.from('products').update(payload).eq('id', product.id);
     } else {
-        await supabase.from('products').insert([{
-            title: product.title,
-            slug: product.slug,
-            price: product.price,
-            category_slug: product.categorySlug,
-            short_description: product.description,
-            description: product.longDescription,
-            image_url: product.imageUrl,
-            is_active: product.active
-        }]);
+        await supabase.from('products').insert([payload]);
     }
 }
 
@@ -132,18 +124,25 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
         title: data.name,
         parentId: data.parent_id?.toString(),
         imageUrl: data.image_url || '',
-        order: data.display_order
+        order: data.sort_order
     };
 }
 
 export async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
     const supabase = await createClient();
-    
-    // First, try to fetch products directly assigned to this category
+
+    // Kategori slug'ını gerçek `categories` tablosundan id'ye çözümle
+    const { data: cat } = await supabase.from('categories').select('id, slug').eq('slug', categorySlug).single();
+
+    if (!cat) {
+        const filtered = fallbackProducts.filter(p => p.categorySlug === categorySlug);
+        return filtered;
+    }
+
     const { data, error } = await supabase
         .from('products')
         .select('*')
-        .eq('category_slug', categorySlug)
+        .eq('category_id', cat.id)
         .eq('is_active', true);
 
     if (error || !data || data.length === 0) {
@@ -155,24 +154,8 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
         return [];
     }
 
-    return data.map((p: any) => ({
-        id: p.id.toString(),
-        title: p.title,
-        slug: p.slug,
-        price: p.price || 'Fiyat Sorunuz',
-        categorySlug: p.category_slug || '',
-        description: p.short_description || '',
-        imageUrl: p.slug === 'pur-pir-yalitimli-cati-panelleri' 
-            ? '/images/products/3hadvepir.png' 
-            : p.slug === 'ekonomik-cati-panel'
-                ? '/images/products/ekonomik-cati-gallery.png'
-                : p.slug === 'ekonomik-cephe-panel'
-                    ? '/images/products/ekonomik-cephe-gallery.jpg'
-                    : p.slug === 'plywood'
-                        ? '/images/products/plywood-film-kapli.jpg'
-                        : (p.image_url || ''),
-        active: p.is_active,
-    }));
+    const categorySlugById = new Map<number, string>([[cat.id, cat.slug]]);
+    return data.map((p: any) => mapDbProductToProduct(p, categorySlugById));
 }
 
 const fallbackProducts: Product[] = [
@@ -210,7 +193,7 @@ const fallbackProducts: Product[] = [
 
 export async function getCategories(): Promise<Category[]> {
     const supabase = await createClient();
-    const { data, error } = await supabase.from('categories').select('*').order('display_order', { ascending: true });
+    const { data, error } = await supabase.from('categories').select('*').order('sort_order', { ascending: true });
 
     if (error || !data || data.length === 0) {
         return [
@@ -230,7 +213,7 @@ export async function getCategories(): Promise<Category[]> {
         slug: c.slug,
         title: c.name,
         parentId: c.parent_id?.toString(),
-        order: c.display_order
+        order: c.sort_order
     }));
 }
 
