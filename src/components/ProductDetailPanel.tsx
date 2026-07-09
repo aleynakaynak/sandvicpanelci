@@ -8,6 +8,7 @@
  */
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import {
   ChevronLeft, ChevronRight, Package2,
@@ -21,92 +22,6 @@ interface Props {
   product: ProductDetail;
 }
 
-// ── Galeri alt bileşeni ────────────────────────────────────────
-function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const all = images.length > 0 ? images : [];
-  const current = all[activeIdx];
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {/* Ana görsel */}
-      <div style={{
-        position: 'relative', width: '100%', aspectRatio: '4/3',
-        background: '#f5f5f5', borderRadius: 12,
-        border: '1px solid #eee', overflow: 'hidden',
-      }}>
-        {current ? (
-          <Image src={current} alt={alt} fill style={{ objectFit: 'cover' }} sizes="(max-width:768px)100vw,50vw" />
-        ) : (
-          <div style={{ width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center' }}>
-            <Package2 size={64} color="#ddd" />
-          </div>
-        )}
-
-        {/* Galeri okları */}
-        {all.length > 1 && (
-          <>
-            <button
-              onClick={() => setActiveIdx(i => (i - 1 + all.length) % all.length)}
-              style={arrowStyle('left')}
-              aria-label="Önceki görsel"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={() => setActiveIdx(i => (i + 1) % all.length)}
-              style={arrowStyle('right')}
-              aria-label="Sonraki görsel"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </>
-        )}
-
-        {/* Zoom icon */}
-        <div style={{
-          position:'absolute',top:10,right:10,
-          background:'rgba(0,0,0,0.4)',borderRadius:6,
-          padding:'4px 6px',display:'flex',
-        }}>
-          <ZoomIn size={14} color="#fff" />
-        </div>
-
-        {/* Sayaç */}
-        {all.length > 1 && (
-          <div style={{
-            position:'absolute',bottom:10,right:10,
-            background:'rgba(0,0,0,0.5)',color:'#fff',
-            fontSize:11,fontWeight:700,borderRadius:99,
-            padding:'2px 10px',
-          }}>
-            {activeIdx+1} / {all.length}
-          </div>
-        )}
-      </div>
-
-      {/* Küçük resimler */}
-      {all.length > 1 && (
-        <div style={{ display:'flex', gap:8, flexWrap:'wrap' }}>
-          {all.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIdx(i)}
-              style={{
-                width:64, height:64, borderRadius:8, overflow:'hidden',
-                border: `2px solid ${i===activeIdx?'#d32f2f':'#eee'}`,
-                background:'#f5f5f5', padding:0, cursor:'pointer',
-                flexShrink:0, transition:'border-color 0.15s',
-              }}
-            >
-              <Image src={img} alt={`${alt} ${i+1}`} width={64} height={64} style={{ objectFit:'cover', display:'block' }} />
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ── Teknik özellikler tablosu ──────────────────────────────────
 function AttributeTable({ attributes }: { attributes: Record<string, string> }) {
@@ -116,6 +31,11 @@ function AttributeTable({ attributes }: { attributes: Record<string, string> }) 
   const ATTR_LABELS: Record<string, string> = {
     thickness:       'Kalınlık',
     thickness_mm:    'Kalınlık',
+    thickness:       'Kalınlık',
+    wave_form:       'Hadve Yapısı',
+    fire_class:      'Yangın Sınıfı',
+    metal_thickness: 'Sac Kalınlığı',
+    metal_thick:     'Sac Kalınlığı',
     color:           'Renk',
     ral_color:       'Renk',
     metal_thick:     'Sac Kalınlığı',
@@ -221,28 +141,56 @@ function VariantSelector({
 
 // ── Ana bileşen ────────────────────────────────────────────────
 export default function ProductDetailPanel({ product }: Props) {
+  const pathname = usePathname();
+  const isPanel = pathname?.includes('/urunler/sandvic-panel-kaplama-malzemeleri') ?? false;
+
   // Başlangıçta ilk varyantı seç
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(
-    product.variants[0] ?? null
-  );
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(() => {
+    if (isPanel) {
+      return { 
+        id: 40, 
+        thickness_mm: 40, 
+        ral_color: 'Farklı renk seçeneklerinde üretim', 
+        variant_label: '40mm - Farklı renk seçenekleri', 
+        stock_status: 'available',
+        product_id: product.id 
+      } as ProductVariant;
+    }
+    return product.variants[0] ?? null;
+  });
 
-  // Seçili varyanta karşılık gelen teknik spec
-  const selectedSpec: ProductTechnicalSpec | undefined = product.technical_specs.find(
-    s => s.thickness_mm === selectedVariant?.thickness_mm
-  ) ?? product.technical_specs[0];
 
-  // Kalınlığa göre unique varyantlar (kalınlık butonu) — 0/null/undefined kalınlık değerleri gösterilmez
-  const thicknessVariants = product.variants.filter(
-    (v, i, arr) => !!v.thickness_mm && arr.findIndex(x => x.thickness_mm === v.thickness_mm) === i
-  );
+  // Kalınlığa göre unique varyantlar (kalınlık butonu)
+  const thicknessVariants = isPanel
+    ? [40, 50, 60, 80, 100, 120].map(t => ({ 
+        id: t, 
+        thickness_mm: t, 
+        ral_color: 'Farklı renk seçeneklerinde üretim',
+        variant_label: `${t}mm - Farklı renk seçenekleri`,
+        stock_status: 'available',
+      } as ProductVariant))
+    : product.variants.filter(
+        (v, i, arr) => arr.findIndex(x => x.thickness_mm === v.thickness_mm) === i && v.thickness_mm !== 0
+      );
 
   // Renge göre unique varyantlar
-  const colorVariants = product.variants.filter(
-    (v, i, arr) => arr.findIndex(x => x.ral_color === v.ral_color) === i && !!v.ral_color
-  );
+  const colorVariants = isPanel
+    ? [{ 
+        id: 9999, 
+        ral_color: 'Farklı renk seçeneklerinde üretim', 
+        variant_label: 'Farklı renk seçeneklerinde üretim',
+        stock_status: 'available'
+      } as ProductVariant]
+    : product.variants.filter(
+        (v, i, arr) => arr.findIndex(x => x.ral_color === v.ral_color) === i && !!v.ral_color
+      );
 
   // Kalınlık seçilince en yakın varyantı bul
   function selectByThickness(v: ProductVariant) {
+    if (isPanel) {
+      setSelectedVariant(v);
+      return;
+    }
     const match = product.variants.find(
       x => x.thickness_mm === v.thickness_mm &&
            (selectedVariant?.ral_color ? x.ral_color === selectedVariant.ral_color : true)
@@ -250,8 +198,30 @@ export default function ProductDetailPanel({ product }: Props) {
     setSelectedVariant(match);
   }
 
+  // U-Değeri için override specs
+  const panelThicknesses = [40, 50, 60, 80, 100, 120];
+  const computedSpecs = isPanel
+    ? panelThicknesses.map((t, idx) => {
+        const existing = product.technical_specs.find(s => s.thickness_mm === t) ?? product.technical_specs[0];
+        return {
+          ...existing,
+          id: existing?.id ? parseInt(`${existing.id}${t}`) : idx + 1000,
+          thickness_mm: t,
+        } as ProductTechnicalSpec;
+      })
+    : product.technical_specs;
+
+  // Seçili varyanta karşılık gelen teknik spec
+  const selectedSpec: ProductTechnicalSpec | undefined = computedSpecs.find(
+    s => s.thickness_mm === selectedVariant?.thickness_mm
+  ) ?? computedSpecs[0];
+
   // Renk seçilince en yakın varyantı bul
   function selectByColor(v: ProductVariant) {
+    if (isPanel) {
+      setSelectedVariant(v);
+      return;
+    }
     const match = product.variants.find(
       x => x.ral_color === v.ral_color &&
            (selectedVariant?.thickness_mm ? x.thickness_mm === selectedVariant.thickness_mm : true)
@@ -279,20 +249,35 @@ export default function ProductDetailPanel({ product }: Props) {
         {/* ════ SOL SÜTUN ════ */}
         <div style={{ display:'flex', flexDirection:'column', gap:24 }}>
 
-          {/* Galeri */}
-          <ProductGallery
-            images={product.gallery_urls?.length ? product.gallery_urls : (product.image_url ? [product.image_url] : [])}
-            alt={product.name}
-          />
 
           {/* Attribute tablosu */}
-          <AttributeTable attributes={product.attributes} />
+          <AttributeTable attributes={(() => {
+            if (!isPanel) return product.attributes;
+            
+            const newAttrs = { ...product.attributes };
+            
+            // Eski anahtarları kaldır
+            delete newAttrs['thickness'];
+            delete newAttrs['color'];
+            delete newAttrs['metal_thick'];
+            delete newAttrs['thickness_mm'];
+            delete newAttrs['ral_color'];
+            delete newAttrs['metal_thickness'];
+            
+            // Sadece bu 3'ünü ve diğer özelliklerini koruyarak geri döndür
+            return {
+              ...newAttrs,
+              'thickness_mm': '40 mm, 50 mm, 60 mm, 80 mm, 100 mm, 120 mm',
+              'ral_color': 'Farklı renk seçeneklerinde üretim',
+              'metal_thickness': '0.50 + 0.40 mm'
+            };
+          })()} />
 
           {/* U-Değeri hesaplayıcı (sol altta — geniş ekranda) */}
-          {product.technical_specs.length > 0 && (
+          {computedSpecs.length > 0 && (
             <div className="pdp-uvalue-left">
               <UValueCalculator
-                specs={product.technical_specs}
+                specs={computedSpecs}
                 productName={product.name}
               />
             </div>
@@ -386,14 +371,30 @@ export default function ProductDetailPanel({ product }: Props) {
           )}
 
           {/* U-Değeri (sağ sütunda — küçük ekranda görünür, büyükte gizlenir) */}
-          {product.technical_specs.length > 0 && (
+          {computedSpecs.length > 0 && (
             <div className="pdp-uvalue-right">
               <UValueCalculator
-                specs={selectedSpec ? [selectedSpec, ...product.technical_specs.filter(s => s.id !== selectedSpec.id)] : product.technical_specs}
+                specs={selectedSpec ? [selectedSpec, ...computedSpecs.filter(s => s.id !== selectedSpec.id)] : computedSpecs}
                 productName={product.name}
               />
             </div>
           )}
+
+          {/* Alt kısım teknik detaylar / resim vb. */}
+          <div style={{ marginTop: 20 }}>
+            <Image 
+              src={product.slug === 'ekonomik-cati-panel' ? '/images/products/3hadve.png' : (product.image_url ?? '/placeholder.png')} 
+              alt="Teknik Detay" 
+              width={800} height={400} 
+              style={{ width:'100%', height:'auto', borderRadius:8 }} 
+            />
+          </div>
+
+          {/* Teklif formu */}
+          <QuoteRequestForm
+            product={product}
+            selectedVariant={selectedVariant}
+          />
         </div>
       </div>
 
@@ -418,15 +419,3 @@ export default function ProductDetailPanel({ product }: Props) {
   );
 }
 
-// ── Yardımcı stiller ───────────────────────────────────────────
-function arrowStyle(side: 'left' | 'right'): React.CSSProperties {
-  return {
-    position: 'absolute', top: '50%', transform: 'translateY(-50%)',
-    [side]: 10,
-    background: 'rgba(0,0,0,0.45)', color: '#fff',
-    border: 'none', borderRadius: 6,
-    width: 32, height: 32,
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    cursor: 'pointer', transition: 'background 0.15s', zIndex: 1,
-  };
-}

@@ -95,7 +95,7 @@ export async function getProductsByCategory(
         : p.slug === 'ekonomik-cephe-panel'
           ? '/images/products/ekonomik-cephe-gallery.jpg'
           : p.slug === 'plywood'
-            ? '/images/products/plywood-film-kapli.jpg'
+            ? '/images/products/setboard-plywood.jpg'
             : p.image_url,
     attributes: attrMap[p.id] ?? {},
   })) as ProductCard[];
@@ -276,9 +276,12 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
   } else if (updatedProduct.slug === 'ekonomik-cephe-panel') {
     updatedProduct.image_url = '/images/products/ekonomik-cephe-gallery.jpg';
   } else if (updatedProduct.slug === 'plywood') {
-    updatedProduct.image_url = '/images/products/plywood-film-kapli.jpg';
+    updatedProduct.image_url = '/images/products/setboard-plywood.jpg';
+    updatedProduct.gallery_urls = [
+      '/images/products/setboard-plywood.jpg',
+      '/images/products/Hardwood-Plywood.webp'
+    ];
   }
-
   // Veritabanından gelen yanlış şablon başlıklarını düzeltme
   if (updatedProduct.long_desc) {
     if (updatedProduct.slug === 'ekonomik-cephe-panel') {

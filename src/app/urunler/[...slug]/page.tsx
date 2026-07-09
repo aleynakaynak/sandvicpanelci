@@ -7,6 +7,8 @@ import CategoryShowcaseCard from './CategoryShowcaseCard';
 import { getProductDetail } from '@/lib/queries/products';
 import QuoteRequestForm from '@/components/QuoteRequestForm';
 import ProductDetailPanel from '@/components/ProductDetailPanel';
+import ProductGallery from '@/components/ProductGallery';
+import { formatProductPrice } from '@/lib/utils/price';
 
 // ─── Types ───────────────────────────────────────────────────
 interface PageProps {
@@ -30,8 +32,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   // Kategori değilse ürün mü diye DB'den bak
   const product = await getProductDetail(lastSlug);
   if (product) {
+    let titleName = product.name;
+    if (product.slug === 'ekonomik-cati-panel') {
+      titleName = 'Ekonomik Çatı Paneli';
+    }
     return {
-      title: `${product.name} | Sandviç Panelci Yapı Market`,
+      title: `${titleName} | Sandviç Panelci Yapı Market`,
       description: product.short_desc,
     };
   }
@@ -52,6 +58,20 @@ export default async function UrunlerPage(props: PageProps) {
   if (!cat) {
     // 2. Kategori değilse, veritabanından ürün mü diye bak
     product = await getProductDetail(lastSlug);
+
+    // Hardcode override for Ekonomik Çatı Paneli to remove the '7 Hadveli' text
+    if (product && product.slug === 'ekonomik-cati-panel') {
+      product.name = 'Ekonomik Çatı Paneli';
+    }
+
+    // Hardcode override for Plywood images
+    if (product && product.slug === 'plywood') {
+      product.image_url = '/images/products/setboard-plywood.jpg';
+      product.gallery_urls = [
+        '/images/products/setboard-plywood.jpg',
+        '/images/products/Hardwood-Plywood.webp'
+      ];
+    }
 
     // 3. Veritabanında da yoksa (ürün henüz eklenmemişse), menüde tanımlı bir alt kırılım (yaprak) mı diye bak
     if (!product) {
@@ -263,6 +283,79 @@ export default async function UrunlerPage(props: PageProps) {
               </li>
             </ol>
           </nav>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }} className="prod-top-grid">
+            
+            {/* Görsel */}
+            <div 
+              className="prod-img-container"
+              style={{ borderRadius: 16, border: 'none', background: 'transparent', height: 'auto', minHeight: 420 }}
+            >
+              <ProductGallery
+                images={product.gallery_urls?.length ? product.gallery_urls : (product.image_url ? [product.image_url] : [])}
+                alt={product.name}
+              />
+            </div>
+
+            {/* Temel Bilgiler */}
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <h1 style={{ margin: '0 0 16px', fontSize: 32, fontWeight: 900, color: '#111', lineHeight: 1.2 }}>
+                {product.name}
+              </h1>
+              <p style={{ margin: '0 0 24px', fontSize: 16, color: '#555', lineHeight: 1.6 }}>
+                {product.short_desc}
+              </p>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#fff3f3', padding: '8px 16px', borderRadius: 8, border: '1px solid #fecaca' }}>
+                  <CheckCircle2 size={16} color="#d32f2f" />
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#b71c1c' }}>Stokta Var</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#f5f5f5', padding: '8px 16px', borderRadius: 8, border: '1px solid #eee' }}>
+                  <Ruler size={16} color="#555" />
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#444' }}>Özel Ölçü Kesim</span>
+                </div>
+              </div>
+
+              {/* Fiyat Gösterimi (Opsiyonel) */}
+              {(() => {
+                const priceInfo = formatProductPrice(product);
+                return (
+                  <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid #eee' }}>
+                    <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
+                      BAŞLAYAN FİYATLARLA
+                    </p>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                      {priceInfo.hasPrice ? (
+                        <>
+                          <span style={{ fontSize: 36, fontWeight: 900, color: '#111' }}>
+                            {priceInfo.priceText}
+                          </span>
+                          <span style={{ fontSize: 16, fontWeight: 700, color: '#777' }}>
+                            {priceInfo.unitText}
+                          </span>
+                        </>
+                      ) : (
+                        <span style={{ fontSize: 18, fontWeight: 700, color: '#888' }}>
+                          {priceInfo.priceText}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Hızlı CTA */}
+              <div style={{ display: 'flex', gap: 16, marginTop: 'auto' }}>
+                <a href="#teklif" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#d32f2f', color: '#fff', textDecoration: 'none', padding: '16px', borderRadius: 10, fontSize: 15, fontWeight: 800, transition: 'background 0.2s' }}>
+                  <FileText size={18} /> Metrajlı Teklif Al
+                </a>
+                <a href="https://wa.me/905319308500" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 54, height: 54, background: '#25d366', color: '#fff', borderRadius: 10, transition: 'background 0.2s' }}>
+                  <MessageCircle size={24} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

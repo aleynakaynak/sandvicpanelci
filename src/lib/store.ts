@@ -65,9 +65,24 @@ export async function getProducts(): Promise<Product[]> {
         return fallbackProducts;
     }
 
-    const categorySlugById = new Map<number, string>((cats ?? []).map((c: any) => [c.id, c.slug]));
-
-    return data.map((p: any) => mapDbProductToProduct(p, categorySlugById));
+    return data.map((p: any) => ({
+        id: p.id.toString(),
+        title: p.title,
+        slug: p.slug,
+        price: p.price || 'Fiyat Sorunuz', 
+        categorySlug: p.category_slug || '',
+        description: p.short_description || '',
+        imageUrl: p.slug === 'pur-pir-yalitimli-cati-panelleri' 
+            ? '/images/products/3hadvepir.png' 
+            : p.slug === 'ekonomik-cati-panel'
+                ? '/images/products/ekonomik-cati-gallery.png'
+                : p.slug === 'ekonomik-cephe-panel'
+                    ? '/images/products/ekonomik-cephe-gallery.jpg'
+                    : p.slug === 'plywood'
+                        ? '/images/products/setboard-plywood.jpg'
+                        : (p.image_url || ''),
+        active: p.is_active,
+    }));
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -78,10 +93,25 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
         return fallbackProducts.find(p => p.slug === slug) || null;
     }
 
-    const { data: cat } = await supabase.from('categories').select('id, slug').eq('id', data.category_id).single();
-    const categorySlugById = new Map<number, string>(cat ? [[cat.id, cat.slug]] : []);
-
-    return mapDbProductToProduct(data, categorySlugById);
+    return {
+        id: data.id.toString(),
+        title: data.title,
+        slug: data.slug,
+        price: data.price || 'Fiyat Sorunuz',
+        categorySlug: data.category_slug || '',
+        description: data.short_description || '',
+        longDescription: data.description || '',
+        imageUrl: data.slug === 'pur-pir-yalitimli-cati-panelleri' 
+            ? '/images/products/3hadvepir.png' 
+            : data.slug === 'ekonomik-cati-panel'
+                ? '/images/products/ekonomik-cati-gallery.png'
+                : data.slug === 'ekonomik-cephe-panel'
+                    ? '/images/products/ekonomik-cephe-gallery.jpg'
+                    : data.slug === 'plywood'
+                        ? '/images/products/setboard-plywood.jpg'
+                        : (data.image_url || ''),
+        active: data.is_active,
+    };
 }
 
 export async function saveProduct(product: Product) {
@@ -154,8 +184,24 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
         return [];
     }
 
-    const categorySlugById = new Map<number, string>([[cat.id, cat.slug]]);
-    return data.map((p: any) => mapDbProductToProduct(p, categorySlugById));
+    return data.map((p: any) => ({
+        id: p.id.toString(),
+        title: p.title,
+        slug: p.slug,
+        price: p.price || 'Fiyat Sorunuz',
+        categorySlug: p.category_slug || '',
+        description: p.short_description || '',
+        imageUrl: p.slug === 'pur-pir-yalitimli-cati-panelleri' 
+            ? '/images/products/3hadvepir.png' 
+            : p.slug === 'ekonomik-cati-panel'
+                ? '/images/products/ekonomik-cati-gallery.png'
+                : p.slug === 'ekonomik-cephe-panel'
+                    ? '/images/products/ekonomik-cephe-gallery.jpg'
+                    : p.slug === 'plywood'
+                        ? '/images/products/setboard-plywood.jpg'
+                        : (p.image_url || ''),
+        active: p.is_active,
+    }));
 }
 
 const fallbackProducts: Product[] = [

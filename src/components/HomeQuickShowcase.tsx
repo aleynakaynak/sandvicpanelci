@@ -37,7 +37,7 @@ const PRODUCTS: Record<string, ProductItem[]> = {
     { name: 'Sandviç Panel',        href: '/urunler/sandvic-panel-kaplama-malzemeleri',                       image: '/images/products/3hadvepir.png',  bg: '#fff3f3' },
     { name: 'PUR/PIR Çatı Paneli',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri', image: '/images/products/3hadvepir.png',           bg: '#fce4ec' },
     { name: 'Mineral Yün Çatı',     href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/mineral-yun-yalitimli-cati-panelleri', image: '/images/products/mineral-cati.png',    bg: '#fff3f3' },
-    { name: 'Ekonomik Çatı Paneli (7 Hadveli)',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel', image: '/images/products/ekonomik-cati-gallery.png',      bg: '#fce4ec' },
+    { name: 'Ekonomik Çatı Paneli',  href: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel', image: '/images/products/ekonomik-cati-gallery.png',      bg: '#fce4ec' },
   ],
   aksesuar: [
     { name: 'Vidalar',              href: '/urunler/aksesuarlar-ve-ek-urunler/vidalar',              image: '/images/products/vidalar.jpg',        bg: '#eceff1' },
@@ -64,7 +64,7 @@ const PRODUCTS: Record<string, ProductItem[]> = {
   ],
   ahsap: [
     { name: 'OSB Levha',            href: '/urunler/osb-ve-plywood/osb',                             image: '/images/products/osb-levha.jpg', bg: '#f5f5f5' },
-    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood',                         image: '/images/products/plywood-film-kapli.jpg',   bg: '#efebe9' },
+    { name: 'Plywood',              href: '/urunler/osb-ve-plywood/plywood',                         image: '/images/products/setboard-plywood.jpg',   bg: '#efebe9' },
   ],
   profil: [
     { name: 'Boyalı Profiller',     href: '/urunler/boyali-profiller-galvanizli-saclar/boyali-profiller',    image: '/images/products/boyali-profil.jpg', bg: '#e8f5e9' },
@@ -218,7 +218,7 @@ export default function HomeQuickShowcase() {
                       src={p.image}
                       alt={p.name}
                       loading="lazy"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                   </div>
 

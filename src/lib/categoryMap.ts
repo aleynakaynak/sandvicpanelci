@@ -26,7 +26,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     children: [
       { slug: 'pur-pir-yalitimli-cati-panelleri', name: 'PUR/PIR Yalıtımlı Çatı Panelleri', description: 'En yüksek ısı yalıtım performansı.', image: '/images/products/3hadvepir.png', children: [] },
       { slug: 'mineral-yun-yalitimli-cati-panelleri', name: 'Mineral Yün Yalıtımlı Çatı Panelleri', description: 'A1 yangın sınıfı mineral yün dolgulu panel.', image: '/images/products/mineral-cati.png', children: [] },
-      { slug: 'ekonomik-cati-panel', name: 'Ekonomik Çatı Paneli (7 Hadveli)', description: 'Bütçe dostu, 7 hadveli standart izolasyonlu hafif çatı kaplama çözümü.', image: '/images/products/ekonomik-cati-gallery.png', children: [] },
+      { slug: 'ekonomik-cati-panel', name: 'Ekonomik Çatı Paneli', description: 'Bütçe dostu, standart izolasyonlu hafif çatı kaplama çözümü.', image: '/images/products/ekonomik-cati-gallery.png', children: [] },
     ],
   },
   'cephe-panelleri': {
@@ -70,7 +70,7 @@ export const CATEGORY_MAP: Record<string, CatNode> = {
     image: '/images/products/osb-levha.jpg',
     children: [
       { slug: 'osb', name: 'OSB Levha', description: 'Yapısal ve çatı uygulamaları için OSB levha.', image: '/images/products/osb-levha.jpg', children: [] },
-      { slug: 'plywood', name: 'Plywood / Kontrplak', description: 'Beton kalıp ve genel amaçlı film kaplı kontrplak.', image: '/images/products/plywood-film-kapli.jpg', children: [] },
+      { slug: 'plywood', name: 'Plywood / Kontrplak', description: 'Beton kalıp ve genel amaçlı film kaplı kontrplak.', image: '/images/products/setboard-plywood.jpg', children: [] },
     ],
   },
   'yalitim-malzemeleri': {
