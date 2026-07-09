@@ -277,8 +277,11 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
     updatedProduct.image_url = '/images/products/ekonomik-cephe-gallery.jpg';
   } else if (updatedProduct.slug === 'plywood') {
     updatedProduct.image_url = '/images/products/setboard-plywood.jpg';
+    updatedProduct.gallery_urls = [
+      '/images/products/setboard-plywood.jpg',
+      '/images/products/Hardwood-Plywood.webp'
+    ];
   }
-
   // Veritabanından gelen yanlış şablon başlıklarını düzeltme
   if (updatedProduct.long_desc) {
     if (updatedProduct.slug === 'ekonomik-cephe-panel') {
