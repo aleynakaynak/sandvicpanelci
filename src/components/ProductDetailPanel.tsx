@@ -115,16 +115,22 @@ function AttributeTable({ attributes }: { attributes: Record<string, string> }) 
   if (entries.length === 0) return null;
 
   const ATTR_LABELS: Record<string, string> = {
+    insulation:      'Yalıtım',
     insulation_type: 'Yalıtım Tipi',
+    thickness:       'Kalınlık',
     thickness_mm:    'Kalınlık',
-    wave_form:       'Hadve Yapısı',
+    wave_form:       'Form',
     fire_class:      'Yangın Sınıfı',
-    metal_thickness: 'Metal Kalınlığı',
+    metal_thick:     'Sac Kalınlığı',
+    metal_thickness: 'Sac Kalınlığı',
+    color:           'Renk',
     ral_color:       'Renk',
     surface_type:    'Yüzey Tipi',
     profile_form:    'Profil Formu',
     surface_coat:    'Yüzey Kaplama',
+    width:           'Genişlik',
     width_mm:        'Faydalı En',
+    length:          'Uzunluk',
     osb_class:       'OSB Sınıfı',
     sheet_size:      'Levha Ölçüsü',
     material_type:   'Malzeme Türü',
@@ -280,19 +286,6 @@ export default function ProductDetailPanel({ product }: Props) {
             alt={product.name}
           />
 
-          {/* Uzun açıklama */}
-          {product.long_desc && (
-            <div style={{ background:'#fff', border:'1px solid #f0f0f0', borderRadius:10, padding:'20px 24px' }}>
-              <h3 style={{ margin:'0 0 12px', fontSize:14, fontWeight:800, color:'#111', textTransform:'uppercase', letterSpacing:0.5 }}>
-                Ürün Hakkında
-              </h3>
-              <div
-                style={{ fontSize:13, color:'#555', lineHeight:1.75 }}
-                dangerouslySetInnerHTML={{ __html: product.long_desc }}
-              />
-            </div>
-          )}
-
           {/* Attribute tablosu */}
           <AttributeTable attributes={product.attributes} />
 
@@ -402,12 +395,6 @@ export default function ProductDetailPanel({ product }: Props) {
               />
             </div>
           )}
-
-          {/* Teklif formu */}
-          <QuoteRequestForm
-            product={product}
-            selectedVariant={selectedVariant}
-          />
         </div>
       </div>
 

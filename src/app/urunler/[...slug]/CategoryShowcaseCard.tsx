@@ -10,8 +10,19 @@ interface Props {
 
 export default function CategoryShowcaseCard({ name, description, image, href }: Props) {
   return (
-    <Link
-      href={href}
+    <>
+      <style>{`
+        .cat-card-wrap:hover article {
+          border-color: #d32f2f !important;
+          box-shadow: 0 12px 36px rgba(211,47,47,0.14) !important;
+          transform: translateY(-4px);
+        }
+        .cat-card-wrap:hover .cat-card-img {
+          transform: scale(1.05);
+        }
+      `}</style>
+      <Link
+        href={href}
       style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}
       className="cat-card-wrap"
     >
@@ -68,5 +79,6 @@ export default function CategoryShowcaseCard({ name, description, image, href }:
         </div>
       </article>
     </Link>
+    </>
   );
 }

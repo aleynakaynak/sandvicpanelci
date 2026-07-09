@@ -20,12 +20,13 @@ export function formatProductPrice(product: PriceInput, overridePrice?: number |
   
   if (priceToFormat !== null && priceToFormat !== undefined) {
     const formattedPrice = priceToFormat.toLocaleString('tr-TR');
-    const unit = product.price_unit || 'm²';
+    const unitRaw = product.price_unit || 'm²';
+    const unit = unitRaw.replace('m2', 'm²');
     return {
-      priceText: `${formattedPrice} ₺`,
+      priceText: `${formattedPrice} TL`,
       unitText: `/ ${unit}`,
       hasPrice: true,
-      fullFormatted: `${formattedPrice} ₺ / ${unit}`,
+      fullFormatted: `${formattedPrice} TL / ${unit}`,
     };
   }
   

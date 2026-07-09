@@ -268,79 +268,8 @@ export default async function UrunlerPage(props: PageProps) {
             </ol>
           </nav>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }} className="prod-top-grid">
-            
-            {/* Görsel */}
-            <div 
-              className="prod-img-container"
-              style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #eee', background: '#f5f5f5', height: 420 }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src={product.image_url ?? ''} 
-                alt={product.name}
-                style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '16px' }}
-              />
-            </div>
-
-            {/* Temel Bilgiler */}
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <h1 style={{ margin: '0 0 16px', fontSize: 32, fontWeight: 900, color: '#111', lineHeight: 1.2 }}>
-                {product.name}
-              </h1>
-              <p style={{ margin: '0 0 24px', fontSize: 16, color: '#555', lineHeight: 1.6 }}>
-                {product.short_desc}
-              </p>
-
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 32 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#fff3f3', padding: '8px 16px', borderRadius: 8, border: '1px solid #fecaca' }}>
-                  <CheckCircle2 size={16} color="#d32f2f" />
-                  <span style={{ fontSize: 13, fontWeight: 700, color: '#b71c1c' }}>Stokta Var</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#f5f5f5', padding: '8px 16px', borderRadius: 8, border: '1px solid #eee' }}>
-                  <Ruler size={16} color="#555" />
-                  <span style={{ fontSize: 13, fontWeight: 700, color: '#444' }}>Özel Ölçü Kesim</span>
-                </div>
-              </div>
-
-              {/* Fiyat Gösterimi (Opsiyonel) */}
-              {(() => {
-                const priceInfo = formatProductPrice(product);
-                return (
-                  <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid #eee' }}>
-                    <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
-                      BAŞLAYAN FİYATLARLA
-                    </p>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-                      {priceInfo.hasPrice ? (
-                        <>
-                          <span style={{ fontSize: 36, fontWeight: 900, color: '#111' }}>
-                            {priceInfo.priceText}
-                          </span>
-                          <span style={{ fontSize: 16, fontWeight: 700, color: '#777' }}>
-                            {priceInfo.unitText}
-                          </span>
-                        </>
-                      ) : (
-                        <span style={{ fontSize: 18, fontWeight: 700, color: '#888' }}>
-                          {priceInfo.priceText}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* Hızlı CTA */}
-              <div style={{ display: 'flex', gap: 16, marginTop: 'auto' }}>
-                <a href="#teklif" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#d32f2f', color: '#fff', textDecoration: 'none', padding: '16px', borderRadius: 10, fontSize: 15, fontWeight: 800, transition: 'background 0.2s' }}>
-                  <FileText size={18} /> Metrajlı Teklif Al
-                </a>
-                <a href="https://wa.me/905319308500" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 54, height: 54, background: '#25d366', color: '#fff', borderRadius: 10, transition: 'background 0.2s' }}>
-                  <MessageCircle size={24} />
-                </a>
-              </div>
-            </div>
+          <div style={{ marginTop: '24px' }}>
+            <ProductDetailPanel product={product} />
           </div>
         </div>
       </div>
@@ -352,17 +281,15 @@ export default async function UrunlerPage(props: PageProps) {
           {/* Sol: Detaylı İçerik ve Hesaplayıcı */}
           <div>
             {/* Açıklama */}
-            <section style={{ marginBottom: 48, background: '#fff', padding: 32, borderRadius: 12, border: '1px solid #eee' }}>
-              <h2 style={{ margin: '0 0 20px', fontSize: 22, fontWeight: 900, color: '#111' }}>Ürün Hakkında</h2>
-              <p style={{ margin: 0, fontSize: 15, color: '#444', lineHeight: 1.8, whiteSpace: 'pre-wrap' }}>
-                {product.long_desc}
-              </p>
-            </section>
-
-            {/* Teknik Panel (Mevcut Component) */}
-            <section style={{ marginBottom: 48 }}>
-              <ProductDetailPanel product={product} />
-            </section>
+            {product.long_desc && (
+              <section style={{ marginBottom: 48, background: '#fff', padding: 32, borderRadius: 12, border: '1px solid #eee' }}>
+                <h2 style={{ margin: '0 0 20px', fontSize: 22, fontWeight: 900, color: '#111' }}>Ürün Hakkında</h2>
+                <div 
+                  style={{ margin: 0, fontSize: 15, color: '#444', lineHeight: 1.8 }}
+                  dangerouslySetInnerHTML={{ __html: product.long_desc }}
+                />
+              </section>
+            )}
 
             {/* U-Değeri Hesaplayıcı (Sadece panel vb. ürünlerde kalınlık varsa) */}
             {product.technical_specs && product.technical_specs.length > 0 && (
