@@ -88,6 +88,15 @@ export async function getProductsByCategory(
 
   return products.map((p) => ({
     ...p,
+    image_url: p.slug === 'pur-pir-yalitimli-cati-panelleri'
+      ? '/images/products/3hadvepir.png'
+      : p.slug === 'ekonomik-cati-panel'
+        ? '/images/products/ekonomik-cati-gallery.png'
+        : p.slug === 'ekonomik-cephe-panel'
+          ? '/images/products/ekonomik-cephe-gallery.jpg'
+          : p.slug === 'plywood'
+            ? '/images/products/plywood-film-kapli.jpg'
+            : p.image_url,
     attributes: attrMap[p.id] ?? {},
   })) as ProductCard[];
 }
@@ -249,6 +258,41 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
   for (const a of attrs ?? []) attributeMap[a.attr_key] = a.attr_value;
 
   const updatedProduct = { ...product };
+  if (updatedProduct.slug === 'pur-pir-yalitimli-cati-panelleri') {
+    updatedProduct.image_url = '/images/products/3hadvepir.png';
+  } else if (updatedProduct.slug === 'ekonomik-cati-panel') {
+    updatedProduct.image_url = '/images/products/ekonomik-cati-gallery.png';
+    // Başlıkta yanlış hadve sayısı varsa düzelt (DB'den gelen 3 Hadveli → 7 Hadveli)
+    if (updatedProduct.name) {
+      updatedProduct.name = updatedProduct.name
+        .replace(/3\s*[Hh]adveli/g, '7 Hadveli')
+        .replace(/3\s*[Hh]adve/g, '7 Hadve');
+    }
+    if ((updatedProduct as any).title) {
+      (updatedProduct as any).title = ((updatedProduct as any).title as string)
+        .replace(/3\s*[Hh]adveli/g, '7 Hadveli')
+        .replace(/3\s*[Hh]adve/g, '7 Hadve');
+    }
+  } else if (updatedProduct.slug === 'ekonomik-cephe-panel') {
+    updatedProduct.image_url = '/images/products/ekonomik-cephe-gallery.jpg';
+  } else if (updatedProduct.slug === 'plywood') {
+    updatedProduct.image_url = '/images/products/plywood-film-kapli.jpg';
+  }
+
+  // Veritabanından gelen yanlış şablon başlıklarını düzeltme
+  if (updatedProduct.long_desc) {
+    if (updatedProduct.slug === 'ekonomik-cephe-panel') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Mahyalar ve Biten Elemanları/gi, 'Ekonomik Cephe Paneli Özellikleri');
+    } else if (updatedProduct.slug === 'plywood') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Trapez Sac Yüzey ve Renk Seçenekleri/gi, 'Film Kaplı Plywood Özellikleri');
+    } else if (updatedProduct.slug === 'osb') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Döşeme ve Taşıyıcı Trapez Saclar/gi, 'OSB Teknik Özellikleri');
+    } else if (updatedProduct.slug === 'rulo-bobin-sac') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Soğuk Oda ve Dondurucu Panelleri/gi, 'Rulo Bobin Sac Özellikleri');
+    } else if (updatedProduct.slug === 'kenet-levhalar') {
+      updatedProduct.long_desc = updatedProduct.long_desc.replace(/Akustik Paneller/gi, 'Kenet Sistem Detayları');
+    }
+  }
 
   return {
     ...updatedProduct,

@@ -2,51 +2,27 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Plus, Search, ChevronRight } from 'lucide-react';
+import { Plus, Minus, Search, ChevronRight } from 'lucide-react';
 import styles from './SidebarRight.module.css';
 
 const categories = [
-    { name: 'Çatı Kaplama Malzemeleri', slug: 'urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri' },
-    { name: 'Aksesuar – Ek Ürünler', slug: 'urunler/aksesuarlar-ve-ek-urunler' },
+    { name: 'Çatı Kaplama Malzemeleri', slug: 'cati-kaplama' },
+    { name: 'Aksesuar – Ek Ürünler', slug: 'aksesuar' },
     { name: 'Isı Yalıtım', slug: 'isi-yalitim' },
     { name: 'Su Yalıtım', slug: 'su-yalitim' },
-    { name: 'Duvar Ve Cephe Kaplama', slug: 'urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri' },
+    { name: 'Duvar Ve Cephe Kaplama', slug: 'duvar-cephe' },
     { name: 'Ahşap Ürünler', slug: 'ahsap-urunler' },
     { name: 'Profil Ve Galvaniz Sac', slug: 'profil-sac' },
-    { name: 'Polikarbon Levha', slug: 'polikarbon' },
+    { name: 'Polikarbon Levha Fiyatları', slug: 'polikarbon' },
 ];
 
-const recommendedCati = [
-    { title: 'PUR/PIR Çatı Paneli', price: 'Fiyat Sorunuz', img: '/images/products/3hadvepir.png', link: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri' },
-    { title: 'Ekonomik Çatı Paneli', price: '400 TL + KDV / m²', img: '/images/products/ekonomik-cati-gallery.png', link: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/ekonomik-cati-panel' },
-];
-
-const recommendedCephe = [
-    { title: 'PUR/PIR Cephe Paneli', price: 'Fiyat Sorunuz', img: '/images/products/sandvic-panel.jpg', link: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/pur-pir-yalitimli-cephe-panelleri' },
-    { title: 'Ekonomik Cephe Paneli', price: '400 TL + KDV / m²', img: '/images/products/ekonomik-cephe-gallery.jpg', link: '/urunler/sandvic-panel-kaplama-malzemeleri/cephe-panelleri/ekonomik-cephe-panel' },
-];
-
-const recommendedAksesuar = [
-    { title: 'Kenet Levhalar', price: 'Fiyat Sorunuz', img: '/images/products/kenet.png', link: '/urunler/aksesuarlar-ve-ek-urunler/kenet-levhalar' },
-];
-
-const recommendedDefault = [
-    { title: 'PUR/PIR Çatı Paneli', price: 'Fiyat Sorunuz', img: '/images/products/3hadvepir.png', link: '/urunler/sandvic-panel-kaplama-malzemeleri/cati-panelleri/pur-pir-yalitimli-cati-panelleri' },
+const topRated = [
+    { title: 'Çatı Paneli 3 Hadve', price: 'Fiyat Sorunuz', img: '/images/products/sandvic-panel.jpg', link: '/sandvic-panel' },
+    { title: 'Betopan Dış Cephe', price: 'Fiyat Sorunuz', img: '/images/products/betopan.jpg', link: '/betopan' },
+    { title: 'Osb-3 Levha 11mm', price: '400₺ + KDV', img: '/images/products/osb-levha.jpg', link: '/osb-levha' },
 ];
 
 const SidebarRight = () => {
-    const pathname = usePathname() || '';
-    
-    let topRated = recommendedDefault;
-    if (pathname.includes('cati')) {
-        topRated = recommendedCati;
-    } else if (pathname.includes('cephe')) {
-        topRated = recommendedCephe;
-    } else if (pathname.includes('aksesuar')) {
-        topRated = recommendedAksesuar;
-    }
-
     return (
         <aside className={styles.sidebar}>
             {/* Categories Menu */}
@@ -71,25 +47,22 @@ const SidebarRight = () => {
             </div>
 
             {/* Top Rated */}
-            {topRated.length > 0 && (
-                <div className={styles.widget}>
-                    <h3 className={styles.widget_title}>Öne Çıkan Ürünler</h3>
-                    <div className={styles.top_rated_list}>
-                        {topRated.map((item, i) => (
-                            <div key={i} className={styles.top_rated_item}>
-                                <div className={styles.item_info}>
-                                    <Link href={item.link} className={styles.item_title}>{item.title}</Link>
-                                    <div className={styles.item_price}>{item.price}</div>
-                                </div>
-                                <div className={styles.item_thumb}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src={item.img} alt={item.title} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: '4px' }} />
-                                </div>
+            <div className={styles.widget}>
+                <h3 className={styles.widget_title}>Öne Çıkan Ürünler</h3>
+                <div className={styles.top_rated_list}>
+                    {topRated.map((item, i) => (
+                        <div key={i} className={styles.top_rated_item}>
+                            <div className={styles.item_info}>
+                                <Link href={item.link} className={styles.item_title}>{item.title}</Link>
+                                <div className={styles.item_price}>{item.price}</div>
                             </div>
-                        ))}
-                    </div>
+                            <div className={styles.item_thumb}>
+                                <img src={item.img} alt={item.title} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: '4px' }} />
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            )}
+            </div>
         </aside>
     );
 };
