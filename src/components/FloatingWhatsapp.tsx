@@ -3,6 +3,7 @@
 import React from 'react';
 import { Phone } from 'lucide-react';
 import { trackWhatsAppClick } from '@/lib/gtag';
+import styles from './FloatingWhatsapp.module.css';
 
 const FloatingWhatsapp = () => {
     return (
@@ -11,25 +12,7 @@ const FloatingWhatsapp = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick({ source: 'floating_button' })}
-            style={{
-                position: 'fixed',
-                bottom: '20px',
-                right: '20px',
-                backgroundColor: '#25d366',
-                color: 'white',
-                width: '60px',
-                height: '60px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
-                zIndex: 1000,
-                cursor: 'pointer',
-                transition: 'transform 0.3s'
-            }}
-            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            className={styles.float_btn}
         >
             <Phone size={30} fill="white" />
         </a>

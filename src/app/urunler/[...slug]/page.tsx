@@ -259,8 +259,8 @@ export default async function UrunlerPage(props: PageProps) {
 
       {/* ── Breadcrumb ── */}
       <div style={{ background: '#fff', borderBottom: '1px solid #eee', padding: '24px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
-          <nav aria-label="Breadcrumb">
+        <div className="container-wrapper" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
+          <nav aria-label="Breadcrumb" className="breadcrumb-nav">
             <ol style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, margin: 0, padding: 0, fontSize: 12, color: '#888' }}>
               <li>
                 <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 4, color: '#888', textDecoration: 'none', fontWeight: 600 }}>
@@ -284,6 +284,11 @@ export default async function UrunlerPage(props: PageProps) {
             </ol>
           </nav>
 
+          {/* Mobile Title (Only visible on mobile, before the grid) */}
+          <h1 className="mobile-title" style={{ margin: '24px 0 16px', fontSize: 32, fontWeight: 900, color: '#111', lineHeight: 1.2, wordBreak: 'normal', overflowWrap: 'break-word', width: '100%' }}>
+            {product.name}
+          </h1>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }} className="prod-top-grid">
             
             {/* Görsel */}
@@ -298,8 +303,8 @@ export default async function UrunlerPage(props: PageProps) {
             </div>
 
             {/* Temel Bilgiler */}
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <h1 style={{ margin: '0 0 16px', fontSize: 32, fontWeight: 900, color: '#111', lineHeight: 1.2 }}>
+            <div className="prod-info-container" style={{ display: 'flex', flexDirection: 'column' }}>
+              <h1 className="desktop-title" style={{ margin: '0 0 16px', fontSize: 32, fontWeight: 900, color: '#111', lineHeight: 1.2, wordBreak: 'normal', overflowWrap: 'break-word' }}>
                 {product.name}
               </h1>
               <p style={{ margin: '0 0 24px', fontSize: 16, color: '#555', lineHeight: 1.6 }}>
@@ -321,22 +326,22 @@ export default async function UrunlerPage(props: PageProps) {
               {(() => {
                 const priceInfo = formatProductPrice(product);
                 return (
-                  <div style={{ marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid #eee' }}>
+                  <div className="price-container" style={{ marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid #eee' }}>
                     <p style={{ margin: '0 0 4px', fontSize: 12, fontWeight: 700, color: '#888', textTransform: 'uppercase', letterSpacing: 1 }}>
                       BAŞLAYAN FİYATLARLA
                     </p>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+                    <div className="price-display" style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap' }}>
                       {priceInfo.hasPrice ? (
                         <>
-                          <span style={{ fontSize: 36, fontWeight: 900, color: '#111' }}>
+                          <span className="price-val" style={{ fontSize: 36, fontWeight: 900, color: '#111' }}>
                             {priceInfo.priceText}
                           </span>
-                          <span style={{ fontSize: 16, fontWeight: 700, color: '#777' }}>
+                          <span className="price-unit" style={{ fontSize: 16, fontWeight: 700, color: '#777' }}>
                             {priceInfo.unitText}
                           </span>
                         </>
                       ) : (
-                        <span style={{ fontSize: 18, fontWeight: 700, color: '#888' }}>
+                        <span className="price-val" style={{ fontSize: 18, fontWeight: 700, color: '#888' }}>
                           {priceInfo.priceText}
                         </span>
                       )}
@@ -346,11 +351,11 @@ export default async function UrunlerPage(props: PageProps) {
               })()}
 
               {/* Hızlı CTA */}
-              <div style={{ display: 'flex', gap: 16, marginTop: 'auto' }}>
-                <a href="#teklif" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#d32f2f', color: '#fff', textDecoration: 'none', padding: '16px', borderRadius: 10, fontSize: 15, fontWeight: 800, transition: 'background 0.2s' }}>
+              <div className="cta-container" style={{ display: 'flex', gap: 16, marginTop: 'auto', flexWrap: 'wrap' }}>
+                <a href="#teklif" style={{ flex: 1, minWidth: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#d32f2f', color: '#fff', textDecoration: 'none', padding: '16px', borderRadius: 10, fontSize: 15, fontWeight: 800, transition: 'background 0.2s' }}>
                   <FileText size={18} /> Metrajlı Teklif Al
                 </a>
-                <a href="https://wa.me/905319308500" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 54, height: 54, background: '#25d366', color: '#fff', borderRadius: 10, transition: 'background 0.2s' }}>
+                <a href="https://wa.me/905319308500" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 54, height: 54, background: '#25d366', color: '#fff', borderRadius: 10, transition: 'background 0.2s', flexShrink: 0 }}>
                   <MessageCircle size={24} />
                 </a>
               </div>
@@ -360,7 +365,7 @@ export default async function UrunlerPage(props: PageProps) {
       </div>
 
       {/* ── İçerik: Ürün Paneli + Ürün Hakkında (sol) / Teklif Formu (sağ, tek kez) ── */}
-      <div style={{ maxWidth: 1200, margin: '40px auto 0', padding: '0 20px' }}>
+      <div className="container-wrapper" style={{ maxWidth: 1200, margin: '40px auto 0', padding: '0 20px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 40 }} className="prod-btm-grid">
 
           {/* Sol: Ürün Paneli (görsel, başlık, fiyat, varyant, teknik özellik) + Açıklama */}
@@ -389,10 +394,60 @@ export default async function UrunlerPage(props: PageProps) {
       </div>
 
       <style>{`
+        .mobile-title {
+          display: none !important;
+        }
+        .gallery-main-img {
+          min-height: 300px;
+        }
         @media (max-width: 900px) {
           .prod-btm-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 768px) {
+          .container-wrapper {
+            padding: 0 16px !important;
+          }
+          .prod-top-grid {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 24px !important;
+            min-width: 0 !important;
+          }
+          .desktop-title {
+            display: none !important;
+          }
+          .mobile-title {
+            display: block !important;
+            font-size: 28px !important;
+          }
+          .prod-img-container {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-height: auto !important;
+            height: auto !important;
+            aspect-ratio: 4/3 !important;
+          }
+          .gallery-main-img {
+            min-height: auto !important;
+            height: 100% !important;
+          }
+          .breadcrumb-nav ol {
+            flex-wrap: nowrap !important;
+            overflow-x: auto !important;
+            white-space: nowrap !important;
+            padding-bottom: 8px !important;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+          }
+          .breadcrumb-nav ol::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+          }
+          .price-val {
+            font-size: 28px !important;
+          }
         }
       `}</style>
     </main>
   );
 }
+

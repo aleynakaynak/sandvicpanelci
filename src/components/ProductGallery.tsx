@@ -12,8 +12,8 @@ export default function ProductGallery({ images, alt }: { images: string[]; alt:
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, height: '100%' }}>
       {/* Ana görsel */}
-      <div style={{
-        position: 'relative', width: '100%', flex: 1, minHeight: 300,
+      <div className="gallery-main-img" style={{
+        position: 'relative', width: '100%', flex: 1,
         background: '#f5f5f5', borderRadius: 12,
         border: '1px solid #eee', overflow: 'hidden',
       }}>
