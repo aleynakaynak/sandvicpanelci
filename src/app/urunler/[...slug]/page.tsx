@@ -18,7 +18,9 @@ interface PageProps {
 // ─── SEO ─────────────────────────────────────────────────────
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const { slug } = await props.params;
-  const lastSlug = slug[slug.length - 1];
+  const cleanSlug = slug.filter(Boolean);
+  if (cleanSlug.length === 0) return { title: 'Bulunamadı | Sandviç Panelci Yapı Market' };
+  const lastSlug = decodeURIComponent(cleanSlug[cleanSlug.length - 1]);
   
   // Önce Kategori mi diye kontrol et
   const cat = CATEGORY_MAP[lastSlug];
@@ -48,7 +50,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 // ─── PAGE ────────────────────────────────────────────────────
 export default async function UrunlerPage(props: PageProps) {
   const { slug } = await props.params;
-  const lastSlug = slug[slug.length - 1];
+  const cleanSlug = slug.filter(Boolean);
+  if (cleanSlug.length === 0) notFound();
+  const lastSlug = decodeURIComponent(cleanSlug[cleanSlug.length - 1]);
   
   // 1. Önce doğrudan (Top-level) kategori mi diye bak
   let cat = CATEGORY_MAP[lastSlug];

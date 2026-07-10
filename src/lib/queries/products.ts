@@ -154,7 +154,7 @@ export async function getFilterGroups(categoryId: number): Promise<FilterGroup[]
 
 // ── Tekil ürün detayı (slug ile) ─────────────────────────────
 export async function getProductDetail(slug: string): Promise<ProductDetail | null> {
-  const { data: product } = await supabase
+  const { data: product, error } = await supabase
     .from('products')
     .select(`
       *,
@@ -163,6 +163,11 @@ export async function getProductDetail(slug: string): Promise<ProductDetail | nu
     .eq('slug', slug)
     .eq('is_active', true)
     .single();
+
+  if (error && error.code !== 'PGRST116') {
+    console.error("Supabase Error fetching product details:", error);
+    throw error;
+  }
 
   if (!product) {
     if (slug === 'duz-kenet-levha') {
